@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { Wrench, ClipboardList, FileText, Share2, ChevronRight, Check, Shield } from 'lucide-react'
+import { Wrench, ClipboardList, FileText, Share2, ChevronRight, Check, Shield, Zap } from 'lucide-react'
 import ThemeToggle from '@/components/ThemeToggle'
+import VariantSwitcher from '@/components/VariantSwitcher'
 
-export default function HomePage() {
+export default function ClarityHomePage() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--text-primary)', fontFamily: "'Inter', -apple-system, sans-serif" }}>
 
@@ -33,8 +34,8 @@ export default function HomePage() {
           }}>
             <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 900, fontSize: '0.9rem', color: '#fff', letterSpacing: '0.04em' }}>DG</span>
           </div>
-          <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 800, fontSize: '1.1rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-            <span style={{ color: 'var(--red)' }}>Dynamic</span><span style={{ color: 'var(--text-muted)' }}> Garage</span>
+          <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 800, fontSize: '1.1rem', letterSpacing: '0.06em', color: 'var(--text-primary)' }}>
+            Dynamic Garage
           </span>
         </div>
 
@@ -52,7 +53,7 @@ export default function HomePage() {
 
       {/* ── HERO ── */}
       <section style={{ padding: '6rem 2rem', background: 'var(--bg-base)' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: '55% 45%', gap: '4rem', alignItems: 'center' }} className="hero-grid">
+        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: '55% 45%', gap: '4rem', alignItems: 'center' }}>
 
           {/* Left column */}
           <div>
@@ -71,7 +72,7 @@ export default function HomePage() {
                 <Check size={11} color="#fff" strokeWidth={3} />
               </div>
               <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--green)', letterSpacing: '0.02em' }}>
-                Free during early access &middot; Any make &middot; Any model
+                Free forever &middot; Any make &middot; Any model
               </span>
             </div>
 
@@ -97,7 +98,7 @@ export default function HomePage() {
               maxWidth: 480,
               marginBottom: '2.25rem',
             }}>
-              Capture every detail of your vehicle in one place - creating a verified history that builds value, trust, and confidence for enthusiasts, collectors, and buyers.
+              Capture every detail of your vehicle in one place &mdash; creating a verified history that builds value, trust, and confidence for enthusiasts, collectors, and buyers.
             </p>
 
             {/* CTAs */}
@@ -113,8 +114,8 @@ export default function HomePage() {
             {/* Trust row */}
             <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap' }}>
               {[
-                { icon: <Check size={13} strokeWidth={2.5} />, label: 'Free during early access' },
-                { icon: <Check size={13} strokeWidth={2.5} />, label: 'No card required now' },
+                { icon: <Check size={13} strokeWidth={2.5} />, label: 'No credit card' },
+                { icon: <Check size={13} strokeWidth={2.5} />, label: 'Unlimited vehicles' },
                 { icon: <Shield size={13} strokeWidth={2} />, label: 'Secure cloud' },
               ].map(item => (
                 <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
@@ -150,8 +151,8 @@ export default function HomePage() {
                     <div key={i} style={{ width: 10, height: 10, borderRadius: '50%', background: c, opacity: 0.85 }} />
                   ))}
                 </div>
-                <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.06em', marginLeft: '0.25rem', textTransform: 'uppercase' }}>
-                  <span style={{ color: 'var(--red)' }}>Dynamic</span><span style={{ color: 'var(--text-muted)' }}> Garage</span>
+                <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 700, fontSize: '0.8rem', letterSpacing: '0.06em', color: 'var(--text-secondary)', marginLeft: '0.25rem' }}>
+                  Dynamic Garage
                 </span>
               </div>
               <button style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.05em', color: 'var(--red)', background: 'var(--red-dim)', border: '1px solid rgba(204,31,31,0.2)', borderRadius: 4, padding: '0.25rem 0.55rem', cursor: 'default', fontFamily: "'Inter', sans-serif" }}>
@@ -159,31 +160,28 @@ export default function HomePage() {
               </button>
             </div>
 
-            {/* Car card with real photo */}
+            {/* Car card with gradient photo */}
             <div style={{ padding: '1.25rem', borderBottom: '1px solid var(--border-subtle)' }}>
               <div style={{
                 height: 110,
                 borderRadius: 8,
+                background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #1a1a2e 100%)',
                 marginBottom: '0.85rem',
                 position: 'relative',
                 overflow: 'hidden',
               }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/corvette-hero.avif"
-                  alt="2019 Chevrolet Corvette Z06"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                />
-                {/* Overlay gradient */}
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%)' }} />
+                {/* Subtle shine overlay */}
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%)', borderRadius: 8 }} />
+                {/* Car silhouette hint */}
+                <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 40, background: 'linear-gradient(to top, rgba(0,0,0,0.5), transparent)' }} />
                 <div style={{ position: 'absolute', bottom: 10, left: 12, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                   <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--red)' }} />
-                  <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.85)', fontWeight: 600, letterSpacing: '0.04em' }}>Z06 · VIN ···1847</span>
+                  <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.7)', fontWeight: 600, letterSpacing: '0.04em' }}>C8 · VIN ···1847</span>
                 </div>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 800, fontSize: '1rem', letterSpacing: '0.04em', color: 'var(--text-primary)' }}>
-                  2019 Corvette Z06
+                  2019 Stingray
                 </span>
                 <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: 500 }}>
                   4 Mods &middot; 2 Service
@@ -331,7 +329,7 @@ export default function HomePage() {
               {
                 num: '01',
                 title: 'Create Your Garage',
-                desc: 'Create your garage in seconds — any make, any model, any year. Free during early access.',
+                desc: 'Free account. Add any vehicle in seconds — any make, any model, any year.',
               },
               {
                 num: '02',
@@ -383,7 +381,7 @@ export default function HomePage() {
             lineHeight: 1.65,
             letterSpacing: '0.01em',
           }}>
-            &ldquo;Capture every detail of your vehicle in one place - creating a verified history that builds value, trust, and confidence.&rdquo;
+            &ldquo;Capture every detail of your vehicle in one place &mdash; creating a verified history that builds value, trust, and confidence.&rdquo;
           </p>
 
           {/* Bottom red line */}
@@ -407,10 +405,10 @@ export default function HomePage() {
             YOUR GARAGE AWAITS.
           </h2>
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', marginBottom: '2.25rem' }}>
-            Free during early access — no credit card required.
+            Free forever. Any car. Any era.
           </p>
           <Link href="/register" className="btn-primary" style={{ fontSize: '1.1rem', padding: '0.85rem 2.5rem', minHeight: 52 }}>
-            Start Free — No Card Needed <ChevronRight size={18} />
+            Create Free Account <ChevronRight size={18} />
           </Link>
         </div>
       </section>
@@ -430,8 +428,8 @@ export default function HomePage() {
           <div style={{ width: 22, height: 22, background: 'var(--red)', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 900, fontSize: '0.6rem', color: '#fff' }}>DG</span>
           </div>
-          <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 800, fontSize: '0.9rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-            <span style={{ color: 'var(--red)' }}>Dynamic</span><span style={{ color: 'var(--text-muted)' }}>Garage</span><span style={{ color: 'var(--text-muted)', fontWeight: 500, textTransform: 'lowercase', letterSpacing: '0.02em' }}>.app</span>
+          <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 800, fontSize: '0.9rem', letterSpacing: '0.06em', color: 'var(--text-muted)' }}>
+            Dynamic Garage
           </span>
         </div>
         <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
@@ -446,22 +444,32 @@ export default function HomePage() {
         </div>
       </footer>
 
+      {/* ── VARIANT SWITCHER ── */}
+      <VariantSwitcher />
+
       {/* ── STYLES ── */}
       <style>{`
+        /* Nav link hover */
         .v3-nav-link:hover {
           color: var(--text-primary) !important;
           background: rgba(127,127,127,0.06);
         }
+
+        /* Feature card hover */
         .v3-feature-card:hover {
           box-shadow: var(--shadow-hover) !important;
           border-color: var(--border-default) !important;
           transform: translateY(-2px) !important;
         }
+
+        /* Footer link hover */
         .v3-footer-link:hover {
           color: var(--text-secondary) !important;
         }
+
+        /* Responsive hero */
         @media (max-width: 768px) {
-          .hero-grid {
+          .v3-hero-grid {
             grid-template-columns: 1fr !important;
           }
         }
