@@ -32,7 +32,7 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
     const privatePaths = sharedDocs.filter(d => !d.file_url.startsWith('http')).map(d => d.file_url)
     if (privatePaths.length > 0) {
       const { data: signed } = await supabase.storage.from('corvette-files').createSignedUrls(privatePaths, 86400)
-      if (signed) signed.forEach(({ path, signedUrl }) => { docUrlMap[path] = signedUrl })
+      if (signed) signed.forEach(({ path, signedUrl }) => { if (path) docUrlMap[path] = signedUrl })
     }
     sharedDocs.forEach(d => {
       docUrlMap[d.id] = d.file_url.startsWith('http') ? d.file_url : (docUrlMap[d.file_url] || '')
