@@ -186,7 +186,7 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
             {/* ── Attach Receipt ── */}
             <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '1rem' }}>
               <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.65rem' }}>
-                Attach Receipt <span style={{ fontWeight: 500, textTransform: 'none', letterSpacing: 0 }}>— optional</span>
+                Attach Receipt/Photo/File <span style={{ fontWeight: 500, textTransform: 'none', letterSpacing: 0 }}>— optional</span>
               </p>
 
               {!docFile ? (
@@ -234,7 +234,7 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
                     />
                     <div>
                       <span style={{ fontSize: '0.875rem', fontWeight: 600, color: docShared ? '#16a34a' : 'var(--text-primary)' }}>
-                        Show receipt on public build page
+                        Show receipt/photo/file on public build page
                       </span>
                       <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', margin: 0, lineHeight: 1.4 }}>
                         Anyone with the public link can view this document
