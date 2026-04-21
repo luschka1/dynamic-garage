@@ -21,10 +21,7 @@ export default function HomePage() {
       }}>
         {/* Logo */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-          <div style={{ width: 48, height: 48, background: '#0d0d0d', borderRadius: 8, overflow: 'hidden', flexShrink: 0 }}>
-            <img src="/logo.png" alt="Dynamic Garage" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
-          <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 800, fontSize: '1.1rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+          <span style={{ fontFamily: "'Exo 2', sans-serif", fontWeight: 800, fontStyle: 'italic', fontSize: '1.25rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
             <span style={{ color: 'var(--red)' }}>Dynamic</span><span style={{ color: 'var(--text-muted)' }}> Garage</span>
           </span>
         </Link>
@@ -50,6 +47,13 @@ export default function HomePage() {
 
           {/* Left column */}
           <div>
+            {/* Shield Logo */}
+            <div style={{ marginBottom: '1.75rem' }}>
+              <div style={{ width: 90, height: 90, background: '#0d0d0d', borderRadius: 14, overflow: 'hidden', boxShadow: '0 6px 24px rgba(0,0,0,0.22)' }}>
+                <img src="/logo.png" alt="Dynamic Garage" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+            </div>
+
             {/* Pill badge */}
             <div style={{
               display: 'inline-flex',
@@ -421,11 +425,8 @@ export default function HomePage() {
         background: 'var(--bg-elevated)',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <div style={{ width: 22, height: 22, background: 'var(--red)', borderRadius: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 900, fontSize: '0.6rem', color: '#fff' }}>DG</span>
-          </div>
-          <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 800, fontSize: '0.9rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
-            <span style={{ color: 'var(--red)' }}>Dynamic</span><span style={{ color: 'var(--text-muted)' }}>Garage</span><span style={{ color: 'var(--text-muted)', fontWeight: 500, textTransform: 'lowercase', letterSpacing: '0.02em' }}>.app</span>
+          <span style={{ fontFamily: "'Exo 2', sans-serif", fontWeight: 800, fontStyle: 'italic', fontSize: '1rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+            <span style={{ color: 'var(--red)' }}>Dynamic</span><span style={{ color: 'var(--text-muted)' }}> Garage</span>
           </span>
         </div>
         <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>

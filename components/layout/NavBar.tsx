@@ -38,10 +38,7 @@ export default function NavBar({ user }: { user: User }) {
 
         {/* Brand */}
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-          <div style={{ width: 48, height: 48, background: '#0d0d0d', borderRadius: 8, overflow: 'hidden', flexShrink: 0 }}>
-            <img src="/logo.png" alt="Dynamic Garage" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
-          <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 800, fontSize: '1.1rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+          <span style={{ fontFamily: "'Exo 2', sans-serif", fontWeight: 800, fontStyle: 'italic', fontSize: '1.25rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
             <span style={{ color: 'var(--red)' }}>Dynamic</span><span style={{ color: 'var(--text-muted)' }}> Garage</span>
           </span>
         </Link>

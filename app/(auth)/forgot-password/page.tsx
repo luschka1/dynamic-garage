@@ -32,11 +32,11 @@ export default function ForgotPasswordPage() {
       <div style={{ height: 3, background: 'linear-gradient(90deg, var(--red) 0%, transparent 60%)' }} />
 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1.5rem' }}>
-        <Link href="/" style={{ marginBottom: '2.5rem', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <div style={{ width: 52, height: 52, background: '#0d0d0d', borderRadius: 10, overflow: 'hidden', flexShrink: 0 }}>
+        <Link href="/" style={{ marginBottom: '2.5rem', textDecoration: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ width: 72, height: 72, background: '#0d0d0d', borderRadius: 12, overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.2)' }}>
             <img src="/logo.png" alt="Dynamic Garage" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
-          <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 800, fontSize: '1.2rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+          <span style={{ fontFamily: "'Exo 2', sans-serif", fontWeight: 800, fontStyle: 'italic', fontSize: '1.3rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
             <span style={{ color: 'var(--red)' }}>Dynamic</span><span style={{ color: 'var(--text-muted)' }}> Garage</span>
           </span>
         </Link>
