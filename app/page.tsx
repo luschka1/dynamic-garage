@@ -1,8 +1,11 @@
 import Link from 'next/link'
 import { Wrench, ClipboardList, FileText, Share2, ChevronRight, Check, Shield, LayoutGrid } from 'lucide-react'
 import ThemeToggle from '@/components/ThemeToggle'
+import { createClient } from '@/lib/supabase/server'
 
-export default function HomePage() {
+export default async function HomePage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--text-primary)', fontFamily: "'Inter', -apple-system, sans-serif" }}>
 
@@ -34,13 +37,21 @@ export default function HomePage() {
           <Link href="/contact" className="v3-nav-link" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
             Contact
           </Link>
-          <Link href="/login" className="v3-nav-link" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
-            Sign In
-          </Link>
+          {!user && (
+            <Link href="/login" className="v3-nav-link" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
+              Sign In
+            </Link>
+          )}
           <ThemeToggle />
-          <Link href="/register" className="btn-primary" style={{ fontSize: '0.875rem', padding: '0.5rem 1.25rem', minHeight: 36, letterSpacing: '0.04em' }}>
-            Get Started
-          </Link>
+          {user ? (
+            <Link href="/dashboard" className="btn-primary" style={{ fontSize: '0.875rem', padding: '0.5rem 1.25rem', minHeight: 36, letterSpacing: '0.04em' }}>
+              My Garage
+            </Link>
+          ) : (
+            <Link href="/register" className="btn-primary" style={{ fontSize: '0.875rem', padding: '0.5rem 1.25rem', minHeight: 36, letterSpacing: '0.04em' }}>
+              Get Started
+            </Link>
+          )}
         </div>
       </nav>
 
