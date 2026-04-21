@@ -63,7 +63,7 @@ export default function UploadDocumentForm({ corvetteId, preselectedModId, prese
     setSelectedFile(null); setName('')
     if (fileRef.current) fileRef.current.value = ''
     setOpen(false)
-    router.refresh()
+    setTimeout(() => router.refresh(), 300)
   }
 
   return (
