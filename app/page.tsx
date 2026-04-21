@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Wrench, ClipboardList, FileText, Share2, ChevronRight, Check, Shield } from 'lucide-react'
+import { Wrench, ClipboardList, FileText, Share2, ChevronRight, Check, Shield, LayoutGrid } from 'lucide-react'
 import ThemeToggle from '@/components/ThemeToggle'
 
 export default function HomePage() {
@@ -38,8 +38,11 @@ export default function HomePage() {
           </span>
         </div>
 
-        {/* Right: sign in + toggle + cta */}
+        {/* Right: gallery + sign in + toggle + cta */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <Link href="/gallery" className="v3-nav-link" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
+            <LayoutGrid size={14} /> Gallery
+          </Link>
           <Link href="/login" className="v3-nav-link" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
             Sign In
           </Link>

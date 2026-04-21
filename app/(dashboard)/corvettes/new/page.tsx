@@ -19,7 +19,7 @@ export default function NewCarPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [form, setForm] = useState({ nickname: '', year: new Date().getFullYear(), make: '', model: '', trim: '', color: '', vin: '', mileage: '', is_public: false })
+  const [form, setForm] = useState({ nickname: '', year: new Date().getFullYear(), make: '', model: '', trim: '', color: '', vin: '', mileage: '', is_public: false, in_gallery: false })
 
   function set(key: string, value: string | number | boolean) { setForm(f => ({ ...f, [key]: value })) }
 
@@ -41,6 +41,7 @@ export default function NewCarPage() {
       vin: form.vin || null,
       mileage: form.mileage ? Number(form.mileage) : null,
       is_public: form.is_public,
+      in_gallery: form.in_gallery,
     }).select().single()
 
     if (error) { setError('Something went wrong. Please try again.'); setLoading(false) }
@@ -120,10 +121,19 @@ export default function NewCarPage() {
             </div>
           </div>
 
-          {/* Section: Privacy */}
+          {/* Section: Privacy & Discovery */}
           <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', borderRadius: 8, padding: '1.5rem', marginBottom: '1.5rem' }}>
-            <label style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', cursor: 'pointer' }}>
-              <input type="checkbox" checked={form.is_public} onChange={e => set('is_public', e.target.checked)} style={{ width: 18, height: 18, accentColor: 'var(--red)', cursor: 'pointer', marginTop: '2px', flexShrink: 0 }} />
+            <div style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '1.25rem' }}>Privacy &amp; Discovery</div>
+            <label style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', cursor: 'pointer', marginBottom: form.is_public ? '0.85rem' : 0 }}>
+              <input
+                type="checkbox"
+                checked={form.is_public}
+                onChange={e => {
+                  const checked = e.target.checked
+                  setForm(f => ({ ...f, is_public: checked, in_gallery: checked ? f.in_gallery : false }))
+                }}
+                style={{ width: 18, height: 18, accentColor: 'var(--red)', cursor: 'pointer', marginTop: '2px', flexShrink: 0 }}
+              />
               <div>
                 <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>Make this build public</div>
                 <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
@@ -131,6 +141,25 @@ export default function NewCarPage() {
                 </div>
               </div>
             </label>
+
+            {form.is_public && (
+              <label style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', cursor: 'pointer', marginLeft: '2rem', padding: '0.85rem 1rem', background: 'var(--bg-base)', borderRadius: 6, border: `1px solid ${form.in_gallery ? 'var(--red-glow)' : 'var(--border-subtle)'}`, transition: 'border-color 150ms' }}>
+                <input
+                  type="checkbox"
+                  checked={form.in_gallery}
+                  onChange={e => set('in_gallery', e.target.checked)}
+                  style={{ width: 17, height: 17, accentColor: 'var(--red)', cursor: 'pointer', marginTop: '2px', flexShrink: 0 }}
+                />
+                <div>
+                  <div style={{ fontSize: '0.9rem', fontWeight: 700, color: form.in_gallery ? 'var(--red)' : 'var(--text-primary)', marginBottom: '0.2rem', transition: 'color 150ms' }}>
+                    Add to Community Gallery
+                  </div>
+                  <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                    Feature this build in the Dynamic Garage public gallery — visible to anyone browsing the site.
+                  </div>
+                </div>
+              </label>
+            )}
           </div>
 
           <div style={{ display: 'flex', gap: '0.75rem' }}>

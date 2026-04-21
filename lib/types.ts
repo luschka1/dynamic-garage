@@ -10,6 +10,7 @@ export interface Corvette {
   mileage?: number
   photo_url?: string
   is_public: boolean
+  in_gallery: boolean
   show_carfax: boolean
   email_token?: string
   created_at: string

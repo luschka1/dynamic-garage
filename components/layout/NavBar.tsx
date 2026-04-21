@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { LogOut, LayoutDashboard, Menu, X, Plus } from 'lucide-react'
+import { LogOut, LayoutDashboard, Menu, X, Plus, LayoutGrid } from 'lucide-react'
 import { useState } from 'react'
 import type { User } from '@supabase/supabase-js'
 import ThemeToggle from '@/components/ThemeToggle'
@@ -86,6 +86,25 @@ export default function NavBar({ user }: { user: User }) {
             <Plus size={15} /> Add Car
           </Link>
 
+          <Link
+            href="/gallery"
+            style={{
+              display: 'flex', alignItems: 'center', gap: '0.4rem',
+              padding: '0.45rem 0.85rem',
+              borderRadius: 4,
+              fontSize: '0.85rem',
+              fontWeight: 600,
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              color: pathname === '/gallery' ? 'var(--text-primary)' : 'var(--text-secondary)',
+              background: pathname === '/gallery' ? 'rgba(0,0,0,0.05)' : 'transparent',
+              transition: 'all var(--transition)',
+              textDecoration: 'none',
+            }}
+          >
+            <LayoutGrid size={15} /> Gallery
+          </Link>
+
           <div style={{ width: 1, height: 20, background: 'var(--border-default)', margin: '0 0.5rem' }} />
 
           <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', padding: '0 0.5rem', fontWeight: 500 }}>
@@ -122,6 +141,9 @@ export default function NavBar({ user }: { user: User }) {
           </Link>
           <Link href="/corvettes/new" onClick={() => setMenuOpen(false)} style={{ color: 'var(--text-secondary)', fontWeight: 600, fontSize: '1rem', padding: '0.75rem', borderRadius: 4 }}>
             Add Car
+          </Link>
+          <Link href="/gallery" onClick={() => setMenuOpen(false)} style={{ color: 'var(--text-secondary)', fontWeight: 600, fontSize: '1rem', padding: '0.75rem', borderRadius: 4, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <LayoutGrid size={16} /> Gallery
           </Link>
           <hr style={{ border: 'none', borderTop: '1px solid var(--border-subtle)' }} />
           <button onClick={signOut} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'none', border: 'none', color: 'var(--text-secondary)', fontWeight: 600, fontSize: '1rem', padding: '0.75rem', cursor: 'pointer', textAlign: 'left' }}>

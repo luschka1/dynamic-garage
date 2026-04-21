@@ -43,6 +43,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
     vin: car.vin || '',
     mileage: car.mileage?.toString() || '',
     is_public: car.is_public,
+    in_gallery: car.in_gallery ?? false,
     show_carfax: car.show_carfax ?? true,
     photo_url: car.photo_url || '',
   })
@@ -80,6 +81,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
       vin: form.vin || null,
       mileage: form.mileage ? Number(form.mileage) : null,
       is_public: form.is_public,
+      in_gallery: form.in_gallery,
       show_carfax: form.show_carfax,
       photo_url: form.photo_url || null,
       updated_at: new Date().toISOString(),
@@ -185,13 +187,43 @@ export default function EditCarForm({ car }: { car: Corvette }) {
           )}
         </div>
 
+        {/* Public build toggle */}
         <label style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '1rem', background: 'var(--bg-base)', borderRadius: 6, border: '1px solid var(--border-default)' }}>
-          <input type="checkbox" checked={form.is_public} onChange={e => set('is_public', e.target.checked)} style={{ width: 18, height: 18, accentColor: 'var(--red)', cursor: 'pointer' }} />
+          <input
+            type="checkbox"
+            checked={form.is_public}
+            onChange={e => {
+              const checked = e.target.checked
+              setForm(f => ({ ...f, is_public: checked, in_gallery: checked ? f.in_gallery : false }))
+              setSuccess(false)
+            }}
+            style={{ width: 18, height: 18, accentColor: 'var(--red)', cursor: 'pointer', flexShrink: 0 }}
+          />
           <div>
             <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)' }}>Public Build Page</div>
-            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.15rem' }}>Let others view your mods and service history</div>
+            <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.15rem' }}>Let others view your mods and service history via a shareable link</div>
           </div>
         </label>
+
+        {/* Gallery opt-in — only visible when public */}
+        {form.is_public && (
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.9rem 1rem', background: 'var(--bg-base)', borderRadius: 6, border: `1px solid ${form.in_gallery ? 'var(--red-glow)' : 'var(--border-subtle)'}`, marginTop: '-0.25rem', transition: 'border-color 150ms' }}>
+            <input
+              type="checkbox"
+              checked={form.in_gallery}
+              onChange={e => set('in_gallery', e.target.checked)}
+              style={{ width: 17, height: 17, accentColor: 'var(--red)', cursor: 'pointer', flexShrink: 0 }}
+            />
+            <div>
+              <div style={{ fontSize: '0.9rem', fontWeight: 700, color: form.in_gallery ? 'var(--red)' : 'var(--text-primary)', transition: 'color 150ms' }}>
+                Add to Community Gallery
+              </div>
+              <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.1rem', lineHeight: 1.4 }}>
+                Feature this build in the Dynamic Garage public gallery
+              </div>
+            </div>
+          </label>
+        )}
 
         <button type="submit" className="btn-primary" disabled={saving} style={{ width: '100%' }}>
           <Save size={18} /> {saving ? 'Saving…' : 'Save Changes'}
