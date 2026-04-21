@@ -29,7 +29,8 @@ export async function proxy(request: NextRequest) {
 
   const isSharePage = request.nextUrl.pathname.startsWith('/share')
   const isGalleryPage = request.nextUrl.pathname.startsWith('/gallery')
-  const isPublicPage = request.nextUrl.pathname === '/' || isAuthPage || isSharePage || isGalleryPage
+  const isContactPage = request.nextUrl.pathname.startsWith('/contact')
+  const isPublicPage = request.nextUrl.pathname === '/' || isAuthPage || isSharePage || isGalleryPage || isContactPage
 
   if (!user && !isPublicPage) {
     const url = request.nextUrl.clone()

@@ -31,6 +31,9 @@ export default function HomePage() {
           <Link href="/gallery" className="v3-nav-link" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
             <LayoutGrid size={14} /> Gallery
           </Link>
+          <Link href="/contact" className="v3-nav-link" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
+            Contact
+          </Link>
           <Link href="/login" className="v3-nav-link" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
             Sign In
           </Link>
@@ -433,9 +436,9 @@ export default function HomePage() {
           &copy; {new Date().getFullYear()} DynamicGarage.app &mdash; Built for enthusiasts.
         </span>
         <div style={{ display: 'flex', gap: '1.25rem' }}>
-          {['Privacy', 'Terms', 'Contact'].map(l => (
-            <Link key={l} href="#" style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 150ms' }} className="v3-footer-link">
-              {l}
+          {[{ label: 'Privacy', href: '#' }, { label: 'Terms', href: '#' }, { label: 'Contact', href: '/contact' }].map(l => (
+            <Link key={l.label} href={l.href} style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 150ms' }} className="v3-footer-link">
+              {l.label}
             </Link>
           ))}
         </div>
