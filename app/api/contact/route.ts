@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         from: { address: 'info@dynamicgarage.app', name: 'Dynamic Garage' },
-        to: [{ email_address: { address: '3339764@gmail.com', name: 'Admin' } }],
+        to: [{ email_address: { address: 'info@dynamicgarage.app', name: 'Dynamic Garage' } }],
         reply_to: [{ address: email.trim(), name: name.trim() }],
         subject: subject?.trim() ? `Contact: ${subject.trim()}` : `New message from ${name.trim()}`,
         htmlbody: `
