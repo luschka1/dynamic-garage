@@ -5,8 +5,9 @@ export const runtime = 'nodejs'
 
 const transporter = nodemailer.createTransport({
   host: 'smtppro.zoho.com',
-  port: 465,
-  secure: true,
+  port: 587,
+  secure: false,
+  requireTLS: true,
   auth: {
     user: process.env.ZOHO_EMAIL,
     pass: process.env.ZOHO_PASSWORD,
@@ -53,7 +54,8 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ success: true })
   } catch (err) {
-    console.error('Contact API error:', err)
-    return NextResponse.json({ error: 'Something went wrong. Please try again.' }, { status: 500 })
+    const message = err instanceof Error ? err.message : String(err)
+    console.error('Contact API error:', message)
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }
