@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, Wrench, ClipboardList, FileText, Share2, ExternalLink } from 'lucide-react'
+import { ArrowLeft, Wrench, ClipboardList, FileText, Share2, ExternalLink, Download } from 'lucide-react'
 import EditCorvetteForm from './EditCorvetteForm'
 import QRShareCard from './QRShareCard'
 import PhotoGalleryManager from './PhotoGalleryManager'
@@ -91,7 +91,7 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
       </div>
 
       {/* Quick nav */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', marginBottom: c.is_public ? '1rem' : '2rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
         {[
           { label: 'View All Mods', href: `/corvettes/${id}/mods` },
           { label: 'Service History', href: `/corvettes/${id}/service` },
@@ -103,9 +103,9 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
         ))}
       </div>
 
-      {/* Share row — only when public */}
-      {c.is_public && (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
+      {/* Share / Export row */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem', flexWrap: 'wrap' }}>
+        {c.is_public && (
           <Link
             href={`/share/${user.id}/${id}`}
             target="_blank"
@@ -114,15 +114,27 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
           >
             <ExternalLink size={15} /> View Public Page
           </Link>
+        )}
+        {c.is_public && (
           <QRShareCard
             shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL || ''}/share/${user.id}/${id}`}
             nickname={c.nickname}
           />
+        )}
+        <Link
+          href={`/corvettes/${id}/print`}
+          target="_blank"
+          className="btn-secondary"
+          style={{ fontSize: '0.85rem', padding: '0.6rem 1.1rem', minHeight: 42, gap: '0.5rem', borderColor: 'var(--border-default)' }}
+        >
+          <Download size={15} /> Export to PDF
+        </Link>
+        {c.is_public && (
           <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>
             This build is publicly visible
           </span>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Photo gallery manager */}
       <PhotoGalleryManager
