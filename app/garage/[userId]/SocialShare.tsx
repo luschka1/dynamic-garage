@@ -72,6 +72,7 @@ export default function GarageSocialShare({ url, ownerName }: Props) {
       border: '1px solid var(--border-subtle)',
       borderRadius: 12,
       marginBottom: '2rem',
+      marginTop: '3rem',
       flexWrap: 'wrap',
       boxShadow: 'var(--shadow-card)',
     }}>
