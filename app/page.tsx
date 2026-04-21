@@ -164,7 +164,7 @@ export default function HomePage() {
               }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/corvette-hero.avif"
+                  src="/corvette-hero.jpg"
                   alt="2019 Chevrolet Corvette Z06"
                   style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                 />
