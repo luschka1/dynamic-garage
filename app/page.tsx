@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Wrench, ClipboardList, FileText, Share2, ChevronRight, Check, Shield, LayoutGrid } from 'lucide-react'
+import { Wrench, ClipboardList, FileText, Share2, ChevronRight, Check, Shield, LayoutGrid, Camera, Tag, MessageSquare, ScanLine, Link2, Moon, Car, Layers } from 'lucide-react'
 import ThemeToggle from '@/components/ThemeToggle'
 import { createClient } from '@/lib/supabase/server'
 
@@ -328,52 +328,144 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── HOW IT WORKS ── */}
+      {/* ── FULL FEATURE LIST ── */}
       <section style={{ background: 'var(--bg-elevated)', padding: '5rem 2rem', borderTop: '1px solid var(--border-subtle)', borderBottom: '1px solid var(--border-subtle)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+
           <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-            <p className="page-eyebrow" style={{ marginBottom: '0.6rem' }}>GET STARTED IN MINUTES</p>
-            <h2 style={{ fontFamily: "'Barlow Condensed'", fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 900, letterSpacing: '0.01em', color: 'var(--text-primary)' }}>
-              How it works
+            <p className="page-eyebrow" style={{ marginBottom: '0.6rem' }}>EVERYTHING INCLUDED</p>
+            <h2 style={{ fontFamily: "'Barlow Condensed'", fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 900, letterSpacing: '0.01em', color: 'var(--text-primary)', marginBottom: '0.75rem' }}>
+              Built for serious enthusiasts
             </h2>
+            <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', maxWidth: 520, margin: '0 auto' }}>
+              Every tool you need to document, protect, and share your build — all in one place.
+            </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '2.5rem' }}>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
+            gap: '1rem',
+          }}
+            className="features-grid"
+          >
             {[
               {
-                num: '01',
-                title: 'Create Your Garage',
-                desc: 'Create your garage in seconds — any make, any model, any year. Free during early access.',
+                icon: <Wrench size={20} />,
+                title: 'Mod Log',
+                desc: 'Track every upgrade — part, cost, vendor, install date, and notes.',
+                iconBg: 'var(--red-dim)', iconColor: 'var(--red)',
               },
               {
-                num: '02',
-                title: 'Log Everything',
-                desc: 'Mods, service records, documents, photos — all in one organized, searchable place.',
+                icon: <ClipboardList size={20} />,
+                title: 'Service History',
+                desc: 'Full maintenance records with mileage, shop, and cost per visit.',
+                iconBg: 'var(--blue-dim)', iconColor: 'var(--blue)',
               },
               {
-                num: '03',
-                title: 'Share Your Build',
-                desc: 'Generate a public page, QR code, or share a verified history link with buyers.',
+                icon: <FileText size={20} />,
+                title: 'Document Vault',
+                desc: 'Store receipts, titles, window stickers, and manuals — secure and always accessible.',
+                iconBg: 'var(--green-dim)', iconColor: 'var(--green)',
               },
-            ].map(step => (
-              <div key={step.num} style={{ display: 'flex', flexDirection: 'column' }}>
+              {
+                icon: <Camera size={20} />,
+                title: 'Photo Gallery',
+                desc: 'Upload and organize multiple photos per vehicle — progress shots, event photos, and more.',
+                iconBg: 'rgba(139,92,246,0.12)', iconColor: '#8b5cf6',
+              },
+              {
+                icon: <Share2 size={20} />,
+                title: 'Public Build Pages',
+                desc: 'A shareable live page for every vehicle — perfect for shows, forums, and buyers.',
+                iconBg: 'var(--gold-dim)', iconColor: 'var(--gold)',
+              },
+              {
+                icon: <Layers size={20} />,
+                title: 'Public Garage',
+                desc: 'Share your entire collection at a single link — one URL for your whole garage.',
+                iconBg: 'rgba(20,184,166,0.12)', iconColor: '#14b8a6',
+              },
+              {
+                icon: <Tag size={20} />,
+                title: 'For Sale Listings',
+                desc: 'Mark vehicles for sale with a visible badge on your public page and garage.',
+                iconBg: 'var(--green-dim)', iconColor: 'var(--green)',
+              },
+              {
+                icon: <MessageSquare size={20} />,
+                title: 'Contact Seller',
+                desc: 'Buyers can message you directly through the listing — your email stays private.',
+                iconBg: 'rgba(249,115,22,0.12)', iconColor: '#f97316',
+              },
+              {
+                icon: <ScanLine size={20} />,
+                title: 'VIN Decoder',
+                desc: 'Auto-fill year, make, model, and trim by entering the VIN — no manual typing.',
+                iconBg: 'var(--blue-dim)', iconColor: 'var(--blue)',
+              },
+              {
+                icon: <Link2 size={20} />,
+                title: 'Social Sharing',
+                desc: 'One-click share to X, Facebook, and WhatsApp with rich preview cards.',
+                iconBg: 'rgba(99,102,241,0.12)', iconColor: '#6366f1',
+              },
+              {
+                icon: <Moon size={20} />,
+                title: 'Dark & Light Mode',
+                desc: 'System-aware theming that respects your preference — switchable any time.',
+                iconBg: 'rgba(139,92,246,0.12)', iconColor: '#8b5cf6',
+              },
+              {
+                icon: <Car size={20} />,
+                title: 'Any Make & Model',
+                desc: 'Corvette, Mustang, Porsche, BMW, Ferrari — works with every vehicle, every year.',
+                iconBg: 'var(--red-dim)', iconColor: 'var(--red)',
+              },
+            ].map(f => (
+              <div
+                key={f.title}
+                className="full-feature-card"
+                style={{
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border-subtle)',
+                  borderRadius: 12,
+                  padding: '1.5rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.75rem',
+                  transition: 'box-shadow 180ms ease, border-color 180ms ease, transform 180ms ease',
+                }}
+              >
                 <div style={{
-                  fontFamily: "'Barlow Condensed'",
-                  fontSize: '4rem',
-                  fontWeight: 900,
-                  lineHeight: 1,
-                  color: 'var(--red)',
-                  marginBottom: '0.75rem',
-                  letterSpacing: '-0.02em',
+                  width: 40,
+                  height: 40,
+                  borderRadius: 10,
+                  background: f.iconBg,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: f.iconColor,
+                  flexShrink: 0,
                 }}>
-                  {step.num}
+                  {f.icon}
                 </div>
-                <h3 style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.3rem', fontWeight: 800, letterSpacing: '0.04em', color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
-                  {step.title}
-                </h3>
-                <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.65 }}>
-                  {step.desc}
-                </p>
+                <div>
+                  <h3 style={{
+                    fontFamily: "'Barlow Condensed'",
+                    fontSize: '1.1rem',
+                    fontWeight: 800,
+                    letterSpacing: '0.04em',
+                    color: 'var(--text-primary)',
+                    marginBottom: '0.3rem',
+                    textTransform: 'uppercase',
+                  }}>
+                    {f.title}
+                  </h3>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
+                    {f.desc}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
@@ -461,7 +553,8 @@ export default async function HomePage() {
           color: var(--text-primary) !important;
           background: rgba(127,127,127,0.06);
         }
-        .v3-feature-card:hover {
+        .v3-feature-card:hover,
+        .full-feature-card:hover {
           box-shadow: var(--shadow-hover) !important;
           border-color: var(--border-default) !important;
           transform: translateY(-2px) !important;
