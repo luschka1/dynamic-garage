@@ -1,7 +1,8 @@
 import { createClient } from '@/lib/supabase/server'
 import Link from 'next/link'
-import { Plus, Car, Wrench, ClipboardList, FileText, Share2, ChevronRight } from 'lucide-react'
+import { Plus, Car, Wrench, ClipboardList, FileText, Share2, ChevronRight, ExternalLink } from 'lucide-react'
 import type { Corvette } from '@/lib/types'
+import ShareGarageButton from './ShareGarageButton'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -14,6 +15,7 @@ export default async function DashboardPage() {
     .order('created_at', { ascending: false })
 
   const name = user?.user_metadata?.full_name?.split(' ')[0] || 'Driver'
+  const publicCars = (cars ?? []).filter(c => c.is_public)
 
   return (
     <div>
@@ -34,6 +36,53 @@ export default async function DashboardPage() {
           <Plus size={18} /> Add Vehicle
         </Link>
       </div>
+
+      {/* Share My Garage banner */}
+      {publicCars.length > 0 && (
+        <div style={{
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
+          borderRadius: 12,
+          padding: '1rem 1.5rem',
+          marginBottom: '2rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '0.75rem',
+          boxShadow: 'var(--shadow-card)',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div style={{ width: 36, height: 36, background: 'var(--red-dim)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+              <Share2 size={16} color="var(--red)" />
+            </div>
+            <div>
+              <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-primary)' }}>
+                Your Public Garage
+              </div>
+              <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                {publicCars.length} public vehicle{publicCars.length !== 1 ? 's' : ''} — share your whole collection
+              </div>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+            <Link
+              href={`/garage/${user!.id}`}
+              target="_blank"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-muted)',
+                textDecoration: 'none', padding: '0.55rem 0.9rem',
+                border: '1px solid var(--border-default)', borderRadius: 8,
+                background: 'transparent',
+              }}
+            >
+              <ExternalLink size={13} /> Preview
+            </Link>
+            <ShareGarageButton userId={user!.id} />
+          </div>
+        </div>
+      )}
 
       {/* Empty state */}
       {(!cars || cars.length === 0) && (
