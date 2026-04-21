@@ -1,5 +1,4 @@
 import { createAdminClient } from '@/lib/supabase/admin'
-import Image from 'next/image'
 import VehicleAdminActions from './VehicleAdminActions'
 
 export default async function AdminVehiclesPage() {
@@ -91,12 +90,11 @@ export default async function AdminVehiclesPage() {
                 {/* Photo */}
                 <td style={{ padding: '0.65rem 1rem' }}>
                   {v.photo_url ? (
-                    <Image
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
                       src={v.photo_url}
                       alt={v.nickname}
-                      width={50}
-                      height={50}
-                      style={{ borderRadius: 6, objectFit: 'cover', display: 'block' }}
+                      style={{ width: 50, height: 50, borderRadius: 6, objectFit: 'cover', display: 'block' }}
                     />
                   ) : (
                     <div style={{

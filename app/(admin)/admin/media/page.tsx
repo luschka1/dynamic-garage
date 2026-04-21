@@ -1,5 +1,4 @@
 import { createAdminClient } from '@/lib/supabase/admin'
-import Image from 'next/image'
 import { DeletePhotoButton, DeleteDocumentButton } from './MediaAdminActions'
 
 export default async function AdminMediaPage() {
@@ -82,13 +81,12 @@ export default async function AdminMediaPage() {
                 overflow: 'hidden',
               }}>
                 {/* Thumbnail */}
-                <div style={{ position: 'relative', width: '100%', aspectRatio: '4/3', background: 'rgba(255,255,255,0.03)' }}>
-                  <Image
+                <div style={{ width: '100%', aspectRatio: '4/3', background: 'rgba(255,255,255,0.03)', overflow: 'hidden' }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     src={photo.public_url}
                     alt={photo.caption ?? 'Vehicle photo'}
-                    fill
-                    style={{ objectFit: 'cover' }}
-                    sizes="200px"
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
                   />
                 </div>
 
