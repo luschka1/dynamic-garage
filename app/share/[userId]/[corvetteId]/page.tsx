@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { Car, Wrench, ClipboardList, DollarSign, Share2, ShieldCheck, ExternalLink, Paperclip, Gauge, FileText, File, Image as ImageIcon, Tag } from 'lucide-react'
+import { Car, Wrench, ClipboardList, DollarSign, Share2, ExternalLink, Paperclip, Gauge, FileText, File, Image as ImageIcon, Tag } from 'lucide-react'
 import type { Corvette, Mod, ServiceRecord, VehiclePhoto, Document } from '@/lib/types'
 import PublicGallery from './PublicGallery'
 import SocialShare from './SocialShare'
@@ -151,8 +151,8 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
           </div>
         </div>
 
-        {/* ── CARFAX CTA ── */}
-        {c.vin && c.show_carfax && (
+        {/* ── VIN DECODER CTA ── */}
+        {c.vin && c.show_vin_decoder && (
           <div style={{
             background: 'var(--bg-card)',
             border: '1px solid var(--border-subtle)',
@@ -166,42 +166,34 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
             gap: '1rem',
             boxShadow: 'var(--shadow-card)',
           }}>
-            {/* Left: info */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
               <div style={{
                 width: 44, height: 44, borderRadius: 10,
-                background: 'linear-gradient(135deg, #003087 0%, #0052cc 100%)',
+                background: 'linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 flexShrink: 0,
               }}>
-                <ShieldCheck size={22} color="white" strokeWidth={1.75} />
+                <Gauge size={22} color="white" strokeWidth={1.75} />
               </div>
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.2rem' }}>
-                  <span style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.1rem', fontWeight: 900, letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--text-primary)' }}>
-                    Vehicle History Report
-                  </span>
-                  <span style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'white', background: '#003087', padding: '2px 6px', borderRadius: 3 }}>
-                    CARFAX
-                  </span>
+                <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.1rem', fontWeight: 900, letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--text-primary)', marginBottom: '0.2rem' }}>
+                  VIN Decoder
                 </div>
                 <p style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', margin: 0, lineHeight: 1.4 }}>
-                  Accidents, title history, service records, and ownership — for this exact VIN.
+                  Decode this vehicle&apos;s specs, trim, and factory options from the NHTSA database.
                 </p>
                 <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', margin: '0.25rem 0 0', fontFamily: 'monospace', letterSpacing: '0.05em' }}>
                   VIN: {c.vin}
                 </p>
               </div>
             </div>
-
-            {/* Right: button */}
             <a
-              href={`https://www.carfax.com/vehicle/${c.vin}`}
+              href={`https://vpic.nhtsa.dot.gov/decoder/VinDecoder?VIN=${c.vin}`}
               target="_blank"
               rel="noopener noreferrer"
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                background: 'linear-gradient(135deg, #003087 0%, #0052cc 100%)',
+                background: 'linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%)',
                 color: 'white',
                 fontFamily: "'Barlow Condensed'",
                 fontSize: '0.95rem',
@@ -212,13 +204,13 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
                 borderRadius: 6,
                 textDecoration: 'none',
                 whiteSpace: 'nowrap',
-                boxShadow: '0 2px 8px rgba(0,48,135,0.35)',
+                boxShadow: '0 2px 8px rgba(29,78,216,0.35)',
                 transition: 'opacity 150ms, box-shadow 150ms',
                 flexShrink: 0,
               }}
-              className="carfax-btn"
+              className="vin-decode-btn"
             >
-              Get CARFAX Report <ExternalLink size={13} />
+              Decode VIN <ExternalLink size={13} />
             </a>
           </div>
         )}
@@ -525,7 +517,7 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
       </div>
 
       <style>{`
-        .carfax-btn:hover { opacity: 0.88; box-shadow: 0 4px 14px rgba(0,48,135,0.45) !important; }
+        .vin-decode-btn:hover { opacity: 0.88; box-shadow: 0 4px 14px rgba(29,78,216,0.45) !important; }
         .receipt-link:hover { color: var(--text-primary) !important; border-color: var(--border-default) !important; }
         .doc-open-btn:hover { color: var(--text-primary) !important; border-color: var(--border-strong) !important; }
         .purchase-link:hover { opacity: 0.75; }

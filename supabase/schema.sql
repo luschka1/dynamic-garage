@@ -18,7 +18,7 @@ create table if not exists public.corvettes (
   is_public    boolean default false,
   in_gallery   boolean not null default false,
   for_sale     boolean not null default false,
-  show_carfax  boolean not null default true,
+  show_vin_decoder boolean not null default true,
   created_at   timestamptz default now(),
   updated_at   timestamptz default now()
 );

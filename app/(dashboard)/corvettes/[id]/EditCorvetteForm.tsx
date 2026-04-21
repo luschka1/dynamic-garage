@@ -45,7 +45,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
     is_public: car.is_public,
     in_gallery: car.in_gallery ?? false,
     for_sale: car.for_sale ?? false,
-    show_carfax: car.show_carfax ?? true,
+    show_vin_decoder: car.show_vin_decoder ?? true,
     photo_url: car.photo_url || '',
   })
 
@@ -84,7 +84,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
       is_public: form.is_public,
       in_gallery: form.in_gallery,
       for_sale: form.for_sale,
-      show_carfax: form.show_carfax,
+      show_vin_decoder: form.show_vin_decoder,
       photo_url: form.photo_url || null,
       updated_at: new Date().toISOString(),
     }).eq('id', car.id)
@@ -180,10 +180,10 @@ export default function EditCarForm({ car }: { car: Corvette }) {
           <input className="input-field" type="text" maxLength={17} value={form.vin} onChange={e => set('vin', e.target.value)} style={{ fontFamily: 'monospace', letterSpacing: '0.05em' }} />
           {form.vin && (
             <label style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.75rem 1rem', marginTop: '0.5rem', background: 'var(--bg-base)', borderRadius: 6, border: '1px solid var(--border-default)' }}>
-              <input type="checkbox" checked={form.show_carfax} onChange={e => set('show_carfax', e.target.checked)} style={{ width: 16, height: 16, accentColor: 'var(--red)', cursor: 'pointer', flexShrink: 0 }} />
+              <input type="checkbox" checked={form.show_vin_decoder} onChange={e => set('show_vin_decoder', e.target.checked)} style={{ width: 16, height: 16, accentColor: 'var(--red)', cursor: 'pointer', flexShrink: 0 }} />
               <div>
-                <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)' }}>Show CARFAX Button on Public Page</div>
-                <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.1rem' }}>Let visitors purchase a CARFAX report for this VIN</div>
+                <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)' }}>Show VIN Decoder on Public Page</div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.1rem' }}>Let visitors decode this VIN using the NHTSA database</div>
               </div>
             </label>
           )}

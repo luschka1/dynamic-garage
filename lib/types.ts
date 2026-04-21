@@ -12,7 +12,7 @@ export interface Corvette {
   is_public: boolean
   in_gallery: boolean
   for_sale: boolean
-  show_carfax: boolean
+  show_vin_decoder: boolean
   email_token?: string
   created_at: string
   updated_at: string
