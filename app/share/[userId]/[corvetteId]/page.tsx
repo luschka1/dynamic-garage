@@ -1,11 +1,36 @@
 import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Car, Wrench, ClipboardList, DollarSign, Share2, ExternalLink, Paperclip, Gauge, FileText, File, Image as ImageIcon, Tag } from 'lucide-react'
 import type { Corvette, Mod, ServiceRecord, VehiclePhoto, Document } from '@/lib/types'
 import PublicGallery from './PublicGallery'
 import SocialShare from './SocialShare'
 import ContactSellerForm from './ContactSellerForm'
+
+export async function generateMetadata({ params }: { params: Promise<{ userId: string; corvetteId: string }> }): Promise<Metadata> {
+  const { userId, corvetteId } = await params
+  const supabase = await createClient()
+  const { data: car } = await supabase
+    .from('corvettes')
+    .select('nickname, year, model, for_sale')
+    .eq('id', corvetteId)
+    .eq('user_id', userId)
+    .eq('is_public', true)
+    .single()
+
+  if (!car) return {}
+
+  const title = `${car.nickname} — ${car.year} ${car.model}${car.for_sale ? ' · For Sale' : ''}`
+  const description = `Check out this ${car.year} ${car.model} build on Dynamic Garage.${car.for_sale ? ' Currently for sale.' : ''}`
+
+  return {
+    title,
+    description,
+    openGraph: { title, description, type: 'website' },
+    twitter: { card: 'summary_large_image', title, description },
+  }
+}
 
 export default async function PublicSharePage({ params }: { params: Promise<{ userId: string; corvetteId: string }> }) {
   const { userId, corvetteId } = await params
