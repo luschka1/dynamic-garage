@@ -13,10 +13,9 @@ export async function POST(req: NextRequest) {
     const nodemailer = (await import('nodemailer')).default
 
     const transporter = nodemailer.createTransport({
-      host: 'smtp.zoho.ca',
-      port: 587,
-      secure: false,
-      requireTLS: true,
+      host: 'smtp.zohocloud.ca',
+      port: 465,
+      secure: true,
       auth: {
         user: process.env.ZOHO_EMAIL,
         pass: process.env.ZOHO_PASSWORD,
