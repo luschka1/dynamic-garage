@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Car, Wrench, ClipboardList, DollarSign, Share2, ShieldCheck, ExternalLink, Paperclip, Gauge, FileText, File, Image as ImageIcon } from 'lucide-react'
 import type { Corvette, Mod, ServiceRecord, VehiclePhoto, Document } from '@/lib/types'
 import PublicGallery from './PublicGallery'
+import SocialShare from './SocialShare'
 
 export default async function PublicSharePage({ params }: { params: Promise<{ userId: string; corvetteId: string }> }) {
   const { userId, corvetteId } = await params
@@ -127,6 +128,12 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
             )}
           </div>
         </div>
+
+        {/* ── SOCIAL SHARE ── */}
+        <SocialShare
+          url={`https://dynamicgarage.app/share/${userId}/${corvetteId}`}
+          title={`${c.year} ${c.nickname}`}
+        />
 
         {/* ── CARFAX CTA ── */}
         {c.vin && c.show_carfax && (
