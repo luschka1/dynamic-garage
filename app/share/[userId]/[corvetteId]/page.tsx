@@ -129,12 +129,6 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
           </div>
         </div>
 
-        {/* ── SOCIAL SHARE ── */}
-        <SocialShare
-          url={`https://dynamicgarage.app/share/${userId}/${corvetteId}`}
-          title={`${c.year} ${c.nickname}`}
-        />
-
         {/* ── CARFAX CTA ── */}
         {c.vin && c.show_carfax && (
           <div style={{
@@ -475,8 +469,14 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
           </div>
         )}
 
+        {/* ── SOCIAL SHARE ── */}
+        <SocialShare
+          url={`https://dynamicgarage.app/share/${userId}/${corvetteId}`}
+          title={`${c.year} ${c.nickname}`}
+        />
+
         {/* ── FOOTER CTA ── */}
-        <div style={{ textAlign: 'center', marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid var(--border-subtle)' }}>
+        <div style={{ textAlign: 'center', marginTop: '1.5rem', paddingTop: '2rem', borderTop: '1px solid var(--border-subtle)' }}>
           <p style={{ fontFamily: "'Barlow Condensed'", fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--red)', marginBottom: '0.6rem' }}>
             Build Your Own
           </p>
