@@ -55,10 +55,8 @@ export default async function GalleryPage() {
         padding: '0 2rem',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', textDecoration: 'none' }}>
-            <div style={{ width: 32, height: 32, background: 'var(--red)', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 900, fontSize: '0.9rem', color: '#fff' }}>DG</span>
-            </div>
+          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
+            <img src="/logo.png" alt="Dynamic Garage" style={{ height: 42, width: 42, objectFit: 'contain', borderRadius: 6, flexShrink: 0 }} />
             <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 800, fontSize: '1.1rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
               <span style={{ color: 'var(--red)' }}>Dynamic</span><span style={{ color: 'var(--text-muted)' }}> Garage</span>
             </span>

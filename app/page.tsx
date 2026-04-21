@@ -20,23 +20,12 @@ export default function HomePage() {
         padding: '0 2rem',
       }}>
         {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-          <div style={{
-            width: 32,
-            height: 32,
-            background: 'var(--red)',
-            borderRadius: 6,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
-          }}>
-            <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 900, fontSize: '0.9rem', color: '#fff', letterSpacing: '0.04em' }}>DG</span>
-          </div>
+        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
+          <img src="/logo.png" alt="Dynamic Garage" style={{ height: 42, width: 42, objectFit: 'contain', borderRadius: 6, flexShrink: 0 }} />
           <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 800, fontSize: '1.1rem', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
             <span style={{ color: 'var(--red)' }}>Dynamic</span><span style={{ color: 'var(--text-muted)' }}> Garage</span>
           </span>
-        </div>
+        </Link>
 
         {/* Right: gallery + sign in + toggle + cta */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
