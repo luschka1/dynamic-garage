@@ -44,6 +44,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
     mileage: car.mileage?.toString() || '',
     is_public: car.is_public,
     in_gallery: car.in_gallery ?? false,
+    for_sale: car.for_sale ?? false,
     show_carfax: car.show_carfax ?? true,
     photo_url: car.photo_url || '',
   })
@@ -82,6 +83,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
       mileage: form.mileage ? Number(form.mileage) : null,
       is_public: form.is_public,
       in_gallery: form.in_gallery,
+      for_sale: form.for_sale,
       show_carfax: form.show_carfax,
       photo_url: form.photo_url || null,
       updated_at: new Date().toISOString(),
@@ -224,6 +226,26 @@ export default function EditCarForm({ car }: { car: Corvette }) {
             </div>
           </label>
         )}
+
+        {/* For Sale toggle */}
+        <div style={{ paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '1rem', background: form.for_sale ? 'rgba(22,163,74,0.06)' : 'var(--bg-base)', borderRadius: 6, border: `1px solid ${form.for_sale ? 'rgba(22,163,74,0.3)' : 'var(--border-default)'}`, transition: 'all 150ms' }}>
+            <input
+              type="checkbox"
+              checked={form.for_sale}
+              onChange={e => set('for_sale', e.target.checked)}
+              style={{ width: 18, height: 18, accentColor: '#16a34a', cursor: 'pointer', flexShrink: 0 }}
+            />
+            <div>
+              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: form.for_sale ? '#16a34a' : 'var(--text-primary)', transition: 'color 150ms' }}>
+                Mark as For Sale
+              </div>
+              <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.1rem', lineHeight: 1.4 }}>
+                Displays a <strong style={{ color: '#16a34a' }}>FOR SALE</strong> banner on the public build page hero image
+              </div>
+            </div>
+          </label>
+        </div>
 
         <button type="submit" className="btn-primary" disabled={saving} style={{ width: '100%' }}>
           <Save size={18} /> {saving ? 'Saving…' : 'Save Changes'}

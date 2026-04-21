@@ -1,7 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { Car, Wrench, ClipboardList, DollarSign, Share2, ShieldCheck, ExternalLink, Paperclip, Gauge, FileText, File, Image as ImageIcon } from 'lucide-react'
+import { Car, Wrench, ClipboardList, DollarSign, Share2, ShieldCheck, ExternalLink, Paperclip, Gauge, FileText, File, Image as ImageIcon, Tag } from 'lucide-react'
 import type { Corvette, Mod, ServiceRecord, VehiclePhoto, Document } from '@/lib/types'
 import PublicGallery from './PublicGallery'
 import SocialShare from './SocialShare'
@@ -90,6 +90,31 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
             )}
             {/* Gradient overlay for text legibility */}
             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 55%)' }} />
+
+            {/* For Sale banner */}
+            {c.for_sale && (
+              <div style={{
+                position: 'absolute',
+                top: '1rem',
+                right: '1rem',
+                zIndex: 10,
+                background: '#16a34a',
+                color: 'white',
+                padding: '0.45rem 1rem',
+                borderRadius: 6,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.45rem',
+                fontFamily: "'Barlow Condensed'",
+                fontSize: '1.1rem',
+                fontWeight: 900,
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                boxShadow: '0 2px 12px rgba(0,0,0,0.45)',
+              }}>
+                <Tag size={14} strokeWidth={2.5} /> For Sale
+              </div>
+            )}
             <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '1.5rem 2rem' }}>
               <h1 style={{ fontFamily: "'Barlow Condensed'", fontSize: 'clamp(2.5rem, 6vw, 4rem)', fontWeight: 900, color: 'white', letterSpacing: '0.01em', lineHeight: 1, marginBottom: '0.3rem' }}>
                 {c.nickname.toUpperCase()}

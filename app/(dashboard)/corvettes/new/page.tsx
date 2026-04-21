@@ -19,7 +19,7 @@ export default function NewCarPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [form, setForm] = useState({ nickname: '', year: new Date().getFullYear(), make: '', model: '', trim: '', color: '', vin: '', mileage: '', is_public: false, in_gallery: false })
+  const [form, setForm] = useState({ nickname: '', year: new Date().getFullYear(), make: '', model: '', trim: '', color: '', vin: '', mileage: '', is_public: false, in_gallery: false, for_sale: false })
 
   function set(key: string, value: string | number | boolean) { setForm(f => ({ ...f, [key]: value })) }
 
@@ -42,6 +42,7 @@ export default function NewCarPage() {
       mileage: form.mileage ? Number(form.mileage) : null,
       is_public: form.is_public,
       in_gallery: form.in_gallery,
+      for_sale: form.for_sale,
     }).select().single()
 
     if (error) { setError('Something went wrong. Please try again.'); setLoading(false) }
@@ -160,6 +161,26 @@ export default function NewCarPage() {
                 </div>
               </label>
             )}
+
+            {/* Divider */}
+            <div style={{ borderTop: '1px solid var(--border-subtle)', marginTop: '0.85rem', paddingTop: '0.85rem' }}>
+              <label style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', cursor: 'pointer' }}>
+                <input
+                  type="checkbox"
+                  checked={form.for_sale}
+                  onChange={e => set('for_sale', e.target.checked)}
+                  style={{ width: 18, height: 18, accentColor: '#16a34a', cursor: 'pointer', marginTop: '2px', flexShrink: 0 }}
+                />
+                <div>
+                  <div style={{ fontSize: '0.95rem', fontWeight: 700, color: form.for_sale ? '#16a34a' : 'var(--text-primary)', marginBottom: '0.25rem', transition: 'color 150ms' }}>
+                    Mark as For Sale
+                  </div>
+                  <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                    Displays a <strong style={{ color: '#16a34a' }}>FOR SALE</strong> banner on the public build page hero image.
+                  </div>
+                </div>
+              </label>
+            </div>
           </div>
 
           <div style={{ display: 'flex', gap: '0.75rem' }}>

@@ -11,6 +11,7 @@ export interface Corvette {
   photo_url?: string
   is_public: boolean
   in_gallery: boolean
+  for_sale: boolean
   show_carfax: boolean
   email_token?: string
   created_at: string

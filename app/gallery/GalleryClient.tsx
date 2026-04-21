@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
-import { Search, Car, Wrench, ClipboardList, ArrowRight, X } from 'lucide-react'
+import { Search, Car, Wrench, ClipboardList, ArrowRight, X, Tag } from 'lucide-react'
 import type { GalleryCar } from './page'
 
 type SortKey = 'newest' | 'oldest' | 'most_mods' | 'year_desc' | 'year_asc'
@@ -187,6 +187,21 @@ export default function GalleryClient({ cars }: { cars: GalleryCar[] }) {
                 )}
                 {/* Gradient overlay */}
                 <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.82) 0%, transparent 55%)' }} />
+
+                {/* For Sale badge */}
+                {car.for_sale && (
+                  <div style={{
+                    position: 'absolute', top: '0.75rem', right: '0.75rem', zIndex: 10,
+                    background: '#16a34a', color: 'white',
+                    padding: '0.3rem 0.75rem', borderRadius: 5,
+                    display: 'flex', alignItems: 'center', gap: '0.35rem',
+                    fontFamily: "'Barlow Condensed'", fontSize: '0.95rem', fontWeight: 900,
+                    letterSpacing: '0.08em', textTransform: 'uppercase',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.4)',
+                  }}>
+                    <Tag size={12} strokeWidth={2.5} /> For Sale
+                  </div>
+                )}
                 {/* Title overlay */}
                 <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '1rem 1.25rem' }}>
                   <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.55rem', fontWeight: 900, color: 'white', lineHeight: 1, letterSpacing: '0.01em' }}>
