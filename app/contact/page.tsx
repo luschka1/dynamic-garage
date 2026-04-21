@@ -29,7 +29,8 @@ export default function ContactPage() {
         data = await res.json()
       } catch {
         const text = await res.text().catch(() => 'Unknown server error')
-        setErrorMsg(`[${res.status}] ${text.slice(0, 300)}`)
+        console.error(`[${res.status}]`, text)
+        setErrorMsg('Something went wrong. Please try again.')
         setStatus('error')
         return
       }
