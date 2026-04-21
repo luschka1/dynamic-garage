@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Search, Car, Wrench, ClipboardList, ArrowRight, X, Tag } from 'lucide-react'
 import type { GalleryCar } from './page'
 
-type SortKey = 'newest' | 'oldest' | 'most_mods' | 'year_desc' | 'year_asc'
+type SortKey = 'newest' | 'oldest' | 'most_mods' | 'year_desc' | 'year_asc' | 'for_sale'
 
 export default function GalleryClient({ cars }: { cars: GalleryCar[] }) {
   const [search, setSearch] = useState('')
@@ -39,6 +39,10 @@ export default function GalleryClient({ cars }: { cars: GalleryCar[] }) {
 
     if (filterMake) {
       result = result.filter(c => c.model.startsWith(filterMake))
+    }
+
+    if (sortBy === 'for_sale') {
+      return result.filter(c => c.for_sale)
     }
 
     switch (sortBy) {
@@ -128,6 +132,7 @@ export default function GalleryClient({ cars }: { cars: GalleryCar[] }) {
           <option value="most_mods">Most Mods</option>
           <option value="year_desc">Car Year: Newest</option>
           <option value="year_asc">Car Year: Oldest</option>
+          <option value="for_sale">For Sale</option>
         </select>
 
         {/* Result count */}
