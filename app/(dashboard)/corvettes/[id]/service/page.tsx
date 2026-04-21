@@ -1,22 +1,10 @@
 import { createClient } from '@/lib/supabase/server'
 import { notFound, redirect } from 'next/navigation'
-import Link from 'next/link'
-import { ArrowLeft, ClipboardList, Paperclip } from 'lucide-react'
+import { ArrowLeft, ClipboardList } from 'lucide-react'
 import type { Corvette, ServiceRecord } from '@/lib/types'
 import AddServiceForm from './AddServiceForm'
+import ServiceCard from './ServiceCard'
 
-function Field({ label, value }: { label: string; value: React.ReactNode }) {
-  return (
-    <div>
-      <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>
-        {label}
-      </div>
-      <div style={{ fontSize: '0.9rem', color: 'var(--text-primary)', fontWeight: 500 }}>
-        {value}
-      </div>
-    </div>
-  )
-}
 
 export default async function ServicePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -101,79 +89,12 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {(records as ServiceRecord[]).map(rec => (
-              <div key={rec.id} className="record-row blue" style={{ padding: '1.25rem 1.5rem' }}>
-
-                {/* ── Row 1: title + cost ── */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem', marginBottom: '0.9rem' }}>
-                  <div>
-                    <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.35rem', fontWeight: 900, letterSpacing: '0.02em', color: 'var(--text-primary)', lineHeight: 1.1 }}>
-                      {rec.title}
-                    </div>
-                    {rec.category && (
-                      <div style={{ marginTop: '0.35rem' }}>
-                        <span className="badge badge-blue">{rec.category}</span>
-                      </div>
-                    )}
-                  </div>
-
-                  {rec.cost != null && (
-                    <div style={{ textAlign: 'right', flexShrink: 0 }}>
-                      <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>
-                        Cost
-                      </div>
-                      <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1 }}>
-                        ${rec.cost.toLocaleString('en-US', { minimumFractionDigits: 2 })}
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* ── Row 2: labeled meta fields ── */}
-                {(rec.shop || rec.service_date || rec.mileage) && (
-                  <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', paddingTop: '0.75rem', borderTop: '1px solid var(--border-subtle)', marginBottom: rec.notes ? '0.75rem' : '0' }}>
-                    {rec.shop && <Field label="Shop / Technician" value={rec.shop} />}
-                    {rec.service_date && (
-                      <Field
-                        label="Service Date"
-                        value={new Date(rec.service_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                      />
-                    )}
-                    {rec.mileage && (
-                      <Field label="Mileage at Service" value={`${rec.mileage.toLocaleString()} mi`} />
-                    )}
-                  </div>
-                )}
-
-                {/* ── Row 3: notes ── */}
-                {rec.notes && (
-                  <div style={{ paddingTop: '0.75rem', borderTop: rec.shop || rec.service_date || rec.mileage ? 'none' : '1px solid var(--border-subtle)' }}>
-                    <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.3rem' }}>
-                      Notes
-                    </div>
-                    <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>
-                      {rec.notes}
-                    </p>
-                  </div>
-                )}
-
-                {/* ── Row 4: receipt link ── */}
-                <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '0.75rem', marginTop: '0.25rem', borderTop: '1px solid var(--border-subtle)' }}>
-                  <Link
-                    href={`/corvettes/${id}/documents?service=${rec.id}`}
-                    className="attach-link"
-                    style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-muted)', transition: 'color 150ms', textDecoration: 'none' }}
-                  >
-                    <Paperclip size={11} /> Attach / View Receipt
-                  </Link>
-                </div>
-
-              </div>
+              <ServiceCard key={rec.id} rec={rec} corvetteId={id} />
             ))}
           </div>
         </div>
       )}
 
-      <style>{`.attach-link:hover { color: var(--text-secondary) !important; }`}</style>
     </div>
   )
 }
