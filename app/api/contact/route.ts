@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 
+export const runtime = 'nodejs'
+
 const transporter = nodemailer.createTransport({
   host: 'smtppro.zoho.com',
   port: 465,
