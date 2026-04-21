@@ -271,7 +271,7 @@ export default async function HomePage() {
             lineHeight: 1.65,
             letterSpacing: '0.01em',
           }}>
-            &ldquo;Capture every detail of your vehicle in one place - creating a verified history that builds value, trust, and confidence.&rdquo;
+            &ldquo;Capture every mod, milestone, and memory in one place — your vehicle&apos;s full story, ready to share on your terms.&rdquo;
           </p>
 
           {/* Bottom red line */}
