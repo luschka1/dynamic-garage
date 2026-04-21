@@ -29,8 +29,7 @@ export default function ContactPage() {
         data = await res.json()
       } catch {
         const text = await res.text().catch(() => 'Unknown server error')
-        console.error('Contact form non-JSON response:', text)
-        setErrorMsg('Server error. Please try again.')
+        setErrorMsg(`[${res.status}] ${text.slice(0, 300)}`)
         setStatus('error')
         return
       }
