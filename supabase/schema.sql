@@ -15,9 +15,12 @@ create table if not exists public.corvettes (
   vin         text,
   mileage     int,
   photo_url   text,
-  is_public   boolean default false,
-  created_at  timestamptz default now(),
-  updated_at  timestamptz default now()
+  is_public    boolean default false,
+  in_gallery   boolean not null default false,
+  for_sale     boolean not null default false,
+  show_carfax  boolean not null default true,
+  created_at   timestamptz default now(),
+  updated_at   timestamptz default now()
 );
 
 alter table public.corvettes enable row level security;
@@ -43,6 +46,7 @@ create table if not exists public.mods (
   cost         numeric(10,2),
   install_date date,
   notes        text,
+  purchase_url text,
   created_at   timestamptz default now()
 );
 
@@ -117,6 +121,13 @@ alter table public.documents enable row level security;
 create policy "Users can manage own documents"
   on public.documents for all
   using (auth.uid() = user_id);
+
+-- ─────────────────────────────────────────
+-- ANON READ GRANTS (for public gallery / share pages)
+-- ─────────────────────────────────────────
+grant select on public.corvettes        to anon;
+grant select on public.mods             to anon;
+grant select on public.service_records  to anon;
 
 -- ─────────────────────────────────────────
 -- STORAGE BUCKET SETUP (run in Supabase dashboard or via CLI)
