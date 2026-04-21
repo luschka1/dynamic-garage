@@ -1,18 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import nodemailer from 'nodemailer'
 
 export const runtime = 'nodejs'
-
-const transporter = nodemailer.createTransport({
-  host: 'smtppro.zoho.com',
-  port: 587,
-  secure: false,
-  requireTLS: true,
-  auth: {
-    user: process.env.ZOHO_EMAIL,
-    pass: process.env.ZOHO_PASSWORD,
-  },
-})
 
 export async function POST(req: NextRequest) {
   try {
@@ -21,6 +9,19 @@ export async function POST(req: NextRequest) {
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
       return NextResponse.json({ error: 'Name, email, and message are required.' }, { status: 400 })
     }
+
+    const nodemailer = (await import('nodemailer')).default
+
+    const transporter = nodemailer.createTransport({
+      host: 'smtppro.zoho.com',
+      port: 587,
+      secure: false,
+      requireTLS: true,
+      auth: {
+        user: process.env.ZOHO_EMAIL,
+        pass: process.env.ZOHO_PASSWORD,
+      },
+    })
 
     await transporter.sendMail({
       from: `"Dynamic Garage" <${process.env.ZOHO_EMAIL}>`,
