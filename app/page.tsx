@@ -49,28 +49,9 @@ export default function HomePage() {
           <div>
             {/* Shield Logo */}
             <div style={{ marginBottom: '1.75rem' }}>
-              <div style={{ width: 90, height: 90, background: '#0d0d0d', borderRadius: 14, overflow: 'hidden', boxShadow: '0 6px 24px rgba(0,0,0,0.22)' }}>
+              <div style={{ width: 110, height: 110, background: '#0d0d0d', borderRadius: 16, overflow: 'hidden', boxShadow: '0 6px 24px rgba(0,0,0,0.22)' }}>
                 <img src="/logo.png" alt="Dynamic Garage" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
-            </div>
-
-            {/* Pill badge */}
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              background: 'var(--green-dim)',
-              border: '1px solid rgba(21,128,61,0.18)',
-              borderRadius: 100,
-              padding: '0.3rem 0.85rem 0.3rem 0.6rem',
-              marginBottom: '1.75rem',
-            }}>
-              <div style={{ width: 18, height: 18, borderRadius: '50%', background: 'var(--green)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                <Check size={11} color="#fff" strokeWidth={3} />
-              </div>
-              <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--green)', letterSpacing: '0.02em' }}>
-                Free during early access &middot; Any make &middot; Any model
-              </span>
             </div>
 
             {/* H1 */}
@@ -99,13 +80,32 @@ export default function HomePage() {
             </p>
 
             {/* CTAs */}
-            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '1.75rem' }}>
+            <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
               <Link href="/register" className="btn-primary" style={{ fontSize: '0.95rem', padding: '0.7rem 1.5rem', minHeight: 44 }}>
                 Get Started Free <ChevronRight size={16} />
               </Link>
               <Link href="/login" className="btn-secondary" style={{ fontSize: '0.95rem', padding: '0.7rem 1.5rem', minHeight: 44 }}>
                 Sign In
               </Link>
+            </div>
+
+            {/* Pill badge */}
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              background: 'var(--green-dim)',
+              border: '1px solid rgba(21,128,61,0.18)',
+              borderRadius: 100,
+              padding: '0.3rem 0.85rem 0.3rem 0.6rem',
+              marginBottom: '1.75rem',
+            }}>
+              <div style={{ width: 18, height: 18, borderRadius: '50%', background: 'var(--green)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <Check size={11} color="#fff" strokeWidth={3} />
+              </div>
+              <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--green)', letterSpacing: '0.02em' }}>
+                Free during early access &middot; Any make &middot; Any model
+              </span>
             </div>
 
             {/* Trust row */}
