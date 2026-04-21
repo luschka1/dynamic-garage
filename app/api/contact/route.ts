@@ -1,7 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { Resend } from 'resend'
+import nodemailer from 'nodemailer'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+const transporter = nodemailer.createTransport({
+  host: 'smtppro.zoho.com',
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.ZOHO_EMAIL,
+    pass: process.env.ZOHO_PASSWORD,
+  },
+})
 
 export async function POST(req: NextRequest) {
   try {
@@ -11,10 +19,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Name, email, and message are required.' }, { status: 400 })
     }
 
-    const { error } = await resend.emails.send({
-      from: 'Dynamic Garage <info@dynamicgarage.app>',
-      to: ['3339764@gmail.com'],
-      replyTo: email,
+    await transporter.sendMail({
+      from: `"Dynamic Garage" <${process.env.ZOHO_EMAIL}>`,
+      to: process.env.ZOHO_EMAIL,
+      replyTo: `"${name.trim()}" <${email.trim()}>`,
       subject: subject?.trim() ? `Contact: ${subject.trim()}` : `New message from ${name.trim()}`,
       html: `
         <div style="font-family: Inter, sans-serif; max-width: 600px; margin: 0 auto; color: #111;">
@@ -40,11 +48,6 @@ export async function POST(req: NextRequest) {
         </div>
       `,
     })
-
-    if (error) {
-      console.error('Resend error:', error)
-      return NextResponse.json({ error: 'Failed to send message. Please try again.' }, { status: 500 })
-    }
 
     return NextResponse.json({ success: true })
   } catch (err) {
