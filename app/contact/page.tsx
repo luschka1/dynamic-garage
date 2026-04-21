@@ -24,7 +24,16 @@ export default function ContactPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       })
-      const data = await res.json()
+      let data: { error?: string; success?: boolean } = {}
+      try {
+        data = await res.json()
+      } catch {
+        const text = await res.text().catch(() => 'Unknown server error')
+        console.error('Contact form non-JSON response:', text)
+        setErrorMsg('Server error. Please try again.')
+        setStatus('error')
+        return
+      }
       if (!res.ok) {
         setErrorMsg(data.error ?? 'Something went wrong.')
         setStatus('error')
@@ -32,8 +41,9 @@ export default function ContactPage() {
         setStatus('success')
         setForm({ name: '', email: '', subject: '', message: '' })
       }
-    } catch {
-      setErrorMsg('Network error. Please try again.')
+    } catch (err) {
+      console.error('Contact form error:', err)
+      setErrorMsg('Could not reach the server. Please try again.')
       setStatus('error')
     }
   }
