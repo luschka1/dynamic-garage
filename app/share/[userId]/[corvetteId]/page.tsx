@@ -61,7 +61,9 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
       {/* ── NAV ── */}
       <nav style={{ background: '#111', borderBottom: '1px solid #222', padding: '0 2rem', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 50 }}>
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-          <img src="/logo.png" alt="Dynamic Garage" style={{ height: 38, width: 38, objectFit: 'contain', borderRadius: 5, flexShrink: 0 }} />
+          <div style={{ width: 44, height: 44, background: '#0d0d0d', borderRadius: 7, overflow: 'hidden', flexShrink: 0 }}>
+            <img src="/logo.png" alt="Dynamic Garage" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
           <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 800, fontSize: '1rem', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
             <span style={{ color: 'var(--red)' }}>Dynamic</span><span style={{ color: '#888' }}> Garage</span>
           </span>

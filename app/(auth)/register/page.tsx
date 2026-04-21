@@ -48,7 +48,9 @@ export default function RegisterPage() {
 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1.5rem' }}>
         <Link href="/" style={{ marginBottom: '2.5rem', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <img src="/logo.png" alt="Dynamic Garage" style={{ height: 44, width: 44, objectFit: 'contain', borderRadius: 6, flexShrink: 0 }} />
+          <div style={{ width: 52, height: 52, background: '#0d0d0d', borderRadius: 10, overflow: 'hidden', flexShrink: 0 }}>
+            <img src="/logo.png" alt="Dynamic Garage" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
           <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 800, fontSize: '1.2rem', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
             <span style={{ color: 'var(--red)' }}>Dynamic</span><span style={{ color: 'var(--text-muted)' }}> Garage</span>
           </span>
