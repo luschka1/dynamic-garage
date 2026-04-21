@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
@@ -7,21 +8,17 @@ import type { Corvette } from '@/lib/types'
 
 export async function generateMetadata({ params }: { params: Promise<{ userId: string }> }): Promise<Metadata> {
   const { userId } = await params
-  const supabase = await createClient()
-  const { data: user } = await supabase.auth.admin ? { data: null } : { data: null }
-  const { data: cars } = await supabase
-    .from('corvettes')
-    .select('nickname')
-    .eq('user_id', userId)
-    .eq('is_public', true)
-    .limit(1)
-
-  if (!cars?.length) return {}
+  const admin = createAdminClient()
+  const { data: ownerData } = await admin.auth.admin.getUserById(userId)
+  const name = ownerData?.user?.user_metadata?.full_name?.split(' ')[0]
+    || ownerData?.user?.email?.split('@')[0]
+    || 'A'
+  const title = `${name}'s Garage — Dynamic Garage`
   return {
-    title: `Public Garage — Dynamic Garage`,
-    description: `Browse this car collection on Dynamic Garage.`,
-    openGraph: { title: `Public Garage — Dynamic Garage`, type: 'website' },
-    twitter: { card: 'summary_large_image' },
+    title,
+    description: `Browse ${name}'s car collection on Dynamic Garage.`,
+    openGraph: { title, type: 'website' },
+    twitter: { card: 'summary_large_image', title },
   }
 }
 
@@ -37,6 +34,13 @@ export default async function PublicGaragePage({ params }: { params: Promise<{ u
     .order('created_at', { ascending: false })
 
   if (!cars || cars.length === 0) notFound()
+
+  // Get owner's name
+  const admin = createAdminClient()
+  const { data: ownerData } = await admin.auth.admin.getUserById(userId)
+  const ownerName = ownerData?.user?.user_metadata?.full_name?.split(' ')[0]
+    || ownerData?.user?.email?.split('@')[0]
+    || 'This'
 
   // Get mod/service counts
   const ids = cars.map(c => c.id)
@@ -80,7 +84,7 @@ export default async function PublicGaragePage({ params }: { params: Promise<{ u
             lineHeight: 1,
             marginBottom: '0.5rem',
           }}>
-            The Garage
+            {ownerName}&apos;s Garage
           </h1>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
             <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
