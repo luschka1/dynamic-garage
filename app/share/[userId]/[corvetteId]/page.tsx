@@ -5,6 +5,7 @@ import { Car, Wrench, ClipboardList, DollarSign, Share2, ExternalLink, Paperclip
 import type { Corvette, Mod, ServiceRecord, VehiclePhoto, Document } from '@/lib/types'
 import PublicGallery from './PublicGallery'
 import SocialShare from './SocialShare'
+import ContactSellerForm from './ContactSellerForm'
 
 export default async function PublicSharePage({ params }: { params: Promise<{ userId: string; corvetteId: string }> }) {
   const { userId, corvetteId } = await params
@@ -150,6 +151,14 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
             )}
           </div>
         </div>
+
+        {/* ── CONTACT SELLER ── */}
+        {c.for_sale && (
+          <ContactSellerForm
+            corvetteId={c.id}
+            vehicleLabel={`${c.year} ${c.model} "${c.nickname}"`}
+          />
+        )}
 
         {/* ── VIN DECODER CTA ── */}
         {c.vin && c.show_vin_decoder && (
