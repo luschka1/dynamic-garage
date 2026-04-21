@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { notFound, redirect } from 'next/navigation'
+import Link from 'next/link'
 import { ArrowLeft, Wrench } from 'lucide-react'
 import type { Corvette, Mod } from '@/lib/types'
 import AddModForm from './AddModForm'

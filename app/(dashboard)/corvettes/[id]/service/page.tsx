@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { notFound, redirect } from 'next/navigation'
+import Link from 'next/link'
 import { ArrowLeft, ClipboardList } from 'lucide-react'
 import type { Corvette, ServiceRecord } from '@/lib/types'
 import AddServiceForm from './AddServiceForm'
