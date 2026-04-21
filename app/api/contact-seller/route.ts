@@ -1,12 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { isRateLimited, isValidEmail } from '@/lib/rateLimit'
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
+    if (isRateLimited(ip, 5, 60_000)) {
+      return NextResponse.json({ error: 'Too many requests. Please wait a minute.' }, { status: 429 })
+    }
+
     const { corvetteId, senderName, senderEmail, message } = await req.json()
 
     if (!corvetteId || !senderName?.trim() || !senderEmail?.trim() || !message?.trim()) {
       return NextResponse.json({ error: 'All fields are required.' }, { status: 400 })
+    }
+    if (!isValidEmail(senderEmail)) {
+      return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 })
+    }
+    if (message.length > 5000) {
+      return NextResponse.json({ error: 'Message is too long (max 5000 characters).' }, { status: 400 })
     }
 
     const admin = createAdminClient()

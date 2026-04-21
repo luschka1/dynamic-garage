@@ -1,11 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { isRateLimited, isValidEmail } from '@/lib/rateLimit'
 
 export async function POST(req: NextRequest) {
   try {
+    const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
+    if (isRateLimited(ip, 5, 60_000)) {
+      return NextResponse.json({ error: 'Too many requests. Please wait a minute.' }, { status: 429 })
+    }
+
     const { name, email, subject, message } = await req.json()
 
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
       return NextResponse.json({ error: 'Name, email, and message are required.' }, { status: 400 })
+    }
+    if (!isValidEmail(email)) {
+      return NextResponse.json({ error: 'Please enter a valid email address.' }, { status: 400 })
+    }
+    if (message.length > 5000) {
+      return NextResponse.json({ error: 'Message is too long (max 5000 characters).' }, { status: 400 })
+    }
+    if (name.length > 100) {
+      return NextResponse.json({ error: 'Name is too long.' }, { status: 400 })
     }
 
     const res = await fetch('https://api.zeptomail.ca/v1.1/email', {
@@ -49,7 +64,7 @@ export async function POST(req: NextRequest) {
 
     if (!res.ok) {
       console.error('ZeptoMail error:', JSON.stringify(data))
-      return NextResponse.json({ error: JSON.stringify(data) }, { status: 500 })
+      return NextResponse.json({ error: 'Failed to send message. Please try again.' }, { status: 500 })
     }
 
     return NextResponse.json({ success: true })
