@@ -5,6 +5,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Tag, Wrench, ClipboardList, Share2 } from 'lucide-react'
 import type { Corvette } from '@/lib/types'
+import GarageSocialShare from './SocialShare'
 
 export async function generateMetadata({ params }: { params: Promise<{ userId: string }> }): Promise<Metadata> {
   const { userId } = await params
@@ -102,6 +103,12 @@ export default async function PublicGaragePage({ params }: { params: Promise<{ u
             )}
           </div>
         </div>
+
+        {/* Social share */}
+        <GarageSocialShare
+          url={`https://dynamicgarage.app/garage/${userId}`}
+          ownerName={ownerName}
+        />
 
         {/* Grid */}
         <div style={{
