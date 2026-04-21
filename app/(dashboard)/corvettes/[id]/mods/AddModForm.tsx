@@ -22,7 +22,7 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [form, setForm] = useState({
-    name: '', category: '', vendor: '', cost: '', install_date: '', notes: '',
+    name: '', category: '', vendor: '', cost: '', install_date: '', purchase_url: '', notes: '',
   })
 
   // Document attachment state
@@ -49,7 +49,7 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
   }
 
   function reset() {
-    setForm({ name: '', category: '', vendor: '', cost: '', install_date: '', notes: '' })
+    setForm({ name: '', category: '', vendor: '', cost: '', install_date: '', purchase_url: '', notes: '' })
     clearFile()
     setOpen(false)
     setError('')
@@ -74,6 +74,7 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
         vendor: form.vendor || null,
         cost: form.cost ? Number(form.cost) : null,
         install_date: form.install_date || null,
+        purchase_url: form.purchase_url || null,
         notes: form.notes || null,
       })
       .select()
@@ -168,6 +169,12 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
                 <label className="label">Install Date</label>
                 <input className="input-field" type="date" value={form.install_date} onChange={e => set('install_date', e.target.value)} />
               </div>
+            </div>
+
+            {/* Purchase URL */}
+            <div>
+              <label className="label">Purchase URL</label>
+              <input className="input-field" type="url" placeholder="https://www.amazon.com/…" value={form.purchase_url} onChange={e => set('purchase_url', e.target.value)} />
             </div>
 
             {/* Notes */}

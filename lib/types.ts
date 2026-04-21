@@ -25,6 +25,7 @@ export interface Mod {
   vendor?: string
   cost?: number
   install_date?: string
+  purchase_url?: string
   notes?: string
   created_at: string
 }

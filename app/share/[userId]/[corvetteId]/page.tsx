@@ -258,9 +258,22 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
 
                   {/* Notes */}
                   {mod.notes && (
-                    <div style={{ paddingTop: mod.vendor || mod.install_date ? 0 : '0.75rem', borderTop: mod.vendor || mod.install_date ? 'none' : '1px solid var(--border-subtle)', marginBottom: modDocs[mod.id] ? '0.75rem' : 0 }}>
+                    <div style={{ paddingTop: mod.vendor || mod.install_date ? 0 : '0.75rem', borderTop: mod.vendor || mod.install_date ? 'none' : '1px solid var(--border-subtle)', marginBottom: (mod.purchase_url || modDocs[mod.id]) ? '0.75rem' : 0 }}>
                       <div style={{ fontSize: '0.62rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>Notes</div>
                       <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.6, margin: 0 }}>{mod.notes}</p>
+                    </div>
+                  )}
+
+                  {/* Where to Buy */}
+                  {mod.purchase_url && (
+                    <div style={{ paddingTop: '0.75rem', borderTop: '1px solid var(--border-subtle)', marginBottom: modDocs[mod.id] ? '0.75rem' : 0 }}>
+                      <div style={{ fontSize: '0.62rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.3rem' }}>Where to Buy</div>
+                      <a href={mod.purchase_url} target="_blank" rel="noopener noreferrer"
+                        style={{ fontSize: '0.88rem', color: 'var(--red)', fontWeight: 600, wordBreak: 'break-all', textDecoration: 'none' }}
+                        className="purchase-link"
+                      >
+                        {mod.purchase_url}
+                      </a>
                     </div>
                   )}
 
@@ -493,6 +506,7 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
         .carfax-btn:hover { opacity: 0.88; box-shadow: 0 4px 14px rgba(0,48,135,0.45) !important; }
         .receipt-link:hover { color: var(--text-primary) !important; border-color: var(--border-default) !important; }
         .doc-open-btn:hover { color: var(--text-primary) !important; border-color: var(--border-strong) !important; }
+        .purchase-link:hover { opacity: 0.75; }
       `}</style>
     </div>
   )

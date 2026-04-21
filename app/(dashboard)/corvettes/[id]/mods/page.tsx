@@ -154,6 +154,21 @@ export default async function ModsPage({ params }: { params: Promise<{ id: strin
                   </div>
                 )}
 
+                {/* ── Row 4: purchase URL ── */}
+                {mod.purchase_url && (
+                  <div style={{ paddingTop: '0.75rem', borderTop: '1px solid var(--border-subtle)' }}>
+                    <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.3rem' }}>
+                      Where to Buy
+                    </div>
+                    <a href={mod.purchase_url} target="_blank" rel="noopener noreferrer"
+                      style={{ fontSize: '0.88rem', color: 'var(--red)', fontWeight: 600, wordBreak: 'break-all', textDecoration: 'none' }}
+                      className="purchase-link"
+                    >
+                      {mod.purchase_url}
+                    </a>
+                  </div>
+                )}
+
                 {/* ── Row 4: receipt link ── */}
                 <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '0.75rem', marginTop: '0.25rem', borderTop: '1px solid var(--border-subtle)' }}>
                   <Link
