@@ -294,7 +294,7 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
                   {/* Shared receipts */}
                   {modDocs[mod.id] && modDocs[mod.id].length > 0 && (
                     <div style={{ paddingTop: '0.75rem', borderTop: '1px solid var(--border-subtle)', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                      <span style={{ fontSize: '0.62rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', alignSelf: 'center', marginRight: '0.25rem' }}>Receipts</span>
+                      <span style={{ fontSize: '0.62rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', alignSelf: 'center', marginRight: '0.25rem' }}>Receipt/Photo/File</span>
                       {modDocs[mod.id].map(doc => (
                         <a key={doc.id} href={docUrlMap[doc.id] || '#'} target="_blank" rel="noopener noreferrer"
                           style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-secondary)', background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)', borderRadius: 4, padding: '0.3rem 0.65rem', textDecoration: 'none', transition: 'color 150ms' }}
@@ -378,7 +378,7 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
                   {/* Shared receipts */}
                   {svcDocs[rec.id] && svcDocs[rec.id].length > 0 && (
                     <div style={{ paddingTop: '0.75rem', borderTop: '1px solid var(--border-subtle)', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                      <span style={{ fontSize: '0.62rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', alignSelf: 'center', marginRight: '0.25rem' }}>Receipts</span>
+                      <span style={{ fontSize: '0.62rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', alignSelf: 'center', marginRight: '0.25rem' }}>Receipt/Photo/File</span>
                       {svcDocs[rec.id].map(doc => (
                         <a key={doc.id} href={docUrlMap[doc.id] || '#'} target="_blank" rel="noopener noreferrer"
                           style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-secondary)', background: 'var(--bg-elevated)', border: '1px solid var(--border-subtle)', borderRadius: 4, padding: '0.3rem 0.65rem', textDecoration: 'none', transition: 'color 150ms' }}
