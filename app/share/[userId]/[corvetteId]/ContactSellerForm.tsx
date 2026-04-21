@@ -38,7 +38,7 @@ export default function ContactSellerForm({ corvetteId, vehicleLabel }: { corvet
   }
 
   return (
-    <div style={{ marginTop: '1rem' }}>
+    <div style={{ marginBottom: '1.5rem' }}>
       {/* Toggle button */}
       {!open && (
         <button

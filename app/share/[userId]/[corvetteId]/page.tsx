@@ -156,7 +156,7 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
         {c.for_sale && (
           <ContactSellerForm
             corvetteId={c.id}
-            vehicleLabel={`${c.year} ${c.model} "${c.nickname}"`}
+            vehicleLabel={`${c.year} ${c.model} — ${c.nickname}`}
           />
         )}
 
