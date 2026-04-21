@@ -36,8 +36,8 @@ export default function ForgotPasswordPage() {
           <div style={{ width: 72, height: 72, background: '#0d0d0d', borderRadius: 12, overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.2)' }}>
             <img src="/logo.png" alt="Dynamic Garage" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
-          <span style={{ fontFamily: "'Exo 2', sans-serif", fontWeight: 800, fontStyle: 'italic', fontSize: '1.3rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-            <span style={{ color: 'var(--red)' }}>Dynamic</span><span style={{ color: 'var(--text-muted)' }}> Garage</span>
+          <span style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 900, fontSize: '1.3rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+            <span style={{ color: '#a8a8a8' }}>Dynamic</span><span style={{ color: 'var(--red)' }}> Garage</span>
           </span>
         </Link>
 

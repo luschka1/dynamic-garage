@@ -45,9 +45,9 @@ export default function PrintView({ car, mods, service, docs }: Props) {
         .pdf-header { display: flex; align-items: center; justify-content: space-between; padding-bottom: 1rem; border-bottom: 3px solid #cc1f1f; margin-bottom: 1.5rem; }
         .pdf-brand { display: flex; align-items: center; gap: 0.6rem; }
         .pdf-brand img { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; }
-        .pdf-brand-text { font-family: 'Exo 2', sans-serif; font-weight: 800; font-style: italic; font-size: 1.2rem; letter-spacing: 0.04em; text-transform: uppercase; }
+        .pdf-brand-text { font-family: 'Roboto', sans-serif; font-weight: 900; font-size: 1.2rem; letter-spacing: 0.04em; text-transform: uppercase; }
+        .pdf-brand-text .silver { color: #a8a8a8; }
         .pdf-brand-text .red { color: #cc1f1f; }
-        .pdf-brand-text .gray { color: #888; }
         .pdf-meta { text-align: right; font-size: 9pt; color: #888; }
 
         /* ── Car title ── */
@@ -144,7 +144,7 @@ export default function PrintView({ car, mods, service, docs }: Props) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo.png" alt="Dynamic Garage" />
             <div className="pdf-brand-text">
-              <span className="red">Dynamic</span><span className="gray"> Garage</span>
+              <span className="silver">Dynamic</span><span className="red"> Garage</span>
             </div>
           </div>
           <div className="pdf-meta">
