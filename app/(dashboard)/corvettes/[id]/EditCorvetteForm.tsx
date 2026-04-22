@@ -1,10 +1,12 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Save, Trash2, Upload, ImageIcon } from 'lucide-react'
 import type { Corvette } from '@/lib/types'
+
+const MI_TO_KM = 1.60934
 
 const MAKES = [
   'Acura','Alfa Romeo','Aston Martin','Audi','Bentley','BMW','Buick','Cadillac',
@@ -49,6 +51,32 @@ export default function EditCarForm({ car }: { car: Corvette }) {
     photo_url: car.photo_url || '',
   })
 
+  const [mileageUnit, setMileageUnit] = useState<'mi' | 'km'>('mi')
+
+  useEffect(() => {
+    const stored = localStorage.getItem('mileage_unit') as 'mi' | 'km' | null
+    if (stored) {
+      setMileageUnit(stored)
+      // Show existing mileage (stored in miles) in the user's preferred unit
+      if (stored === 'km' && car.mileage) {
+        setForm(f => ({ ...f, mileage: Math.round(car.mileage! * MI_TO_KM).toString() }))
+      }
+    }
+  }, [car.mileage])
+
+  function toggleUnit() {
+    const next: 'mi' | 'km' = mileageUnit === 'mi' ? 'km' : 'mi'
+    setMileageUnit(next)
+    localStorage.setItem('mileage_unit', next)
+    window.dispatchEvent(new Event('mileage-unit-change'))
+    // Convert the current input value to the new unit
+    if (form.mileage) {
+      const val = Number(form.mileage)
+      const converted = next === 'km' ? Math.round(val * MI_TO_KM) : Math.round(val / MI_TO_KM)
+      setForm(f => ({ ...f, mileage: converted.toString() }))
+    }
+  }
+
   function set(key: string, value: string | number | boolean) {
     setForm(f => ({ ...f, [key]: value }))
     setSuccess(false)
@@ -80,7 +108,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
       trim: form.trim || null,
       color: form.color || null,
       vin: form.vin || null,
-      mileage: form.mileage ? Number(form.mileage) : null,
+      mileage: form.mileage ? Math.round(mileageUnit === 'km' ? Number(form.mileage) / MI_TO_KM : Number(form.mileage)) : null,
       is_public: form.is_public,
       in_gallery: form.in_gallery,
       for_sale: form.for_sale,
@@ -171,7 +199,14 @@ export default function EditCarForm({ car }: { car: Corvette }) {
             <input className="input-field" type="text" value={form.color} onChange={e => set('color', e.target.value)} />
           </div>
           <div>
-            <label className="label">Mileage</label>
+            <label className="label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              Mileage
+              <button type="button" onClick={toggleUnit} style={{ display: 'inline-flex', alignItems: 'center', gap: 2, background: 'var(--bg-elevated)', border: '1px solid var(--border-default)', borderRadius: 5, padding: '2px 6px', cursor: 'pointer', fontSize: '0.68rem', fontWeight: 800, letterSpacing: '0.06em', lineHeight: 1 }}>
+                <span style={{ color: mileageUnit === 'mi' ? 'var(--red)' : 'var(--text-muted)' }}>MI</span>
+                <span style={{ color: 'var(--border-strong)', margin: '0 1px' }}>/</span>
+                <span style={{ color: mileageUnit === 'km' ? 'var(--red)' : 'var(--text-muted)' }}>KM</span>
+              </button>
+            </label>
             <input className="input-field" type="number" min={0} value={form.mileage} onChange={e => set('mileage', e.target.value)} />
           </div>
         </div>

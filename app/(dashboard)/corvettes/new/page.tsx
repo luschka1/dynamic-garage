@@ -1,10 +1,12 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { ArrowLeft, ChevronRight } from 'lucide-react'
+
+const MI_TO_KM = 1.60934
 
 const MAKES = [
   'Acura','Alfa Romeo','Aston Martin','Audi','Bentley','BMW','Buick','Cadillac',
@@ -20,6 +22,19 @@ export default function NewCarPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [form, setForm] = useState({ nickname: '', year: new Date().getFullYear(), make: '', model: '', trim: '', color: '', vin: '', mileage: '', is_public: false, in_gallery: false, for_sale: false })
+  const [mileageUnit, setMileageUnit] = useState<'mi' | 'km'>('mi')
+
+  useEffect(() => {
+    const stored = localStorage.getItem('mileage_unit') as 'mi' | 'km' | null
+    if (stored) setMileageUnit(stored)
+  }, [])
+
+  function toggleUnit() {
+    const next: 'mi' | 'km' = mileageUnit === 'mi' ? 'km' : 'mi'
+    setMileageUnit(next)
+    localStorage.setItem('mileage_unit', next)
+    window.dispatchEvent(new Event('mileage-unit-change'))
+  }
 
   function set(key: string, value: string | number | boolean) { setForm(f => ({ ...f, [key]: value })) }
 
@@ -39,7 +54,7 @@ export default function NewCarPage() {
       trim: form.trim || null,
       color: form.color || null,
       vin: form.vin || null,
-      mileage: form.mileage ? Number(form.mileage) : null,
+      mileage: form.mileage ? Math.round(mileageUnit === 'km' ? Number(form.mileage) / MI_TO_KM : Number(form.mileage)) : null,
       is_public: form.is_public,
       in_gallery: form.in_gallery,
       for_sale: form.for_sale,
@@ -111,8 +126,15 @@ export default function NewCarPage() {
                   <input className="input-field" type="text" placeholder="e.g. Oxford White" value={form.color} onChange={e => set('color', e.target.value)} />
                 </div>
                 <div>
-                  <label className="label">Current Mileage</label>
-                  <input className="input-field" type="number" min={0} placeholder="e.g. 12500" value={form.mileage} onChange={e => set('mileage', e.target.value)} />
+                  <label className="label" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    Current Mileage
+                    <button type="button" onClick={toggleUnit} style={{ display: 'inline-flex', alignItems: 'center', gap: 2, background: 'var(--bg-elevated)', border: '1px solid var(--border-default)', borderRadius: 5, padding: '2px 6px', cursor: 'pointer', fontSize: '0.68rem', fontWeight: 800, letterSpacing: '0.06em', lineHeight: 1 }}>
+                      <span style={{ color: mileageUnit === 'mi' ? 'var(--red)' : 'var(--text-muted)' }}>MI</span>
+                      <span style={{ color: 'var(--border-strong)', margin: '0 1px' }}>/</span>
+                      <span style={{ color: mileageUnit === 'km' ? 'var(--red)' : 'var(--text-muted)' }}>KM</span>
+                    </button>
+                  </label>
+                  <input className="input-field" type="number" min={0} placeholder={mileageUnit === 'km' ? 'e.g. 20000' : 'e.g. 12500'} value={form.mileage} onChange={e => set('mileage', e.target.value)} />
                 </div>
               </div>
               <div>
