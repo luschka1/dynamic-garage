@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { LayoutGrid } from 'lucide-react'
 import Link from 'next/link'
@@ -5,6 +6,12 @@ import type { Corvette } from '@/lib/types'
 import GalleryClient from './GalleryClient'
 import PublicNav from '@/components/layout/PublicNav'
 import PublicFooter from '@/components/layout/PublicFooter'
+
+export const metadata: Metadata = {
+  title: 'Build Gallery',
+  description: 'Browse real builds from the Dynamic Garage community — mods, photos, and full service history for every vehicle.',
+  alternates: { canonical: 'https://dynamicgarage.app/gallery' },
+}
 
 export type GalleryCar = Corvette & { modCount: number; serviceCount: number }
 

@@ -1,5 +1,12 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ChevronRight, Check, Shield } from 'lucide-react'
+
+export const metadata: Metadata = {
+  title: 'Dynamic Garage — Build It. Track It. Share It.',
+  description: 'Track every mod, service record, photo, and document for any vehicle. Share a public build page at car shows, on forums, or when selling. Free during early access.',
+  alternates: { canonical: 'https://dynamicgarage.app' },
+}
 import FeatureShowcase from './FeatureShowcase'
 import HeroCarousel from './HeroCarousel'
 import PublicFooter from '@/components/layout/PublicFooter'

@@ -24,12 +24,21 @@ export async function generateMetadata({ params }: { params: Promise<{ userId: s
   if (!car) return {}
 
   const title = `${car.nickname} — ${car.year} ${car.model}${car.for_sale ? ' · For Sale' : ''}`
-  const description = `Check out this ${car.year} ${car.model} build on Dynamic Garage.${car.for_sale ? ' Currently for sale.' : ''}`
+  const description = `${car.year} ${car.model}${car.trim ? ` ${car.trim}` : ''}${car.color ? ` in ${car.color}` : ''} — full build sheet with mods, service history, and photos on Dynamic Garage.${car.for_sale ? ' Currently for sale.' : ''}`
+  const url = `https://dynamicgarage.app/share/${userId}/${corvetteId}`
 
   return {
     title,
     description,
-    openGraph: { title, description, type: 'website' },
+    alternates: { canonical: url },
+    openGraph: {
+      title,
+      description,
+      url,
+      type: 'website',
+      siteName: 'Dynamic Garage',
+      ...(car.photo_url ? { images: [{ url: car.photo_url, width: 1200, height: 630, alt: title }] } : {}),
+    },
     twitter: { card: 'summary_large_image', title, description },
   }
 }
@@ -83,8 +92,23 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
   const c = car as Corvette
   const totalModCost = (mods || []).reduce((s, m) => s + (m.cost || 0), 0)
 
+  // JSON-LD structured data for Google
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Car',
+    name: `${car.year} ${car.model} — ${car.nickname}`,
+    vehicleModelDate: String(car.year),
+    ...(car.color ? { color: car.color } : {}),
+    ...(car.vin ? { vehicleIdentificationNumber: car.vin } : {}),
+    ...(car.mileage ? { mileageFromOdometer: { '@type': 'QuantitativeValue', value: car.mileage, unitCode: 'SMI' } } : {}),
+    url: `https://dynamicgarage.app/share/${userId}/${corvetteId}`,
+    ...(car.photo_url ? { image: car.photo_url } : {}),
+    offers: car.for_sale ? { '@type': 'Offer', availability: 'https://schema.org/InStock', priceCurrency: 'USD' } : undefined,
+  }
+
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--text-primary)' }}>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       {/* ── NAV ── */}
       <PublicNav badge={<><Share2 size={12} /> Public Build</>} />
