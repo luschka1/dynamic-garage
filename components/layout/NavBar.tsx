@@ -143,6 +143,10 @@ export default function NavBar({ user }: { user: User }) {
             <LayoutGrid size={16} /> Gallery
           </Link>
           <hr style={{ border: 'none', borderTop: '1px solid var(--border-subtle)' }} />
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.5rem 0.75rem' }}>
+            <span style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-secondary)' }}>Theme</span>
+            <ThemeToggle />
+          </div>
           <button onClick={signOut} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: 'none', border: 'none', color: 'var(--text-secondary)', fontWeight: 600, fontSize: '1rem', padding: '0.75rem', cursor: 'pointer', textAlign: 'left' }}>
             <LogOut size={16} /> Sign Out
           </button>
