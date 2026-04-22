@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Tag, Wrench, ClipboardList, Share2 } from 'lucide-react'
 import type { Corvette } from '@/lib/types'
 import GarageSocialShare from './SocialShare'
+import PublicNav from '@/components/layout/PublicNav'
 
 export async function generateMetadata({ params }: { params: Promise<{ userId: string }> }): Promise<Metadata> {
   const { userId } = await params
@@ -61,16 +62,7 @@ export default async function PublicGaragePage({ params }: { params: Promise<{ u
     <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--text-primary)' }}>
 
       {/* Nav */}
-      <nav style={{ background: '#111', borderBottom: '1px solid #222', padding: '0 2rem', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 50 }}>
-        <Link href="/" style={{ textDecoration: 'none' }}>
-          <span style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 900, fontSize: '1.15rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-            <span style={{ color: '#a8a8a8' }}>Dynamic</span><span style={{ color: '#cc1f1f' }}> Garage</span>
-          </span>
-        </Link>
-        <span style={{ fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#888', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-          <Share2 size={12} /> Public Garage
-        </span>
-      </nav>
+      <PublicNav badge={<><Share2 size={12} /> Public Garage</>} />
 
       <div style={{ maxWidth: 960, margin: '0 auto', padding: '2.5rem 1.5rem' }}>
 

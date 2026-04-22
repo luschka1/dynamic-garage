@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Car, Wrench, ClipboardList, DollarSign, Share2, ExternalLink, Paperclip, Gauge, FileText, File, Image as ImageIcon, Tag } from 'lucide-react'
+import PublicNav from '@/components/layout/PublicNav'
 import type { Corvette, Mod, ServiceRecord, VehiclePhoto, Document } from '@/lib/types'
 import PublicGallery from './PublicGallery'
 import SocialShare from './SocialShare'
@@ -85,18 +86,7 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
     <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--text-primary)' }}>
 
       {/* ── NAV ── */}
-      <nav style={{ background: '#111', borderBottom: '1px solid #222', padding: '0 2rem', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 50 }}>
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-          <span style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 900, fontSize: '1.15rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-            <span style={{ color: '#a8a8a8' }}>Dynamic</span><span style={{ color: 'var(--red)' }}> Garage</span>
-          </span>
-        </Link>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <span style={{ fontSize: '0.75rem', fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#888', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-            <Share2 size={12} /> Public Build
-          </span>
-        </div>
-      </nav>
+      <PublicNav badge={<><Share2 size={12} /> Public Build</>} />
 
       <div style={{ maxWidth: 900, margin: '0 auto', padding: '2.5rem 1.5rem' }}>
 

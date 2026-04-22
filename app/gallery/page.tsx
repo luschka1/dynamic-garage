@@ -1,9 +1,9 @@
 import { createClient } from '@/lib/supabase/server'
 import { LayoutGrid } from 'lucide-react'
 import Link from 'next/link'
-import ThemeToggle from '@/components/ThemeToggle'
 import type { Corvette } from '@/lib/types'
 import GalleryClient from './GalleryClient'
+import PublicNav from '@/components/layout/PublicNav'
 
 export type GalleryCar = Corvette & { modCount: number; serviceCount: number }
 
@@ -41,41 +41,7 @@ export default async function GalleryPage() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--text-primary)' }}>
 
-      {/* ── NAV ── */}
-      <nav style={{
-        background: 'var(--bg-elevated)',
-        borderBottom: '1px solid var(--border-subtle)',
-        position: 'sticky',
-        top: 0,
-        zIndex: 50,
-        height: 64,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 2rem',
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-            <span style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 900, fontSize: '1.25rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-              <span style={{ color: '#a8a8a8' }}>Dynamic</span><span style={{ color: 'var(--red)' }}> Garage</span>
-            </span>
-          </Link>
-          <span style={{ width: 1, height: 20, background: 'var(--border-default)', display: 'inline-block' }} />
-          <span style={{ fontFamily: "'Barlow Condensed'", fontSize: '0.85rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-            <LayoutGrid size={14} /> Gallery
-          </span>
-        </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Link href="/login" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}
-            className="v3-nav-link">
-            Sign In
-          </Link>
-          <ThemeToggle />
-          <Link href="/register" className="btn-primary" style={{ fontSize: '0.875rem', padding: '0.5rem 1.25rem', minHeight: 36, letterSpacing: '0.04em' }}>
-            Get Started
-          </Link>
-        </div>
-      </nav>
+      <PublicNav badge={<><LayoutGrid size={12} /> Gallery</>} />
 
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '2.5rem 1.5rem' }}>
 
