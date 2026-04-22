@@ -38,11 +38,11 @@ export default function HeroCarousel() {
       border: '1px solid var(--border-subtle)',
       boxShadow: 'var(--shadow-card)',
       overflow: 'hidden',
-      background: '#0d0d0d',
+      background: '#ffffff',
       userSelect: 'none',
     }}>
       {/* Slide area */}
-      <div style={{ position: 'relative', width: '100%', aspectRatio: '3 / 2', overflow: 'hidden', background: '#0d0d0d' }}>
+      <div style={{ position: 'relative', width: '100%', aspectRatio: '3 / 2', overflow: 'hidden', background: '#ffffff' }}>
         {SLIDES.map((slide, i) => (
           <img
             key={slide.src}
