@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { ChevronRight, Check, Shield, LayoutGrid } from 'lucide-react'
 import FeatureShowcase from './FeatureShowcase'
 import ThemeToggle from '@/components/ThemeToggle'
+import MobileNav from './MobileNav'
 import { createClient } from '@/lib/supabase/server'
 
 export default async function HomePage() {
@@ -30,16 +31,17 @@ export default async function HomePage() {
           </span>
         </Link>
 
-        {/* Right: gallery + sign in + toggle + cta */}
+        {/* Right nav */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Link href="/gallery" className="v3-nav-link hp-nav-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
+          {/* Desktop links — hidden on mobile */}
+          <Link href="/gallery" className="v3-nav-link hp-nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
             <LayoutGrid size={14} /> Gallery
           </Link>
-          <Link href="/contact" className="v3-nav-link hp-nav-secondary" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
+          <Link href="/contact" className="v3-nav-link hp-nav-desktop" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
             Contact
           </Link>
           {!user && (
-            <Link href="/login" className="v3-nav-link hp-nav-secondary" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
+            <Link href="/login" className="v3-nav-link hp-nav-desktop" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
               Sign In
             </Link>
           )}
@@ -53,6 +55,10 @@ export default async function HomePage() {
               Get Started
             </Link>
           )}
+          {/* Hamburger — mobile only */}
+          <div className="hp-nav-mobile">
+            <MobileNav isLoggedIn={!!user} />
+          </div>
         </div>
       </nav>
 
@@ -342,8 +348,10 @@ export default async function HomePage() {
         }
         .hero-logo { width: 110px; height: 110px; }
 
+        .hp-nav-mobile { display: none; }
         @media (max-width: 640px) {
-          .hp-nav-secondary { display: none !important; }
+          .hp-nav-desktop { display: none !important; }
+          .hp-nav-mobile { display: block; }
           .hero-logo { width: 72px !important; height: 72px !important; border-radius: 12px !important; }
           .hp-cta-btn { width: 100%; justify-content: center; font-size: 1rem !important; padding: 0.85rem 1.25rem !important; }
         }
