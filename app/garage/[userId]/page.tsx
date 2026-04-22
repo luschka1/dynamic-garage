@@ -60,12 +60,12 @@ export default async function PublicGaragePage({ params }: { params: Promise<{ u
   const forSaleCount = cars.filter(c => c.for_sale).length
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--text-primary)' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--text-primary)', display: 'flex', flexDirection: 'column' }}>
 
       {/* Nav */}
       <PublicNav badge={<><Share2 size={12} /> Public Garage</>} />
 
-      <div style={{ maxWidth: 960, margin: '0 auto', padding: '2.5rem 1.5rem' }}>
+      <div style={{ maxWidth: 960, margin: '0 auto', padding: '2.5rem 1.5rem', flex: 1, width: '100%' }}>
 
         {/* Header */}
         <div style={{ marginBottom: '2.5rem' }}>
