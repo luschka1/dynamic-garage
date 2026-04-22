@@ -22,14 +22,14 @@ export default async function DashboardPage() {
       {/* Header */}
       <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '2.5rem' }}>
         <div>
-          <p className="page-eyebrow">Welcome back</p>
+          <p className="page-eyebrow">{cars && cars.length > 0 ? 'Welcome back' : 'Welcome'}</p>
           <h1 style={{ fontFamily: "'Barlow Condensed'", fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 900, lineHeight: 1, letterSpacing: '0.01em' }}>
             {name.toUpperCase()}&apos;S GARAGE
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', marginTop: '0.4rem' }}>
             {cars && cars.length > 0
               ? `${cars.length} vehicle${cars.length > 1 ? 's' : ''} in your garage`
-              : 'Your garage is empty — add your first car'}
+              : 'Your garage is empty — add your first vehicle'}
           </p>
         </div>
         <Link href="/corvettes/new" className="btn-primary">
@@ -84,26 +84,71 @@ export default async function DashboardPage() {
         </div>
       )}
 
-      {/* Empty state */}
+      {/* First-run empty state */}
       {(!cars || cars.length === 0) && (
-        <div style={{
-          border: '1px dashed var(--border-default)',
-          borderRadius: 12,
-          padding: '5rem 2rem',
-          textAlign: 'center',
-        }}>
-          <div style={{ width: 64, height: 64, background: 'var(--bg-card)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
-            <Car size={32} color="var(--text-muted)" />
+        <div>
+          {/* Hero card */}
+          <div style={{
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
+            borderRadius: 16,
+            padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1.5rem, 4vw, 3rem)',
+            textAlign: 'center',
+            boxShadow: 'var(--shadow-card)',
+            marginBottom: '1.5rem',
+            position: 'relative',
+            overflow: 'hidden',
+          }}>
+            {/* Background accent */}
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: 'linear-gradient(90deg, var(--red) 0%, transparent 70%)' }} />
+
+            <div style={{ width: 72, height: 72, background: 'var(--red-dim)', border: '1px solid var(--red-glow)', borderRadius: 16, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.75rem' }}>
+              <Car size={36} color="var(--red)" strokeWidth={1.5} />
+            </div>
+
+            <h2 style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: 'clamp(1.8rem, 4vw, 2.5rem)', fontWeight: 900, letterSpacing: '0.03em', textTransform: 'uppercase', color: 'var(--text-primary)', marginBottom: '0.6rem', lineHeight: 1 }}>
+              Build Your First Garage
+            </h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.65, maxWidth: 480, margin: '0 auto 2.5rem' }}>
+              Add your vehicle and start tracking mods, service history, photos, and documents — all in one place.
+            </p>
+
+            {/* 3-step feature tiles */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', maxWidth: 560, margin: '0 auto 2.5rem' }} className="onboard-tiles">
+              {[
+                { icon: <Wrench size={22} />, color: 'var(--red)', label: 'Log Mods', desc: 'Every part, upgrade, and tune — dated and priced.' },
+                { icon: <ClipboardList size={22} />, color: '#2563eb', label: 'Track Service', desc: 'Oil changes, inspections, repairs — full history.' },
+                { icon: <Share2 size={22} />, color: '#16a34a', label: 'Share Your Build', desc: 'One link for car shows, forums, or listings.' },
+              ].map(({ icon, color, label, desc }) => (
+                <div key={label} style={{
+                  background: 'var(--bg-base)',
+                  border: '1px solid var(--border-subtle)',
+                  borderRadius: 10,
+                  padding: '1.25rem 1rem',
+                  textAlign: 'center',
+                }}>
+                  <div style={{ color, marginBottom: '0.6rem' }}>{icon}</div>
+                  <div style={{ fontSize: '0.82rem', fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--text-primary)', marginBottom: '0.35rem' }}>{label}</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>{desc}</div>
+                </div>
+              ))}
+            </div>
+
+            <Link href="/corvettes/new" className="btn-primary" style={{ fontSize: '1rem', padding: '0.85rem 2rem' }}>
+              <Plus size={18} /> Add Your First Vehicle
+            </Link>
           </div>
-          <h2 style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.75rem', fontWeight: 800, letterSpacing: '0.04em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-            No Vehicles Yet
-          </h2>
-          <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem', fontSize: '1rem' }}>
-            Add your first car to start tracking mods, photos and service history.
+
+          {/* Subtle tip */}
+          <p style={{ textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+            Works for any make and model — Corvette, Mustang, BMW, trucks, anything.
           </p>
-          <Link href="/corvettes/new" className="btn-primary">
-            <Plus size={18} /> Add My First Car
-          </Link>
+
+          <style>{`
+            @media (max-width: 480px) {
+              .onboard-tiles { grid-template-columns: 1fr !important; }
+            }
+          `}</style>
         </div>
       )}
 
