@@ -32,14 +32,14 @@ export default async function HomePage() {
 
         {/* Right: gallery + sign in + toggle + cta */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <Link href="/gallery" className="v3-nav-link" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
+          <Link href="/gallery" className="v3-nav-link hp-nav-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
             <LayoutGrid size={14} /> Gallery
           </Link>
-          <Link href="/contact" className="v3-nav-link" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
+          <Link href="/contact" className="v3-nav-link hp-nav-secondary" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
             Contact
           </Link>
           {!user && (
-            <Link href="/login" className="v3-nav-link" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
+            <Link href="/login" className="v3-nav-link hp-nav-secondary" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
               Sign In
             </Link>
           )}
@@ -57,14 +57,14 @@ export default async function HomePage() {
       </nav>
 
       {/* ── HERO ── */}
-      <section style={{ padding: '6rem 2rem', background: 'var(--bg-base)' }}>
+      <section style={{ padding: 'clamp(3rem, 8vw, 6rem) 1.5rem', background: 'var(--bg-base)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: '55% 45%', gap: '4rem', alignItems: 'center' }} className="hero-grid">
 
           {/* Left column */}
           <div>
             {/* Shield Logo */}
-            <div style={{ marginBottom: '1.75rem' }}>
-              <div style={{ width: 110, height: 110, background: '#0d0d0d', borderRadius: 16, overflow: 'hidden', boxShadow: '0 6px 24px rgba(0,0,0,0.22)' }}>
+            <div style={{ marginBottom: '1.5rem' }}>
+              <div className="hero-logo" style={{ background: '#0d0d0d', borderRadius: 16, overflow: 'hidden', boxShadow: '0 6px 24px rgba(0,0,0,0.22)' }}>
                 <img src="/logo.png" alt="Dynamic Garage" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
             </div>
@@ -297,7 +297,7 @@ export default async function HomePage() {
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', marginBottom: '2.25rem' }}>
             Free during early access — no credit card required.
           </p>
-          <Link href="/register" className="btn-primary" style={{ fontSize: '1.1rem', padding: '0.85rem 2.5rem', minHeight: 52 }}>
+          <Link href="/register" className="btn-primary hp-cta-btn" style={{ fontSize: '1.1rem', padding: '0.85rem 2.5rem', minHeight: 52 }}>
             Start Free — No Card Needed <ChevronRight size={18} />
           </Link>
         </div>
@@ -320,7 +320,7 @@ export default async function HomePage() {
           </span>
         </div>
         <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-          &copy; {new Date().getFullYear()} DynamicGarage.app &mdash; Built for enthusiasts.
+          &copy; {new Date().getFullYear()} &nbsp;DynamicGarage.app &mdash; Built for enthusiasts.
         </span>
         <div style={{ display: 'flex', gap: '1.25rem' }}>
           {[{ label: 'Privacy', href: '#' }, { label: 'Terms', href: '#' }, { label: 'Contact', href: '/contact' }].map(l => (
@@ -340,10 +340,15 @@ export default async function HomePage() {
         .v3-footer-link:hover {
           color: var(--text-secondary) !important;
         }
+        .hero-logo { width: 110px; height: 110px; }
+
+        @media (max-width: 640px) {
+          .hp-nav-secondary { display: none !important; }
+          .hero-logo { width: 72px !important; height: 72px !important; border-radius: 12px !important; }
+          .hp-cta-btn { width: 100%; justify-content: center; font-size: 1rem !important; padding: 0.85rem 1.25rem !important; }
+        }
         @media (max-width: 768px) {
-          .hero-grid {
-            grid-template-columns: 1fr !important;
-          }
+          .hero-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </div>

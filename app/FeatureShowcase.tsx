@@ -132,13 +132,13 @@ export default function FeatureShowcase() {
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 4rem' }}>
+        <div className="feature-cols" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0 4rem' }}>
           <div>
             {left.map((f, i) => (
               <Item key={f.title} {...f} last={i === left.length - 1} />
             ))}
           </div>
-          <div style={{ borderLeft: '1px solid var(--border-subtle)', paddingLeft: '4rem' }}>
+          <div className="feature-col-right" style={{ borderLeft: '1px solid var(--border-subtle)', paddingLeft: '4rem' }}>
             {right.map((f, i) => (
               <Item key={f.title} {...f} last={i === right.length - 1} />
             ))}
@@ -146,6 +146,19 @@ export default function FeatureShowcase() {
         </div>
 
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .feature-cols {
+            grid-template-columns: 1fr !important;
+            gap: 0 !important;
+          }
+          .feature-col-right {
+            border-left: none !important;
+            padding-left: 0 !important;
+          }
+        }
+      `}</style>
     </section>
   )
 }
