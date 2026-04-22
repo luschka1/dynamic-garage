@@ -1,10 +1,9 @@
 import Link from 'next/link'
-import { ChevronRight, Check, Shield, LayoutGrid } from 'lucide-react'
+import { ChevronRight, Check, Shield } from 'lucide-react'
 import FeatureShowcase from './FeatureShowcase'
 import HeroCarousel from './HeroCarousel'
 import PublicFooter from '@/components/layout/PublicFooter'
-import ThemeToggle from '@/components/ThemeToggle'
-import MobileNav from './MobileNav'
+import PublicNav from '@/components/layout/PublicNav'
 import { createClient } from '@/lib/supabase/server'
 
 export default async function HomePage() {
@@ -13,56 +12,7 @@ export default async function HomePage() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--text-primary)', fontFamily: "'Inter', -apple-system, sans-serif" }}>
 
-      {/* ── STICKY NAV ── */}
-      <nav style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 50,
-        height: 64,
-        background: 'var(--bg-elevated)',
-        borderBottom: '1px solid var(--border-subtle)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '0 2rem',
-      }}>
-        {/* Logo */}
-        <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', textDecoration: 'none' }}>
-          <span style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 900, fontSize: '1.25rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-            <span style={{ color: '#a8a8a8' }}>Dynamic</span><span style={{ color: 'var(--red)' }}> Garage</span>
-          </span>
-        </Link>
-
-        {/* Right nav */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          {/* Desktop links — hidden on mobile */}
-          <Link href="/gallery" className="v3-nav-link hp-nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
-            <LayoutGrid size={14} /> Gallery
-          </Link>
-          <Link href="/contact" className="v3-nav-link hp-nav-desktop" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
-            Contact
-          </Link>
-          {!user && (
-            <Link href="/login" className="v3-nav-link hp-nav-desktop" style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.75rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
-              Sign In
-            </Link>
-          )}
-          <ThemeToggle />
-          {user ? (
-            <Link href="/dashboard" className="btn-primary" style={{ fontSize: '0.875rem', padding: '0.5rem 1.25rem', minHeight: 36, letterSpacing: '0.04em' }}>
-              My Garage
-            </Link>
-          ) : (
-            <Link href="/register" className="btn-primary" style={{ fontSize: '0.875rem', padding: '0.5rem 1.25rem', minHeight: 36, letterSpacing: '0.04em' }}>
-              Get Started
-            </Link>
-          )}
-          {/* Hamburger — mobile only */}
-          <div className="hp-nav-mobile">
-            <MobileNav isLoggedIn={!!user} />
-          </div>
-        </div>
-      </nav>
+      <PublicNav />
 
       {/* ── HERO ── */}
       <section style={{ padding: 'clamp(3rem, 8vw, 6rem) 1.5rem', background: 'var(--bg-base)' }}>
@@ -219,19 +169,8 @@ export default async function HomePage() {
 
       {/* ── STYLES ── */}
       <style>{`
-        .v3-nav-link:hover {
-          color: var(--text-primary) !important;
-          background: rgba(127,127,127,0.06);
-        }
-        .v3-footer-link:hover {
-          color: var(--text-secondary) !important;
-        }
         .hero-logo { width: 110px; height: 110px; }
-
-        .hp-nav-mobile { display: none; }
         @media (max-width: 640px) {
-          .hp-nav-desktop { display: none !important; }
-          .hp-nav-mobile { display: block; }
           .hero-logo { width: 72px !important; height: 72px !important; border-radius: 12px !important; }
           .hp-cta-btn { width: 100%; justify-content: center; font-size: 1rem !important; padding: 0.85rem 1.25rem !important; }
         }
