@@ -233,7 +233,7 @@ export default async function HomePage() {
           &copy; {new Date().getFullYear()} &nbsp;DynamicGarage.app &mdash; Built for enthusiasts.
         </span>
         <div style={{ display: 'flex', gap: '1.25rem' }}>
-          {[{ label: 'Privacy', href: '#' }, { label: 'Terms', href: '#' }, { label: 'Contact', href: '/contact' }].map(l => (
+          {[{ label: 'Privacy', href: '/privacy' }, { label: 'Terms', href: '#' }, { label: 'Contact', href: '/contact' }].map(l => (
             <Link key={l.label} href={l.href} style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 150ms' }} className="v3-footer-link">
               {l.label}
             </Link>
