@@ -3,9 +3,9 @@
 import { useState, useEffect } from 'react'
 
 const SLIDES = [
-  { src: '/screenshots/screen-dashboard.png',  alt: 'Dashboard — vehicle cards' },
-  { src: '/screenshots/screen-public.png',      alt: 'Public build page' },
   { src: '/screenshots/screen-qrcard.png',      alt: 'QR Show Card' },
+  { src: '/screenshots/screen-dashboard.png',   alt: 'Dashboard — vehicle cards' },
+  { src: '/screenshots/screen-public.png',      alt: 'Public build page' },
   { src: '/screenshots/screen-report.png',      alt: 'Vehicle report' },
 ]
 
