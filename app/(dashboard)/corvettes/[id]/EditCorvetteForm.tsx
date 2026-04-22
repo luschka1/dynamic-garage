@@ -151,7 +151,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
         <label className="label">Car Photo</label>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
           {form.photo_url ? (
-            <img src={form.photo_url} alt="car" style={{ width: 120, height: 80, objectFit: 'cover', borderRadius: 6, border: '1px solid var(--border-default)' }} />
+            <img src={form.photo_url} alt={`${form.nickname || 'Vehicle'} cover photo`} style={{ width: 120, height: 80, objectFit: 'cover', borderRadius: 6, border: '1px solid var(--border-default)' }} />
           ) : (
             <div style={{ width: 120, height: 80, background: 'var(--bg-base)', borderRadius: 6, border: '2px dashed var(--border-default)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <ImageIcon size={28} color="var(--text-muted)" />
