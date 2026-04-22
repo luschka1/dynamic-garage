@@ -42,33 +42,8 @@ export default function HeroCarousel() {
       background: '#0d0d0d',
       userSelect: 'none',
     }}>
-      {/* Browser chrome header */}
-      <div style={{
-        background: 'var(--bg-elevated)',
-        borderBottom: '1px solid var(--border-subtle)',
-        padding: '0.65rem 1rem',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexShrink: 0,
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-          <div style={{ display: 'flex', gap: '0.35rem' }}>
-            {['#ff5f57', '#febc2e', '#28c840'].map((c, i) => (
-              <div key={i} style={{ width: 10, height: 10, borderRadius: '50%', background: c, opacity: 0.85 }} />
-            ))}
-          </div>
-          <span style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 900, fontSize: '0.75rem', letterSpacing: '0.04em', marginLeft: '0.25rem', textTransform: 'uppercase' }}>
-            <span style={{ color: '#a8a8a8' }}>Dynamic</span><span style={{ color: 'var(--red)' }}> Garage</span>
-          </span>
-        </div>
-        <button style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.05em', color: 'var(--red)', background: 'var(--red-dim)', border: '1px solid rgba(204,31,31,0.2)', borderRadius: 4, padding: '0.25rem 0.55rem', cursor: 'default', fontFamily: "'Inter', sans-serif" }}>
-          + Add Car
-        </button>
-      </div>
-
       {/* Slide area */}
-      <div style={{ position: 'relative', width: '100%', aspectRatio: '4 / 3', overflow: 'hidden', background: '#0d0d0d' }}>
+      <div style={{ position: 'relative', width: '100%', aspectRatio: '3 / 2', overflow: 'hidden', background: '#0d0d0d' }}>
         {SLIDES.map((slide, i) => (
           <img
             key={slide.src}
