@@ -50,7 +50,6 @@ export default function ContactForm() {
     <>
       <style>{`
         .contact-page {
-          min-height: calc(100vh - 60px);
           background: var(--bg-base);
           display: flex;
           flex-direction: column;
