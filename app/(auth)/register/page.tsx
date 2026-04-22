@@ -29,14 +29,95 @@ export default function RegisterPage() {
 
   if (success) {
     return (
-      <div style={{ minHeight: '100vh', background: 'var(--bg-base)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-        <div style={{ maxWidth: 440, width: '100%', textAlign: 'center' }}>
-          <div style={{ width: 64, height: 64, background: 'var(--green-dim)', border: '1px solid rgba(22,163,74,0.3)', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', fontSize: '2rem' }}>✓</div>
-          <h1 style={{ fontFamily: "'Barlow Condensed'", fontSize: '2.5rem', fontWeight: 900, marginBottom: '0.75rem' }}>CHECK YOUR EMAIL</h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.7, marginBottom: '2rem' }}>
-            We sent a confirmation link to <strong style={{ color: 'var(--text-primary)' }}>{email}</strong>.<br />Click it to activate your account.
+      <div style={{ minHeight: '100vh', background: 'var(--bg-base)', display: 'flex', flexDirection: 'column' }}>
+        {/* Red accent line — matches register form */}
+        <div style={{ height: 3, background: 'linear-gradient(90deg, var(--red) 0%, transparent 60%)' }} />
+
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1.5rem' }}>
+
+          {/* Logo */}
+          <Link href="/" style={{ marginBottom: '2rem', textDecoration: 'none' }}>
+            <div style={{ width: 80, height: 80, background: '#0d0d0d', borderRadius: 16, overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.2)' }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.png" alt="Dynamic Garage" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+          </Link>
+
+          {/* Card */}
+          <div style={{
+            width: '100%', maxWidth: 420,
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
+            borderRadius: 16,
+            padding: '2.5rem 2rem',
+            boxShadow: 'var(--shadow-card)',
+            textAlign: 'center',
+          }}>
+            {/* Green check */}
+            <div style={{
+              width: 56, height: 56,
+              background: 'var(--green-dim)',
+              border: '1px solid rgba(22,163,74,0.25)',
+              borderRadius: 12,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              margin: '0 auto 1.5rem',
+              fontSize: '1.5rem',
+              color: 'var(--green)',
+            }}>✓</div>
+
+            <h1 style={{
+              fontFamily: "'Barlow Condensed'",
+              fontSize: '2.2rem',
+              fontWeight: 900,
+              letterSpacing: '0.02em',
+              color: 'var(--text-primary)',
+              marginBottom: '0.75rem',
+            }}>
+              CHECK YOUR EMAIL
+            </h1>
+
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.7, marginBottom: '0.5rem' }}>
+              We sent a confirmation link to
+            </p>
+            <p style={{
+              color: 'var(--text-primary)',
+              fontWeight: 700,
+              fontSize: '0.95rem',
+              marginBottom: '1.75rem',
+              background: 'var(--bg-elevated)',
+              border: '1px solid var(--border-subtle)',
+              borderRadius: 8,
+              padding: '0.6rem 1rem',
+              wordBreak: 'break-all',
+            }}>
+              {email}
+            </p>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', lineHeight: 1.6, marginBottom: '2rem' }}>
+              Click the link in that email to activate your account. Check your spam folder if you don&apos;t see it.
+            </p>
+
+            <Link href="/login" className="btn-primary" style={{ display: 'inline-flex', width: '100%', justifyContent: 'center' }}>
+              Go to Sign In <ChevronRight size={16} />
+            </Link>
+
+            <p style={{ marginTop: '1.25rem', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+              Wrong email?{' '}
+              <button
+                onClick={() => setSuccess(false)}
+                style={{ background: 'none', border: 'none', color: 'var(--red-bright)', fontWeight: 700, cursor: 'pointer', fontSize: '0.82rem', padding: 0, fontFamily: 'inherit' }}
+              >
+                Go back
+              </button>
+            </p>
+          </div>
+
+          {/* Brand footer */}
+          <p style={{ marginTop: '2rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+            <span style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 900, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+              <span style={{ color: '#a8a8a8' }}>Dynamic</span><span style={{ color: 'var(--red)' }}> Garage</span>
+            </span>
+            {' — '}Track every mod. Share your build.
           </p>
-          <Link href="/login" className="btn-secondary">Go to Sign In</Link>
         </div>
       </div>
     )
