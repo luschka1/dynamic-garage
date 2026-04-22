@@ -16,6 +16,7 @@ interface Recall {
 
 interface Props {
   corvetteId: string
+  vin: string
   initialAlerts: boolean
   initialLastCheck: string | null
   initialKnownIds: string[]
@@ -26,7 +27,18 @@ function formatDate(iso: string | null) {
   return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 }
 
-export default function RecallTracker({ corvetteId, initialAlerts, initialLastCheck, initialKnownIds }: Props) {
+async function fetchNHTSA(vin: string): Promise<Recall[]> {
+  // Called directly from the browser — NHTSA has CORS open, server-side is blocked
+  const res = await fetch(
+    `https://api.nhtsa.gov/recalls/recallsByVIN/${encodeURIComponent(vin.trim())}`,
+    { headers: { Accept: 'application/json' } }
+  )
+  if (!res.ok) throw new Error(`NHTSA returned ${res.status}`)
+  const data = await res.json()
+  return Array.isArray(data.results) ? data.results : []
+}
+
+export default function RecallTracker({ corvetteId, vin, initialAlerts, initialLastCheck, initialKnownIds }: Props) {
   const [alerts, setAlerts] = useState(initialAlerts)
   const [lastCheck, setLastCheck] = useState<string | null>(initialLastCheck)
   const [recalls, setRecalls] = useState<Recall[] | null>(null)
@@ -59,16 +71,20 @@ export default function RecallTracker({ corvetteId, initialAlerts, initialLastCh
     setLoading(true)
     setError(null)
     try {
-      const res = await fetch('/api/recalls/check', {
+      // Fetch directly from NHTSA in the browser (avoids server-side IP blocks)
+      const fetched = await fetchNHTSA(vin)
+      const ids = fetched.map(r => r.NHTSACampaignNumber)
+
+      // Persist results to our DB
+      await fetch('/api/recalls/store', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ corvetteId }),
+        body: JSON.stringify({ corvetteId, recallIds: ids }),
       })
-      const data = await res.json()
-      if (!res.ok) throw new Error(data.error || 'Check failed')
-      setRecalls(data.recalls)
+
+      setRecalls(fetched)
       setLastCheck(new Date().toISOString())
-      if (data.recalls.length > 0) setExpanded(true)
+      if (fetched.length > 0) setExpanded(true)
     } catch (e) {
       setError(e instanceof Error ? e.message : 'Something went wrong')
     } finally {

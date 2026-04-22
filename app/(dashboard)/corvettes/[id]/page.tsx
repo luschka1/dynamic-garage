@@ -295,6 +295,7 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
       {c.vin && (
         <RecallTracker
           corvetteId={id}
+          vin={c.vin}
           initialAlerts={c.recall_alerts}
           initialLastCheck={c.last_recall_check ?? null}
           initialKnownIds={c.known_recall_ids ?? []}
