@@ -158,16 +158,16 @@ export default function QRShareCard({ shareUrl, nickname, year, model, trim, col
                 {/* Top accent bar */}
                 <div style={{ height: 3, background: 'linear-gradient(90deg, #e03535 0%, #e0353500 65%)', flexShrink: 0 }} />
 
-                {/* Photo strip on right edge — subtle */}
+                {/* Photo strip — fills most of the card, fades into content on left */}
                 {photoUrl && (
                   <div style={{
                     position: 'absolute', top: 0, right: 0, bottom: 0,
-                    width: '42%',
+                    width: '68%',
                     backgroundImage: `url(${photoUrl})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                   }}>
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, #0a0a0b 0%, rgba(10,10,11,0.65) 50%, rgba(10,10,11,0.1) 100%)' }} />
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, #0a0a0b 0%, rgba(10,10,11,0.55) 38%, rgba(10,10,11,0.08) 100%)' }} />
                   </div>
                 )}
 
