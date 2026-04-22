@@ -14,6 +14,9 @@ export interface Corvette {
   for_sale: boolean
   show_vin_decoder: boolean
   email_token?: string
+  recall_alerts: boolean
+  last_recall_check?: string
+  known_recall_ids: string[]
   created_at: string
   updated_at: string
 }

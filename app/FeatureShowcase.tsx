@@ -1,6 +1,6 @@
 import {
   Wrench, ClipboardList, FileText, Camera, Share2, Layers,
-  Tag, MessageSquare, ScanLine, Link2, Moon, Car, QrCode,
+  Tag, MessageSquare, ScanLine, Link2, Moon, Car, QrCode, Bell,
 } from 'lucide-react'
 
 const FEATURES = [
@@ -75,6 +75,12 @@ const FEATURES = [
     title: 'Dark & Light Mode',
     desc: 'System-aware theming that respects your preference — switchable any time.',
     iconBg: 'rgba(139,92,246,0.12)', iconColor: '#8b5cf6',
+  },
+  {
+    icon: <Bell size={20} />,
+    title: 'NHTSA Recall Alerts',
+    desc: 'Auto-checks your VIN against federal recall data and emails you if a new recall is issued — weekly, hands-free.',
+    iconBg: 'rgba(220,38,38,0.1)', iconColor: '#dc2626',
   },
   {
     icon: <Car size={20} />,

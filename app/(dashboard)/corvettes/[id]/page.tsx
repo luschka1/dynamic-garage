@@ -8,6 +8,7 @@ import MileageDisplay from '@/components/MileageDisplay'
 import MileageToggle from '@/components/MileageToggle'
 import PhotoGalleryManager from './PhotoGalleryManager'
 import EmailUploadAddress from './EmailUploadAddress'
+import RecallTracker from '@/components/RecallTracker'
 import type { Corvette, VehiclePhoto } from '@/lib/types'
 
 export default async function CorvettePage({ params }: { params: Promise<{ id: string }> }) {
@@ -287,6 +288,16 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
         <EmailUploadAddress
           emailAddress={`${c.email_token}@${process.env.NEXT_PUBLIC_UPLOAD_EMAIL_DOMAIN ?? 'uploads.dynamicgarage.app'}`}
           vehicleName={`${c.year} ${c.nickname}`}
+        />
+      )}
+
+      {/* NHTSA Recall Tracker — only shown when a VIN is on file */}
+      {c.vin && (
+        <RecallTracker
+          corvetteId={id}
+          initialAlerts={c.recall_alerts}
+          initialLastCheck={c.last_recall_check ?? null}
+          initialKnownIds={c.known_recall_ids ?? []}
         />
       )}
 
