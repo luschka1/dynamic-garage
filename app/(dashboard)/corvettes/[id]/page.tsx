@@ -239,6 +239,13 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
           <QRShareCard
             shareUrl={`${process.env.NEXT_PUBLIC_SITE_URL || ''}/share/${user.id}/${id}`}
             nickname={c.nickname}
+            year={c.year}
+            model={c.model}
+            trim={c.trim}
+            color={c.color}
+            photoUrl={c.photo_url}
+            modCount={modCount ?? 0}
+            svcCount={svcCount ?? 0}
           />
         )}
         <Link

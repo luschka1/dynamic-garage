@@ -1,6 +1,6 @@
 import {
   Wrench, ClipboardList, FileText, Camera, Share2, Layers,
-  Tag, MessageSquare, ScanLine, Link2, Moon, Car,
+  Tag, MessageSquare, ScanLine, Link2, Moon, Car, QrCode,
 } from 'lucide-react'
 
 const FEATURES = [
@@ -57,6 +57,12 @@ const FEATURES = [
     title: 'Contact Seller',
     desc: 'Buyers message you directly — your email stays private.',
     iconBg: 'rgba(249,115,22,0.12)', iconColor: '#f97316',
+  },
+  {
+    icon: <QrCode size={20} />,
+    title: 'QR Show Cards',
+    desc: 'Generate a branded show card with QR code — print it, save it as PNG, or hand it out at car meets.',
+    iconBg: 'var(--gold-dim)', iconColor: 'var(--gold)',
   },
   {
     icon: <Link2 size={20} />,
