@@ -28,9 +28,10 @@ function formatDate(iso: string | null) {
 }
 
 async function fetchNHTSA(vin: string): Promise<Recall[]> {
-  // Called directly from the browser — NHTSA has CORS open, server-side is blocked
+  // NHTSA requires uppercase VIN
+  const cleanVin = vin.trim().toUpperCase()
   const res = await fetch(
-    `https://api.nhtsa.gov/recalls/recallsByVIN/${encodeURIComponent(vin.trim())}`,
+    `https://api.nhtsa.gov/recalls/recallsByVIN/${cleanVin}`,
     { headers: { Accept: 'application/json' } }
   )
   if (!res.ok) throw new Error(`NHTSA returned ${res.status}`)
