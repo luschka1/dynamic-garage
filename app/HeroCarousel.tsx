@@ -56,8 +56,6 @@ export default function HeroCarousel() {
               height: '100%',
               objectFit: 'cover',
               objectPosition: 'top center',
-              transform: 'scale(1.06)',
-              transformOrigin: 'top center',
               opacity: i === active ? 1 : 0,
               transition: i === active ? 'opacity 0.5s ease' : (i === prev ? 'opacity 0.5s ease' : 'none'),
               pointerEvents: 'none',
