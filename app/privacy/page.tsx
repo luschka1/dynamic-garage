@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import PublicNav from '@/components/layout/PublicNav'
+import PublicFooter from '@/components/layout/PublicFooter'
 
 export const metadata = {
   title: 'Privacy Policy — Dynamic Garage',
@@ -198,28 +199,7 @@ export default function PrivacyPage() {
 
       </main>
 
-      {/* Footer */}
-      <footer style={{
-        borderTop: '1px solid var(--border-subtle)',
-        padding: '1.5rem 2rem',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        gap: '1rem',
-        background: 'var(--bg-elevated)',
-      }}>
-        <span style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 900, fontSize: '1rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-          <span style={{ color: '#a8a8a8' }}>Dynamic</span><span style={{ color: 'var(--red)' }}> Garage</span>
-        </span>
-        <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-          &copy; {new Date().getFullYear()} DynamicGarage.app
-        </span>
-        <div style={{ display: 'flex', gap: '1.25rem' }}>
-          <Link href="/privacy" style={{ fontSize: '0.78rem', color: 'var(--red)', textDecoration: 'none', fontWeight: 600 }}>Privacy</Link>
-          <Link href="/contact" style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textDecoration: 'none' }}>Contact</Link>
-        </div>
-      </footer>
+      <PublicFooter />
     </div>
   )
 }

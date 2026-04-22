@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Tag, Wrench, ClipboardList, Share2 } from 'lucide-react'
 import type { Corvette } from '@/lib/types'
 import GarageSocialShare from './SocialShare'
+import PublicFooter from '@/components/layout/PublicFooter'
 import PublicNav from '@/components/layout/PublicNav'
 
 export async function generateMetadata({ params }: { params: Promise<{ userId: string }> }): Promise<Metadata> {
@@ -202,6 +203,7 @@ export default async function PublicGaragePage({ params }: { params: Promise<{ u
         </div>
       </div>
 
+      <PublicFooter />
       <style>{`
         .garage-card:hover {
           box-shadow: var(--shadow-hover) !important;

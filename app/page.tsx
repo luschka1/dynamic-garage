@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { ChevronRight, Check, Shield, LayoutGrid } from 'lucide-react'
 import FeatureShowcase from './FeatureShowcase'
 import HeroCarousel from './HeroCarousel'
+import PublicFooter from '@/components/layout/PublicFooter'
 import ThemeToggle from '@/components/ThemeToggle'
 import MobileNav from './MobileNav'
 import { createClient } from '@/lib/supabase/server'
@@ -214,32 +215,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── FOOTER ── */}
-      <footer style={{
-        borderTop: '1px solid var(--border-subtle)',
-        padding: '1.5rem 2rem',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        gap: '1rem',
-        background: 'var(--bg-elevated)',
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <span style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 900, fontSize: '1rem', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-            <span style={{ color: '#a8a8a8' }}>Dynamic</span><span style={{ color: 'var(--red)' }}> Garage</span>
-          </span>
-        </div>
-        <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-          &copy; {new Date().getFullYear()} &nbsp;DynamicGarage.app &mdash; Built for enthusiasts.
-        </span>
-        <div style={{ display: 'flex', gap: '1.25rem' }}>
-          {[{ label: 'Privacy', href: '/privacy' }, { label: 'Terms', href: '#' }, { label: 'Contact', href: '/contact' }].map(l => (
-            <Link key={l.label} href={l.href} style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 150ms' }} className="v3-footer-link">
-              {l.label}
-            </Link>
-          ))}
-        </div>
-      </footer>
+      <PublicFooter />
 
       {/* ── STYLES ── */}
       <style>{`

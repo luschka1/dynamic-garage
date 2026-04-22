@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Car, Wrench, ClipboardList, DollarSign, Share2, ExternalLink, Paperclip, Gauge, FileText, File, Image as ImageIcon, Tag } from 'lucide-react'
 import PublicNav from '@/components/layout/PublicNav'
+import PublicFooter from '@/components/layout/PublicFooter'
 import type { Corvette, Mod, ServiceRecord, VehiclePhoto, Document } from '@/lib/types'
 import PublicGallery from './PublicGallery'
 import SocialShare from './SocialShare'
@@ -539,6 +540,8 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
           </Link>
         </div>
       </div>
+
+      <PublicFooter />
 
       <style>{`
         .vin-decode-btn:hover { opacity: 0.88; box-shadow: 0 4px 14px rgba(29,78,216,0.45) !important; }

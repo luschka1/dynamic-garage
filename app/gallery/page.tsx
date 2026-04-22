@@ -4,6 +4,7 @@ import Link from 'next/link'
 import type { Corvette } from '@/lib/types'
 import GalleryClient from './GalleryClient'
 import PublicNav from '@/components/layout/PublicNav'
+import PublicFooter from '@/components/layout/PublicFooter'
 
 export type GalleryCar = Corvette & { modCount: number; serviceCount: number }
 
@@ -76,6 +77,7 @@ export default async function GalleryPage() {
         </Link>
       </div>
 
+      <PublicFooter />
       <style>{`.v3-nav-link:hover { color: var(--text-primary) !important; }`}</style>
     </div>
   )
