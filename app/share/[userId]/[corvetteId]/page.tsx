@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ userId: s
   const supabase = await createClient()
   const { data: car } = await supabase
     .from('corvettes')
-    .select('nickname, year, model, for_sale')
+    .select('nickname, year, model, trim, color, for_sale, photo_url')
     .eq('id', corvetteId)
     .eq('user_id', userId)
     .eq('is_public', true)
