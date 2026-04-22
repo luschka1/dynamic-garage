@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ChevronRight, Check, Shield, LayoutGrid } from 'lucide-react'
 import FeatureShowcase from './FeatureShowcase'
+import HeroCarousel from './HeroCarousel'
 import ThemeToggle from '@/components/ThemeToggle'
 import MobileNav from './MobileNav'
 import { createClient } from '@/lib/supabase/server'
@@ -144,105 +145,8 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* Right column — App UI Mockup */}
-          <div style={{
-            borderRadius: 16,
-            border: '1px solid var(--border-subtle)',
-            boxShadow: 'var(--shadow-card)',
-            overflow: 'hidden',
-            background: 'var(--bg-card)',
-            userSelect: 'none',
-          }}>
-            {/* Mockup header bar */}
-            <div style={{
-              background: 'var(--bg-elevated)',
-              borderBottom: '1px solid var(--border-subtle)',
-              padding: '0.65rem 1rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                {/* Traffic lights */}
-                <div style={{ display: 'flex', gap: '0.35rem' }}>
-                  {['#ff5f57', '#febc2e', '#28c840'].map((c, i) => (
-                    <div key={i} style={{ width: 10, height: 10, borderRadius: '50%', background: c, opacity: 0.85 }} />
-                  ))}
-                </div>
-                <span style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 900, fontSize: '0.75rem', letterSpacing: '0.04em', marginLeft: '0.25rem', textTransform: 'uppercase' }}>
-                  <span style={{ color: '#a8a8a8' }}>Dynamic</span><span style={{ color: 'var(--red)' }}> Garage</span>
-                </span>
-              </div>
-              <button style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.05em', color: 'var(--red)', background: 'var(--red-dim)', border: '1px solid rgba(204,31,31,0.2)', borderRadius: 4, padding: '0.25rem 0.55rem', cursor: 'default', fontFamily: "'Inter', sans-serif" }}>
-                + Add Car
-              </button>
-            </div>
-
-            {/* Car card with real photo */}
-            <div style={{ padding: '1.25rem', borderBottom: '1px solid var(--border-subtle)' }}>
-              <div style={{
-                height: 110,
-                borderRadius: 8,
-                marginBottom: '0.85rem',
-                position: 'relative',
-                overflow: 'hidden',
-              }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="/corvette-hero.jpg"
-                  alt="2019 Chevrolet Corvette Z06"
-                  style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                />
-                {/* Overlay gradient */}
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%)' }} />
-                <div style={{ position: 'absolute', bottom: 10, left: 12, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                  <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--red)' }} />
-                  <span style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.85)', fontWeight: 600, letterSpacing: '0.04em' }}>Z06 · VIN ···1847</span>
-                </div>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 800, fontSize: '1rem', letterSpacing: '0.04em', color: 'var(--text-primary)' }}>
-                  2019 Corvette Z06
-                </span>
-                <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontWeight: 500 }}>
-                  4 Mods &middot; 2 Service
-                </span>
-              </div>
-            </div>
-
-            {/* Mods list */}
-            <div style={{ padding: '0.75rem 1.25rem 1.25rem' }}>
-              <div style={{ fontSize: '0.6rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.6rem' }}>
-                Recent Mods
-              </div>
-              {[
-                { name: 'Corsa Sport Exhaust', cat: 'Performance', price: '$1,249' },
-                { name: 'Stage 2 Tune',        cat: 'Performance', price: '$899'   },
-                { name: 'Eibach Coilovers',    cat: 'Suspension',  price: '$1,450' },
-              ].map((mod, i) => (
-                <div key={i} style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '0.55rem 0.65rem',
-                  marginBottom: '0.35rem',
-                  borderLeft: '3px solid var(--red)',
-                  background: 'var(--bg-base)',
-                  borderRadius: '0 6px 6px 0',
-                }}>
-                  <div style={{ minWidth: 0 }}>
-                    <div style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                      {mod.name}
-                    </div>
-                    <div style={{ fontSize: '0.62rem', color: 'var(--text-muted)', marginTop: '0.1rem' }}>{mod.cat}</div>
-                  </div>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-secondary)', flexShrink: 0, marginLeft: '0.5rem' }}>
-                    {mod.price}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Right column — rotating app screenshots */}
+          <HeroCarousel />
         </div>
       </section>
 
