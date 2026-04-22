@@ -20,7 +20,7 @@ export default withSentryConfig(nextConfig, {
 
   org: "dynamic-garage",
 
-  project: "javascript-nextjs",
+  project: "javascript-nextjs-eu",
 
   // Only print logs for uploading source maps in CI
   silent: !process.env.CI,
