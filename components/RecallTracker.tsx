@@ -17,6 +17,9 @@ interface Recall {
 interface Props {
   corvetteId: string
   vin: string
+  make: string
+  model: string
+  year: number
   initialAlerts: boolean
   initialLastCheck: string | null
   initialKnownIds: string[]
@@ -27,19 +30,26 @@ function formatDate(iso: string | null) {
   return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 }
 
-async function fetchNHTSA(vin: string): Promise<Recall[]> {
-  // NHTSA requires uppercase VIN
+async function fetchNHTSA(vin: string, make: string, model: string, year: number): Promise<Recall[]> {
+  // Try VIN-based endpoint first (most precise)
   const cleanVin = vin.trim().toUpperCase()
-  const res = await fetch(
-    `https://api.nhtsa.gov/recalls/recallsByVIN/${cleanVin}`,
-    { headers: { Accept: 'application/json' } }
-  )
-  if (!res.ok) throw new Error(`NHTSA returned ${res.status}`)
-  const data = await res.json()
+  const vinUrl = `https://api.nhtsa.gov/recalls/recallsByVIN/${cleanVin}`
+  const vinRes = await fetch(vinUrl, { headers: { Accept: 'application/json' } })
+  if (vinRes.ok) {
+    const data = await vinRes.json()
+    if (Array.isArray(data.results)) return data.results
+  }
+
+  // Fall back to make/model/year endpoint
+  const params = new URLSearchParams({ make, model, modelYear: String(year) })
+  const vehUrl = `https://api.nhtsa.gov/recalls/recallsByVehicle?${params}`
+  const vehRes = await fetch(vehUrl, { headers: { Accept: 'application/json' } })
+  if (!vehRes.ok) throw new Error(`NHTSA returned ${vehRes.status}`)
+  const data = await vehRes.json()
   return Array.isArray(data.results) ? data.results : []
 }
 
-export default function RecallTracker({ corvetteId, vin, initialAlerts, initialLastCheck, initialKnownIds }: Props) {
+export default function RecallTracker({ corvetteId, vin, make, model, year, initialAlerts, initialLastCheck, initialKnownIds }: Props) {
   const [alerts, setAlerts] = useState(initialAlerts)
   const [lastCheck, setLastCheck] = useState<string | null>(initialLastCheck)
   const [recalls, setRecalls] = useState<Recall[] | null>(null)
@@ -73,7 +83,7 @@ export default function RecallTracker({ corvetteId, vin, initialAlerts, initialL
     setError(null)
     try {
       // Fetch directly from NHTSA in the browser (avoids server-side IP blocks)
-      const fetched = await fetchNHTSA(vin)
+      const fetched = await fetchNHTSA(vin, make, model, year)
       const ids = fetched.map(r => r.NHTSACampaignNumber)
 
       // Persist results to our DB

@@ -292,15 +292,25 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
       )}
 
       {/* NHTSA Recall Tracker — only shown when a VIN is on file */}
-      {c.vin && (
-        <RecallTracker
-          corvetteId={id}
-          vin={c.vin}
-          initialAlerts={c.recall_alerts}
-          initialLastCheck={c.last_recall_check ?? null}
-          initialKnownIds={c.known_recall_ids ?? []}
-        />
-      )}
+      {c.vin && (() => {
+        // model field stores "Make Model" e.g. "Chevrolet Corvette"
+        const MAKES = ['Acura','Alfa Romeo','Aston Martin','Audi','Bentley','BMW','Buick','Cadillac','Chevrolet','Chrysler','Dodge','Ferrari','Fiat','Ford','Genesis','GMC','Honda','Hyundai','Infiniti','Jaguar','Jeep','Kia','Lamborghini','Land Rover','Lexus','Lincoln','Lotus','Maserati','Mazda','McLaren','Mercedes-Benz','MINI','Mitsubishi','Nissan','Pontiac','Porsche','RAM','Rolls-Royce','Subaru','Tesla','Toyota','Volkswagen','Volvo','Other']
+        const combined = c.model ?? ''
+        const detectedMake = MAKES.find(m => combined.startsWith(m)) ?? combined.split(' ')[0] ?? ''
+        const detectedModel = detectedMake ? combined.slice(detectedMake.length).trim() : combined
+        return (
+          <RecallTracker
+            corvetteId={id}
+            vin={c.vin}
+            make={detectedMake}
+            model={detectedModel}
+            year={c.year}
+            initialAlerts={c.recall_alerts}
+            initialLastCheck={c.last_recall_check ?? null}
+            initialKnownIds={c.known_recall_ids ?? []}
+          />
+        )
+      })()}
 
       {/* Edit form */}
       <EditCorvetteForm car={c} />
