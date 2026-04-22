@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Plus, Car, Wrench, ClipboardList, FileText, Share2, ChevronRight, ExternalLink } from 'lucide-react'
 import type { Corvette } from '@/lib/types'
 import ShareGarageButton from './ShareGarageButton'
+import MileageDisplay from '@/components/MileageDisplay'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -217,7 +218,7 @@ function CarCard({ car }: { car: Corvette }) {
         {car.mileage && (
           <div>
             <div style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.1rem' }}>Mileage</div>
-            <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-secondary)' }}>{car.mileage.toLocaleString()} mi</div>
+            <div style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--text-secondary)' }}><MileageDisplay value={car.mileage} /></div>
           </div>
         )}
       </div>

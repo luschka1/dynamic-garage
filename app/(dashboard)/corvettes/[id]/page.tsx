@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { ArrowLeft, Wrench, ClipboardList, FileText, Share2, ExternalLink, Download, Camera, Check } from 'lucide-react'
 import EditCorvetteForm from './EditCorvetteForm'
 import QRShareCard from './QRShareCard'
+import MileageDisplay from '@/components/MileageDisplay'
+import MileageToggle from '@/components/MileageToggle'
 import PhotoGalleryManager from './PhotoGalleryManager'
 import EmailUploadAddress from './EmailUploadAddress'
 import type { Corvette, VehiclePhoto } from '@/lib/types'
@@ -54,9 +56,17 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
               <h1 style={{ fontFamily: "'Barlow Condensed'", fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 900, lineHeight: 1, color: 'white' }}>
                 {c.nickname.toUpperCase()}
               </h1>
-              <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1rem', marginTop: '0.2rem' }}>
-                {c.year} {c.model}{c.trim ? ` · ${c.trim}` : ''}
-                {c.color ? ` · ${c.color}` : ''}
+              <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1rem', marginTop: '0.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+                <span>{c.year} {c.model}{c.trim ? ` · ${c.trim}` : ''}{c.color ? ` · ${c.color}` : ''}</span>
+                {c.mileage && (
+                  <>
+                    <span style={{ opacity: 0.4 }}>·</span>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                      <MileageDisplay value={c.mileage} />
+                      <MileageToggle />
+                    </span>
+                  </>
+                )}
               </p>
             </div>
             {c.is_public && (

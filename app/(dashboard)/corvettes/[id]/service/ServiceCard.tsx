@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { Paperclip, Pencil, Trash2, X, Check } from 'lucide-react'
 import { SERVICE_CATEGORIES, type ServiceRecord } from '@/lib/types'
+import MileageDisplay from '@/components/MileageDisplay'
 
 function Field({ label, value }: { label: string; value: React.ReactNode }) {
   return (
@@ -202,7 +203,7 @@ export default function ServiceCard({ rec, corvetteId }: { rec: ServiceRecord; c
           {rec.service_date && (
             <Field label="Service Date" value={new Date(rec.service_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} />
           )}
-          {rec.mileage && <Field label="Mileage at Service" value={`${rec.mileage.toLocaleString()} mi`} />}
+          {rec.mileage && <Field label="Mileage at Service" value={<MileageDisplay value={rec.mileage} />} />}
         </div>
       )}
 
