@@ -3,10 +3,9 @@
 import { useState, useEffect } from 'react'
 
 const SLIDES = [
-  { src: '/screenshots/screen-qrcard.png',      alt: 'QR Show Card' },
-  { src: '/screenshots/screen-dashboard.png',   alt: 'Dashboard — vehicle cards' },
-  { src: '/screenshots/screen-public.png',      alt: 'Public build page' },
-  { src: '/screenshots/screen-report.png',      alt: 'Vehicle report' },
+  { src: '/screenshots/screen-report2.png',  alt: 'App screen 1' },
+  { src: '/screenshots/screen-report3.png',  alt: 'App screen 2' },
+  { src: '/screenshots/screen-report4.png',  alt: 'App screen 3' },
 ]
 
 const INTERVAL = 3800 // ms between slides
