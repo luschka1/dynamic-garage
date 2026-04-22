@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
+import ThemeToggle from '@/components/ThemeToggle'
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -10,12 +11,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   if (user.email !== process.env.ADMIN_EMAIL) redirect('/dashboard')
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#0a0a0b' }}>
-      {/* Sidebar */}
+    <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg-base)' }}>
+      {/* Sidebar — always dark, consistent with main nav */}
       <aside style={{
         width: 220,
         minHeight: '100vh',
-        background: '#0d0d0d',
+        background: 'var(--nav-bg)',
         borderRight: '1px solid rgba(255,255,255,0.07)',
         display: 'flex',
         flexDirection: 'column',
@@ -67,6 +68,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
         {/* Footer */}
         <div style={{ padding: '1rem 1.25rem', borderTop: '1px solid rgba(255,255,255,0.07)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.85rem' }}>
+            <span style={{ fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'rgba(245,245,243,0.35)' }}>
+              Theme
+            </span>
+            <ThemeToggle />
+          </div>
           <Link
             href="/dashboard"
             style={{
@@ -82,8 +89,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         </div>
       </aside>
 
-      {/* Main content */}
-      <main style={{ flex: 1, minHeight: '100vh', overflowY: 'auto', background: '#0f0f10' }}>
+      {/* Main content — respects theme */}
+      <main style={{ flex: 1, minHeight: '100vh', overflowY: 'auto', background: 'var(--bg-base)' }}>
         {children}
       </main>
     </div>

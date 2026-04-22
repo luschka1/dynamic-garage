@@ -30,12 +30,12 @@ export default async function AdminMediaPage() {
           fontSize: '2rem',
           letterSpacing: '0.04em',
           textTransform: 'uppercase',
-          color: '#f5f5f3',
+          color: 'var(--text-primary)',
           marginBottom: '0.25rem',
         }}>
           Media Management
         </h1>
-        <p style={{ fontSize: '0.85rem', color: 'rgba(245,245,243,0.4)' }}>
+        <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
           Manage vehicle photos and documents
         </p>
       </div>
@@ -48,7 +48,7 @@ export default async function AdminMediaPage() {
           fontSize: '1.25rem',
           letterSpacing: '0.06em',
           textTransform: 'uppercase',
-          color: '#f5f5f3',
+          color: 'var(--text-primary)',
           marginBottom: '1rem',
           display: 'flex',
           alignItems: 'center',
@@ -58,8 +58,9 @@ export default async function AdminMediaPage() {
           <span style={{
             fontSize: '0.7rem',
             fontWeight: 700,
-            background: 'rgba(255,255,255,0.08)',
-            color: 'rgba(245,245,243,0.5)',
+            background: 'var(--bg-elevated)',
+            border: '1px solid var(--border-subtle)',
+            color: 'var(--text-muted)',
             padding: '0.2rem 0.5rem',
             borderRadius: 4,
           }}>
@@ -75,13 +76,13 @@ export default async function AdminMediaPage() {
           }}>
             {photos.map(photo => (
               <div key={photo.id} style={{
-                background: '#16161a',
-                border: '1px solid rgba(255,255,255,0.07)',
+                background: 'var(--bg-card)',
+                border: '1px solid var(--border-subtle)',
                 borderRadius: 10,
                 overflow: 'hidden',
               }}>
                 {/* Thumbnail */}
-                <div style={{ width: '100%', aspectRatio: '4/3', background: 'rgba(255,255,255,0.03)', overflow: 'hidden' }}>
+                <div style={{ width: '100%', aspectRatio: '4/3', background: 'var(--bg-elevated)', overflow: 'hidden' }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={photo.public_url}
@@ -92,14 +93,14 @@ export default async function AdminMediaPage() {
 
                 {/* Info */}
                 <div style={{ padding: '0.75rem' }}>
-                  <div style={{ fontSize: '0.82rem', fontWeight: 600, color: '#f5f5f3', marginBottom: '0.2rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  <div style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.2rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     {nicknameMap[photo.corvette_id] ?? 'Unknown Vehicle'}
                   </div>
-                  <div style={{ fontSize: '0.7rem', color: 'rgba(245,245,243,0.35)', fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', fontFamily: 'monospace', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     {photo.user_id.slice(0, 16)}…
                   </div>
                   {photo.caption && (
-                    <div style={{ fontSize: '0.72rem', color: 'rgba(245,245,243,0.45)', marginTop: '0.25rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--text-secondary)', marginTop: '0.25rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {photo.caption}
                     </div>
                   )}
@@ -110,12 +111,12 @@ export default async function AdminMediaPage() {
           </div>
         ) : (
           <div style={{
-            background: '#16161a',
-            border: '1px solid rgba(255,255,255,0.07)',
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
             borderRadius: 10,
             padding: '2rem',
             textAlign: 'center',
-            color: 'rgba(245,245,243,0.3)',
+            color: 'var(--text-muted)',
             fontSize: '0.88rem',
           }}>
             No photos yet
@@ -131,7 +132,7 @@ export default async function AdminMediaPage() {
           fontSize: '1.25rem',
           letterSpacing: '0.06em',
           textTransform: 'uppercase',
-          color: '#f5f5f3',
+          color: 'var(--text-primary)',
           marginBottom: '1rem',
           display: 'flex',
           alignItems: 'center',
@@ -141,8 +142,9 @@ export default async function AdminMediaPage() {
           <span style={{
             fontSize: '0.7rem',
             fontWeight: 700,
-            background: 'rgba(255,255,255,0.08)',
-            color: 'rgba(245,245,243,0.5)',
+            background: 'var(--bg-elevated)',
+            border: '1px solid var(--border-subtle)',
+            color: 'var(--text-muted)',
             padding: '0.2rem 0.5rem',
             borderRadius: 4,
           }}>
@@ -151,14 +153,14 @@ export default async function AdminMediaPage() {
         </h2>
 
         <div style={{
-          background: '#16161a',
-          border: '1px solid rgba(255,255,255,0.07)',
+          background: 'var(--bg-card)',
+          border: '1px solid var(--border-subtle)',
           borderRadius: 12,
           overflow: 'hidden',
         }}>
           <table style={{ width: '100%', borderCollapse: 'collapse' }}>
             <thead>
-              <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+              <tr style={{ borderBottom: '1px solid var(--border-subtle)' }}>
                 {['Name', 'Type', 'Vehicle', 'Created', 'Actions'].map(h => (
                   <th key={h} style={{
                     padding: '0.75rem 1rem',
@@ -167,7 +169,7 @@ export default async function AdminMediaPage() {
                     fontWeight: 800,
                     letterSpacing: '0.12em',
                     textTransform: 'uppercase',
-                    color: 'rgba(245,245,243,0.38)',
+                    color: 'var(--text-muted)',
                   }}>
                     {h}
                   </th>
@@ -179,12 +181,12 @@ export default async function AdminMediaPage() {
                 <tr
                   key={doc.id}
                   style={{
-                    borderBottom: i < (documents?.length ?? 0) - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
-                    background: i % 2 === 1 ? 'rgba(255,255,255,0.015)' : 'transparent',
+                    borderBottom: i < (documents?.length ?? 0) - 1 ? '1px solid var(--border-subtle)' : 'none',
+                    background: i % 2 === 1 ? 'var(--bg-base)' : 'transparent',
                   }}
                 >
                   <td style={{ padding: '0.65rem 1rem' }}>
-                    <div style={{ fontSize: '0.88rem', color: '#f5f5f3', fontWeight: 500, maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    <div style={{ fontSize: '0.88rem', color: 'var(--text-primary)', fontWeight: 500, maxWidth: 220, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {doc.name}
                     </div>
                   </td>
@@ -194,18 +196,19 @@ export default async function AdminMediaPage() {
                       fontWeight: 700,
                       padding: '0.15rem 0.45rem',
                       borderRadius: 4,
-                      background: 'rgba(255,255,255,0.06)',
-                      color: 'rgba(245,245,243,0.5)',
+                      background: 'var(--bg-elevated)',
+                      border: '1px solid var(--border-subtle)',
+                      color: 'var(--text-secondary)',
                       textTransform: 'uppercase',
                       letterSpacing: '0.04em',
                     }}>
                       {doc.file_type ?? 'file'}
                     </span>
                   </td>
-                  <td style={{ padding: '0.65rem 1rem', fontSize: '0.82rem', color: 'rgba(245,245,243,0.6)' }}>
+                  <td style={{ padding: '0.65rem 1rem', fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
                     {nicknameMap[doc.corvette_id] ?? '—'}
                   </td>
-                  <td style={{ padding: '0.65rem 1rem', fontSize: '0.78rem', color: 'rgba(245,245,243,0.38)' }}>
+                  <td style={{ padding: '0.65rem 1rem', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
                     {new Date(doc.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                   </td>
                   <td style={{ padding: '0.65rem 1rem' }}>
@@ -215,7 +218,7 @@ export default async function AdminMediaPage() {
               ))}
               {(!documents || documents.length === 0) && (
                 <tr>
-                  <td colSpan={5} style={{ padding: '2rem 1rem', textAlign: 'center', color: 'rgba(245,245,243,0.3)', fontSize: '0.88rem' }}>
+                  <td colSpan={5} style={{ padding: '2rem 1rem', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.88rem' }}>
                     No documents yet
                   </td>
                 </tr>

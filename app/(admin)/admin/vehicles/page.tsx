@@ -42,26 +42,26 @@ export default async function AdminVehiclesPage() {
           fontSize: '2rem',
           letterSpacing: '0.04em',
           textTransform: 'uppercase',
-          color: '#f5f5f3',
+          color: 'var(--text-primary)',
           marginBottom: '0.25rem',
         }}>
           All Vehicles
         </h1>
-        <p style={{ fontSize: '0.85rem', color: 'rgba(245,245,243,0.4)' }}>
+        <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
           {vehicles?.length ?? 0} vehicle{(vehicles?.length ?? 0) !== 1 ? 's' : ''} in the system
         </p>
       </div>
 
       {/* Table */}
       <div style={{
-        background: '#16161a',
-        border: '1px solid rgba(255,255,255,0.07)',
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-subtle)',
         borderRadius: 12,
         overflow: 'hidden',
       }}>
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
-            <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}>
+            <tr style={{ borderBottom: '1px solid var(--border-subtle)' }}>
               {['Photo', 'Vehicle', 'Owner', 'Mods', 'Service', 'Flags', 'Actions'].map(h => (
                 <th key={h} style={{
                   padding: '0.75rem 1rem',
@@ -70,7 +70,7 @@ export default async function AdminVehiclesPage() {
                   fontWeight: 800,
                   letterSpacing: '0.12em',
                   textTransform: 'uppercase',
-                  color: 'rgba(245,245,243,0.38)',
+                  color: 'var(--text-muted)',
                   whiteSpace: 'nowrap',
                 }}>
                   {h}
@@ -83,8 +83,8 @@ export default async function AdminVehiclesPage() {
               <tr
                 key={v.id}
                 style={{
-                  borderBottom: i < (vehicles?.length ?? 0) - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none',
-                  background: i % 2 === 1 ? 'rgba(255,255,255,0.015)' : 'transparent',
+                  borderBottom: i < (vehicles?.length ?? 0) - 1 ? '1px solid var(--border-subtle)' : 'none',
+                  background: i % 2 === 1 ? 'var(--bg-base)' : 'transparent',
                 }}
               >
                 {/* Photo */}
@@ -99,9 +99,10 @@ export default async function AdminVehiclesPage() {
                   ) : (
                     <div style={{
                       width: 50, height: 50, borderRadius: 6,
-                      background: 'rgba(255,255,255,0.05)',
+                      background: 'var(--bg-elevated)',
+                      border: '1px solid var(--border-subtle)',
                       display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontSize: '0.65rem', color: 'rgba(245,245,243,0.2)',
+                      fontSize: '0.65rem', color: 'var(--text-muted)',
                     }}>
                       No img
                     </div>
@@ -110,29 +111,29 @@ export default async function AdminVehiclesPage() {
 
                 {/* Vehicle info */}
                 <td style={{ padding: '0.65rem 1rem' }}>
-                  <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#f5f5f3' }}>{v.nickname}</div>
-                  <div style={{ fontSize: '0.78rem', color: 'rgba(245,245,243,0.45)', marginTop: '0.15rem' }}>
+                  <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)' }}>{v.nickname}</div>
+                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.15rem' }}>
                     {v.year} {v.model}
                   </div>
                 </td>
 
                 {/* Owner */}
                 <td style={{ padding: '0.65rem 1rem' }}>
-                  <div style={{ fontSize: '0.8rem', color: 'rgba(245,245,243,0.6)', fontFamily: 'monospace', maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontFamily: 'monospace', maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     {emailMap[v.user_id] ?? v.user_id.slice(0, 12) + '…'}
                   </div>
                 </td>
 
                 {/* Mods count */}
                 <td style={{ padding: '0.65rem 1rem' }}>
-                  <span style={{ fontSize: '0.88rem', color: '#f5f5f3', fontWeight: 600 }}>
+                  <span style={{ fontSize: '0.88rem', color: 'var(--text-primary)', fontWeight: 600 }}>
                     {modCountMap[v.id] ?? 0}
                   </span>
                 </td>
 
                 {/* Service count */}
                 <td style={{ padding: '0.65rem 1rem' }}>
-                  <span style={{ fontSize: '0.88rem', color: '#f5f5f3', fontWeight: 600 }}>
+                  <span style={{ fontSize: '0.88rem', color: 'var(--text-primary)', fontWeight: 600 }}>
                     {serviceCountMap[v.id] ?? 0}
                   </span>
                 </td>
@@ -162,7 +163,7 @@ export default async function AdminVehiclesPage() {
             ))}
             {(!vehicles || vehicles.length === 0) && (
               <tr>
-                <td colSpan={7} style={{ padding: '2rem 1rem', textAlign: 'center', color: 'rgba(245,245,243,0.3)', fontSize: '0.88rem' }}>
+                <td colSpan={7} style={{ padding: '2rem 1rem', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.88rem' }}>
                   No vehicles yet
                 </td>
               </tr>
@@ -179,7 +180,7 @@ function Badge({ color, children }: { color: 'green' | 'blue' | 'gold' | 'dim'; 
     green: { bg: 'rgba(34,197,94,0.12)', text: '#22c55e' },
     blue:  { bg: 'rgba(74,142,245,0.12)', text: '#4a8ef5' },
     gold:  { bg: 'rgba(212,164,26,0.12)', text: '#d4a41a' },
-    dim:   { bg: 'rgba(255,255,255,0.06)', text: 'rgba(245,245,243,0.35)' },
+    dim:   { bg: 'var(--bg-elevated)', text: 'var(--text-muted)' },
   }
   const { bg, text } = colorMap[color]
   return (

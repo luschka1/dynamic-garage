@@ -74,12 +74,12 @@ export default function VehicleAdminActions({ vehicleId, userId, isPublic, nickn
             onClick={() => setConfirming(false)}
             disabled={deleting}
             style={{
-              background: 'rgba(255,255,255,0.06)',
-              border: '1px solid rgba(255,255,255,0.1)',
+              background: 'var(--bg-elevated)',
+              border: '1px solid var(--border-subtle)',
               borderRadius: 6,
               padding: '0.35rem 0.5rem',
               cursor: 'pointer',
-              color: 'rgba(245,245,243,0.5)',
+              color: 'var(--text-muted)',
               display: 'flex',
               alignItems: 'center',
             }}
