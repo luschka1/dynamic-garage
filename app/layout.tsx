@@ -5,7 +5,7 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 
 export const metadata: Metadata = {
   title: {
-    default: 'Dynamic Garage — Build It. Track It. Share It.',
+    default: 'Dynamic Garage - Build It. Track It. Share It.',
     template: '%s | Dynamic Garage',
   },
   description: 'Track every mod, service record, photo, and document for any vehicle. Share a public build page at car shows, on forums, or when selling.',
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://dynamicgarage.app'),
   alternates: { canonical: 'https://dynamicgarage.app' },
   openGraph: {
-    title: 'Dynamic Garage — Build It. Track It. Share It.',
+    title: 'Dynamic Garage - Build It. Track It. Share It.',
     description: 'Track every mod, service record, photo, and document for any vehicle. Share a public build page at car shows, on forums, or when selling.',
     url: 'https://dynamicgarage.app',
     siteName: 'Dynamic Garage',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Dynamic Garage — Build It. Track It. Share It.',
+    title: 'Dynamic Garage - Build It. Track It. Share It.',
     description: 'Track every mod, service record, photo, and document for any vehicle.',
     site: '@dynamicgarage',
   },
@@ -40,7 +40,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning>
       <head />
       <body>
-        {/* Runs before React hydrates — prevents flash of wrong theme */}
+        {/* Runs before React hydrates - prevents flash of wrong theme */}
         <Script src="/theme-init.js" strategy="beforeInteractive" />
         <ThemeProvider>
           {children}

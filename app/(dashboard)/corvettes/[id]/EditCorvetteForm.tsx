@@ -284,7 +284,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
             onChange={e => set('vehicle_value', e.target.value)}
           />
           <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.35rem', lineHeight: 1.5 }}>
-            The agreed or stated value of the vehicle itself — shown on your Insurance Package alongside mod declared values.
+            The agreed or stated value of the vehicle itself - shown on your Insurance Package alongside mod declared values.
           </div>
         </div>
 
@@ -319,7 +319,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
           </div>
         </label>
 
-        {/* Gallery opt-in — only visible when public */}
+        {/* Gallery opt-in - only visible when public */}
         {form.is_public && (
           <label style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.9rem 1rem', background: 'var(--bg-base)', borderRadius: 6, border: `1px solid ${form.in_gallery ? 'var(--red-glow)' : 'var(--border-subtle)'}`, marginTop: '-0.25rem', transition: 'border-color 150ms' }}>
             <input

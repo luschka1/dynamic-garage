@@ -113,7 +113,7 @@ export default function HomePageV2() {
           pointerEvents: 'none',
         }} />
 
-        {/* Red radial glow — center-bottom */}
+        {/* Red radial glow - center-bottom */}
         <div style={{
           position: 'absolute',
           bottom: 0,
@@ -195,7 +195,7 @@ export default function HomePageV2() {
             margin: '0 auto 2.5rem',
             lineHeight: 1.7,
           }}>
-            The professional-grade tool for serious enthusiasts. Track modifications, service history, and documents for any vehicle — in one clean, fast app.
+            The professional-grade tool for serious enthusiasts. Track modifications, service history, and documents for any vehicle - in one clean, fast app.
           </p>
 
           {/* CTA buttons */}
@@ -209,7 +209,7 @@ export default function HomePageV2() {
           </div>
         </div>
 
-        {/* Marquee belt — pinned to bottom of hero */}
+        {/* Marquee belt - pinned to bottom of hero */}
         <div style={{
           overflow: 'hidden',
           borderTop: '1px solid var(--border-subtle)',
@@ -321,7 +321,7 @@ export default function HomePageV2() {
               {
                 icon: <Wrench size={26} />,
                 title: 'Mod Log',
-                desc: 'Every upgrade tracked — part number, cost, vendor, install date, and notes.',
+                desc: 'Every upgrade tracked - part number, cost, vendor, install date, and notes.',
                 accent: 'var(--red)',
               },
               {
@@ -333,13 +333,13 @@ export default function HomePageV2() {
               {
                 icon: <FileText size={26} />,
                 title: 'Document Vault',
-                desc: 'Upload receipts, window stickers, manuals, and photos — all secure and accessible.',
+                desc: 'Upload receipts, window stickers, manuals, and photos - all secure and accessible.',
                 accent: 'var(--green)',
               },
               {
                 icon: <Share2 size={26} />,
                 title: 'Public Build Pages',
-                desc: 'Share a live build page with anyone — perfect for shows, sales, or forums.',
+                desc: 'Share a live build page with anyone - perfect for shows, sales, or forums.',
                 accent: 'var(--gold)',
               },
             ].map(f => (

@@ -80,7 +80,7 @@ export default function ContactSellerForm({ corvetteId, vehicleLabel }: { corvet
             <div>
               <div style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--text-primary)' }}>Contact Seller</div>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.15rem' }}>
-                Your message will be sent privately — your email is only shared with the seller.
+                Your message will be sent privately - your email is only shared with the seller.
               </div>
             </div>
             <button

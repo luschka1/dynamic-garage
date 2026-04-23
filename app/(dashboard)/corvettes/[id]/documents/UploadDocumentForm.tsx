@@ -112,7 +112,7 @@ export default function UploadDocumentForm({ corvetteId, preselectedModId, prese
                   <Paperclip size={32} color="var(--text-muted)" style={{ margin: '0 auto 0.75rem' }} />
                   <p style={{ fontWeight: 600, fontSize: '1rem', color: 'var(--text-secondary)' }}>Click to choose a file</p>
                   <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', marginTop: '0.3rem' }}>
-                    Photos, PDFs, receipts — up to {MAX_MB} MB
+                    Photos, PDFs, receipts - up to {MAX_MB} MB
                   </p>
                 </div>
               )}
@@ -122,7 +122,7 @@ export default function UploadDocumentForm({ corvetteId, preselectedModId, prese
             {selectedFile && (
               <div>
                 <label className="label">Document Name</label>
-                <input className="input-field" type="text" value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Oil Change Receipt — April 2025" required />
+                <input className="input-field" type="text" value={name} onChange={e => setName(e.target.value)} placeholder="e.g. Oil Change Receipt - April 2025" required />
               </div>
             )}
 

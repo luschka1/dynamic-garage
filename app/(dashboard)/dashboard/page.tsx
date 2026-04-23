@@ -30,7 +30,7 @@ export default async function DashboardPage() {
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', marginTop: '0.4rem' }}>
             {cars && cars.length > 0
               ? `${cars.length} vehicle${cars.length > 1 ? 's' : ''} in your garage`
-              : 'Your garage is empty — add your first vehicle'}
+              : 'Your garage is empty - add your first vehicle'}
           </p>
         </div>
         <Link href="/corvettes/new" className="btn-primary">
@@ -62,7 +62,7 @@ export default async function DashboardPage() {
                 Your Public Garage
               </div>
               <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                {publicCars.length} public vehicle{publicCars.length !== 1 ? 's' : ''} — share your whole collection
+                {publicCars.length} public vehicle{publicCars.length !== 1 ? 's' : ''} - share your whole collection
               </div>
             </div>
           </div>
@@ -111,14 +111,14 @@ export default async function DashboardPage() {
               Build Your First Garage
             </h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '1rem', lineHeight: 1.65, maxWidth: 480, margin: '0 auto 2.5rem' }}>
-              Add your vehicle and start tracking mods, service history, photos, and documents — all in one place.
+              Add your vehicle and start tracking mods, service history, photos, and documents - all in one place.
             </p>
 
             {/* 3-step feature tiles */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1rem', maxWidth: 560, margin: '0 auto 2.5rem' }} className="onboard-tiles">
               {[
-                { icon: <Wrench size={22} />, color: 'var(--red)', label: 'Log Mods', desc: 'Every part, upgrade, and tune — dated and priced.' },
-                { icon: <ClipboardList size={22} />, color: '#2563eb', label: 'Track Service', desc: 'Oil changes, inspections, repairs — full history.' },
+                { icon: <Wrench size={22} />, color: 'var(--red)', label: 'Log Mods', desc: 'Every part, upgrade, and tune - dated and priced.' },
+                { icon: <ClipboardList size={22} />, color: '#2563eb', label: 'Track Service', desc: 'Oil changes, inspections, repairs - full history.' },
                 { icon: <Share2 size={22} />, color: '#16a34a', label: 'Share Your Build', desc: 'One link for car shows, forums, or listings.' },
               ].map(({ icon, color, label, desc }) => (
                 <div key={label} style={{
@@ -142,7 +142,7 @@ export default async function DashboardPage() {
 
           {/* Subtle tip */}
           <p style={{ textAlign: 'center', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-            Works for any make and model — Corvette, Mustang, BMW, trucks, anything.
+            Works for any make and model - Corvette, Mustang, BMW, trucks, anything.
           </p>
 
           <style>{`

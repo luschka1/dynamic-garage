@@ -30,7 +30,7 @@ export default function RegisterPage() {
   if (success) {
     return (
       <div style={{ minHeight: '100vh', background: 'var(--bg-base)', display: 'flex', flexDirection: 'column' }}>
-        {/* Red accent line — matches register form */}
+        {/* Red accent line - matches register form */}
         <div style={{ height: 3, background: 'linear-gradient(90deg, var(--red) 0%, transparent 60%)' }} />
 
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1.5rem' }}>
@@ -116,7 +116,7 @@ export default function RegisterPage() {
             <span style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 900, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
               <span style={{ color: '#a8a8a8' }}>Dynamic</span><span style={{ color: 'var(--red)' }}> Garage</span>
             </span>
-            {' — '}Track every mod. Share your build.
+            {' - '}Track every mod. Share your build.
           </p>
         </div>
       </div>
@@ -136,7 +136,7 @@ export default function RegisterPage() {
 
         <div style={{ width: '100%', maxWidth: 420 }}>
           <h1 style={{ fontFamily: "'Barlow Condensed'", fontSize: '2.5rem', fontWeight: 900, letterSpacing: '0.02em', marginBottom: '0.35rem' }}>CREATE YOUR GARAGE</h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', marginBottom: '2rem' }}>Free during early access &mdash; any make, any model</p>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', marginBottom: '2rem' }}>Free during early access - any make, any model</p>
 
           {error && (
             <div style={{ background: 'rgba(220,38,38,0.1)', border: '1px solid rgba(220,38,38,0.3)', color: '#f87171', borderRadius: 6, padding: '0.85rem 1rem', marginBottom: '1.5rem', fontSize: '0.95rem', fontWeight: 600 }}>

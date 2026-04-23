@@ -207,7 +207,7 @@ export default function InsuranceReview({ car, summary, corvetteId, vehicleValue
             <div style={{ background: 'var(--bg-elevated)', borderRadius: 8, padding: '0.75rem 1rem', textAlign: 'center' }}>
               <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#d97706', marginBottom: '0.2rem' }}>Mod Declared Value</div>
               <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.4rem', fontWeight: 900, color: '#d97706', lineHeight: 1 }}>
-                {summary.totalDeclaredValue > 0 ? fmtC(summary.totalDeclaredValue, car.currency) : '—'}
+                {summary.totalDeclaredValue > 0 ? fmtC(summary.totalDeclaredValue, car.currency) : ' - '}
               </div>
             </div>
             {vehicleValue != null && vehicleValue > 0 && (
@@ -289,7 +289,7 @@ export default function InsuranceReview({ car, summary, corvetteId, vehicleValue
           <h2 className="section-title" style={{ marginBottom: '0.75rem' }}>
             Mod Checklist
             <span style={{ fontSize: '0.75rem', fontWeight: 500, color: 'var(--text-muted)', textTransform: 'none', letterSpacing: 0 }}>
-              — incomplete mods are expanded by default
+              - incomplete mods are expanded by default
             </span>
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>

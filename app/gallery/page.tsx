@@ -9,7 +9,7 @@ import PublicFooter from '@/components/layout/PublicFooter'
 
 export const metadata: Metadata = {
   title: 'Build Gallery',
-  description: 'Browse real builds from the Dynamic Garage community — mods, photos, and full service history for every vehicle.',
+  description: 'Browse real builds from the Dynamic Garage community - mods, photos, and full service history for every vehicle.',
   alternates: { canonical: 'https://dynamicgarage.app/gallery' },
 }
 
@@ -64,7 +64,7 @@ export default async function GalleryPage() {
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
             {enriched.length > 0
               ? `${enriched.length} build${enriched.length !== 1 ? 's' : ''} from the Dynamic Garage community`
-              : 'Builds shared by the Dynamic Garage community — be the first to add yours.'}
+              : 'Builds shared by the Dynamic Garage community - be the first to add yours.'}
           </p>
         </div>
 
@@ -77,7 +77,7 @@ export default async function GalleryPage() {
           Join the Gallery
         </p>
         <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', maxWidth: 400, margin: '0 auto 1.5rem' }}>
-          Track your build and share it with the community — free during early access.
+          Track your build and share it with the community - free during early access.
         </p>
         <Link href="/register" className="btn-primary" style={{ display: 'inline-flex' }}>
           Start My Build

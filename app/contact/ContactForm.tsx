@@ -143,7 +143,7 @@ export default function ContactForm() {
           )}
         </div>
 
-        <p className="contact-footer-note">We typically respond within 1–2 business days.</p>
+        <p className="contact-footer-note">We typically respond within 1-2 business days.</p>
       </div>
     </>
   )

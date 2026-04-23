@@ -96,7 +96,7 @@ export default function PublicGallery({ photos }: Props) {
             sizes="(max-width: 900px) 33vw, 300px"
           />
         </div>
-        {/* Bottom-right — overlay "+N more" if needed */}
+        {/* Bottom-right - overlay "+N more" if needed */}
         <div style={{ position: 'relative', overflow: 'hidden' }}>
           <Image
             src={photos[2].public_url}

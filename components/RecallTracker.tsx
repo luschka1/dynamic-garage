@@ -133,7 +133,7 @@ export default function RecallTracker({ corvetteId, vin, make, model, year, init
             </div>
             <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', marginTop: '0.1rem' }}>
               {!checked
-                ? 'Never checked — click Check Now to see open recalls'
+                ? 'Never checked - click Check Now to see open recalls'
                 : hasRecalls
                   ? `${displayCount} open recall${displayCount !== 1 ? 's' : ''} · last checked ${formatDate(lastCheck)}`
                   : `No open recalls · last checked ${formatDate(lastCheck)}`}

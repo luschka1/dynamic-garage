@@ -93,7 +93,7 @@ export default function ServiceCard({ rec, corvetteId, currency = 'USD' }: { rec
           <div>
             <label style={labelStyle}>Category</label>
             <select style={{ ...inputStyle, cursor: 'pointer' }} value={form.category} onChange={e => set('category', e.target.value)}>
-              <option value="">— Select —</option>
+              <option value=""> -  Select  - </option>
               {SERVICE_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>

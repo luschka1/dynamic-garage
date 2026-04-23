@@ -7,7 +7,7 @@ const FEATURES = [
   {
     icon: <Wrench size={18} />,
     title: 'Mod Log',
-    desc: 'Track every dollar — prove your build is worth it.',
+    desc: 'Track every dollar - prove your build is worth it.',
     iconColor: 'var(--red)',
     group: 'build' as const,
   },
@@ -21,7 +21,7 @@ const FEATURES = [
   {
     icon: <FileText size={18} />,
     title: 'Document Vault',
-    desc: 'Receipts, titles, window stickers — all in one place, forever.',
+    desc: 'Receipts, titles, window stickers - all in one place, forever.',
     iconColor: 'var(--green)',
     group: 'build' as const,
   },
@@ -35,7 +35,7 @@ const FEATURES = [
   {
     icon: <ScanLine size={18} />,
     title: 'VIN Decoder',
-    desc: 'Drop in your VIN — year, make, model, trim fills itself.',
+    desc: 'Drop in your VIN - year, make, model, trim fills itself.',
     iconColor: 'var(--blue)',
     group: 'build' as const,
   },
@@ -56,7 +56,7 @@ const FEATURES = [
   {
     icon: <QrCode size={18} />,
     title: 'QR Show Cards',
-    desc: 'Set it on your dash — anyone who scans it sees your full build.',
+    desc: 'Set it on your dash - anyone who scans it sees your full build.',
     iconColor: 'var(--gold)',
     group: 'showcase' as const,
   },
@@ -70,7 +70,7 @@ const FEATURES = [
   {
     icon: <Moon size={18} />,
     title: 'Dark & Light Mode',
-    desc: 'Dark or light — your garage, your vibe.',
+    desc: 'Dark or light - your garage, your vibe.',
     iconColor: '#8b5cf6',
     group: 'showcase' as const,
   },
@@ -84,7 +84,7 @@ const FEATURES = [
   {
     icon: <MessageSquare size={18} />,
     title: 'Contact Seller',
-    desc: 'Buyers reach you directly — your email stays private.',
+    desc: 'Buyers reach you directly - your email stays private.',
     iconColor: '#f97316',
     group: 'protect' as const,
   },
@@ -105,7 +105,7 @@ const FEATURES = [
   {
     icon: <Car size={18} />,
     title: 'Any Make & Model',
-    desc: 'Corvette, Mustang, Porsche, BMW — every car, every year.',
+    desc: 'Corvette, Mustang, Porsche, BMW - every car, every year.',
     iconColor: 'var(--red)',
     group: 'protect' as const,
   },
@@ -127,7 +127,7 @@ const GROUPS = [
   {
     key: 'protect' as const,
     label: 'Sell & Protect',
-    tagline: 'Selling or insuring — you\'re covered either way.',
+    tagline: 'Selling or insuring - you\'re covered either way.',
     color: '#16a34a',
   },
 ]
@@ -156,7 +156,7 @@ export default function FeatureShowcase() {
             Document. Prove. Showcase. Everything your vehicle deserves.
           </h2>
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', maxWidth: 520, margin: '0 auto' }}>
-            Whether you&apos;re building, showing, or selling — everything you need to prove what you&apos;ve got.
+            Whether you&apos;re building, showing, or selling - everything you need to prove what you&apos;ve got.
           </p>
         </div>
 

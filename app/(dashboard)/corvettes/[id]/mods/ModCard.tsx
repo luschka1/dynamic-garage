@@ -94,7 +94,7 @@ export default function ModCard({ mod, corvetteId, currency = 'USD' }: { mod: Mo
           <div>
             <label style={labelStyle}>Category</label>
             <select style={{ ...inputStyle, cursor: 'pointer' }} value={form.category} onChange={e => set('category', e.target.value)}>
-              <option value="">— Select —</option>
+              <option value=""> -  Select  - </option>
               {MOD_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>

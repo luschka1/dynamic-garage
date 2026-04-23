@@ -64,7 +64,7 @@ export default function AddServiceForm({ corvetteId }: { corvetteId: string }) {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) { setSaving(false); return }
 
-    // 1. Insert service record — get ID back
+    // 1. Insert service record - get ID back
     const { data: rec, error: recErr } = await supabase
       .from('service_records')
       .insert({
@@ -186,7 +186,7 @@ export default function AddServiceForm({ corvetteId }: { corvetteId: string }) {
             {/* ── Attach Receipt ── */}
             <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '1rem' }}>
               <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.65rem' }}>
-                Attach Receipt <span style={{ fontWeight: 500, textTransform: 'none', letterSpacing: 0 }}>— optional</span>
+                Attach Receipt <span style={{ fontWeight: 500, textTransform: 'none', letterSpacing: 0 }}> -  optional</span>
               </p>
 
               {!docFile ? (

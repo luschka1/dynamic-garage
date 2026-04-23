@@ -82,7 +82,7 @@ export default async function AdminUsersPage() {
                 {/* Email */}
                 <td style={{ padding: '0.75rem 1rem' }}>
                   <div style={{ fontSize: '0.88rem', color: 'var(--text-primary)', fontWeight: 500 }}>
-                    {user.email ?? '—'}
+                    {user.email ?? ' - '}
                   </div>
                   {user.user_metadata?.full_name && (
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.1rem' }}>
@@ -124,7 +124,7 @@ export default async function AdminUsersPage() {
                 <td style={{ padding: '0.75rem 1rem', fontSize: '0.8rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
                   {user.last_sign_in_at
                     ? new Date(user.last_sign_in_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-                    : '—'
+                    : ' - '
                   }
                 </td>
               </tr>

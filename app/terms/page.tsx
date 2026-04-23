@@ -3,7 +3,7 @@ import PublicNav from '@/components/layout/PublicNav'
 import PublicFooter from '@/components/layout/PublicFooter'
 
 export const metadata = {
-  title: 'Terms of Service — Dynamic Garage',
+  title: 'Terms of Service - Dynamic Garage',
   description: 'The terms and conditions governing your use of Dynamic Garage.',
 }
 

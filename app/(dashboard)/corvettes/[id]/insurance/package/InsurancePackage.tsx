@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import type { Corvette, Mod, Document } from '@/lib/types'
 import { formatCurrency } from '@/lib/currency'
 function fmtDate(d?: string | null) {
-  if (!d) return '—'
+  if (!d) return ' - '
   return new Date(d + 'T12:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
@@ -21,7 +21,7 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
   const printDateTime = new Date().toLocaleString('en-US', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })
 
   useEffect(() => {
-    document.title = `Insurance Package — ${car.year} ${car.nickname} — Dynamic Garage`
+    document.title = `Insurance Package - ${car.year} ${car.nickname} - Dynamic Garage`
     setTimeout(() => window.print(), 700)
   }, [car])
 
@@ -114,7 +114,7 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
         /* Footer */
         .ins-footer { margin-top: 1.5rem; padding-top: 0.75rem; border-top: 1px solid #e8e8e8; display: flex; justify-content: space-between; font-size: 7.5pt; color: #bbb; }
 
-        /* Print controls — screen only */
+        /* Print controls - screen only */
         .no-print { display: flex; }
 
         @media print {
@@ -134,7 +134,7 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
       {/* Screen-only toolbar */}
       <div className="no-print" style={{ background: '#111', color: '#fff', padding: '0.75rem 1.5rem', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100 }}>
         <span style={{ fontSize: '0.875rem', color: '#ccc' }}>
-          Insurance Package — <strong style={{ color: '#fff' }}>{car.year} {car.nickname}</strong>
+          Insurance Package - <strong style={{ color: '#fff' }}>{car.year} {car.nickname}</strong>
           {insuredMods.length < mods.length && (
             <span style={{ marginLeft: '0.75rem', fontSize: '0.8rem', color: '#f59e0b' }}>
               ⚠ {mods.length - insuredMods.length} mod{mods.length - insuredMods.length !== 1 ? 's' : ''} excluded (no declared replacement value)
@@ -231,7 +231,7 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
             <div className="tc-value">{insuredMods.length}</div>
             <div className="tc-sub">
               {mods.length > insuredMods.length
-                ? `${mods.length - insuredMods.length} excluded — no declared value`
+                ? `${mods.length - insuredMods.length} excluded - no declared value`
                 : 'All mods included'}
             </div>
           </div>
@@ -271,8 +271,8 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
                         <div className="td-name">{mod.name}</div>
                         {mod.notes && <div className="td-muted">{mod.notes.slice(0, 80)}{mod.notes.length > 80 ? '…' : ''}</div>}
                       </td>
-                      <td>{mod.category ?? <span style={{ color: '#ccc' }}>—</span>}</td>
-                      <td>{mod.vendor ?? <span style={{ color: '#ccc' }}>—</span>}</td>
+                      <td>{mod.category ?? <span style={{ color: '#ccc' }}> - </span>}</td>
+                      <td>{mod.vendor ?? <span style={{ color: '#ccc' }}> - </span>}</td>
                       <td style={{ whiteSpace: 'nowrap' }}>{fmtDate(mod.install_date)}</td>
                       <td className="td-cost">{formatCurrency(mod.cost, car.currency)}</td>
                       <td className="td-declared">{formatCurrency(mod.replacement_value, car.currency)}</td>
@@ -301,8 +301,8 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
         {mods.length > insuredMods.length && (
           <div className="section">
             <div className="section-title">
-              Supplemental — Modifications Without Declared Value
-              <span>Not included in declared total — add replacement values to include</span>
+              Supplemental - Modifications Without Declared Value
+              <span>Not included in declared total - add replacement values to include</span>
             </div>
             <table>
               <thead>
@@ -318,7 +318,7 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
                 {mods.filter(m => !m.replacement_value).map(mod => (
                   <tr key={mod.id}>
                     <td className="td-name">{mod.name}</td>
-                    <td>{mod.category ?? '—'}</td>
+                    <td>{mod.category ?? ' - '}</td>
                     <td>{mod.vendor ?? <span className="no-receipt-warn">missing</span>}</td>
                     <td>{fmtDate(mod.install_date)}</td>
                     <td className="td-cost">{formatCurrency(mod.cost, car.currency)}</td>
@@ -349,7 +349,7 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
 
         {/* ── Footer ── */}
         <div className="ins-footer">
-          <span>Dynamic Garage — dynamicgarage.app — Vehicle Modification Insurance Documentation</span>
+          <span>Dynamic Garage - dynamicgarage.app - Vehicle Modification Insurance Documentation</span>
           <span>Generated {printDate}</span>
         </div>
 

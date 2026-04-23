@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ userId: s
   const name = ownerData?.user?.user_metadata?.full_name?.split(' ')[0]
     || ownerData?.user?.email?.split('@')[0]
     || 'A'
-  const title = `${name}'s Garage — Dynamic Garage`
+  const title = `${name}'s Garage - Dynamic Garage`
   return {
     title,
     description: `Browse ${name}'s car collection on Dynamic Garage.`,
@@ -195,7 +195,7 @@ export default async function PublicGaragePage({ params }: { params: Promise<{ u
             Build Your Own
           </p>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-            Track mods, photos, service history, and documents for any vehicle — free during early access.
+            Track mods, photos, service history, and documents for any vehicle - free during early access.
           </p>
           <Link href="/register" className="btn-primary" style={{ display: 'inline-flex' }}>
             Create My Free Garage

@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { ChevronRight, Check, Shield } from 'lucide-react'
 
 export const metadata: Metadata = {
-  title: 'Dynamic Garage — Build It. Track It. Share It.',
+  title: 'Dynamic Garage - Build It. Track It. Share It.',
   description: 'Track every mod, service record, photo, and document for any vehicle. Share a public build page at car shows, on forums, or when selling. Free during early access.',
   alternates: { canonical: 'https://dynamicgarage.app' },
 }
@@ -56,7 +56,7 @@ export default async function HomePage() {
               maxWidth: 480,
               marginBottom: '2.25rem',
             }}>
-              You know what you&apos;ve built. Can you prove it? Everything about your car — mods, history, documents, photos — organized, documented, and ready to share.
+              You know what you&apos;ve built. Can you prove it? Everything about your car - mods, history, documents, photos - organized, documented, and ready to share.
             </p>
 
             {/* CTAs */}
@@ -103,7 +103,7 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* Right column — rotating app screenshots */}
+          {/* Right column - rotating app screenshots */}
           <HeroCarousel />
         </div>
       </section>
@@ -117,7 +117,7 @@ export default async function HomePage() {
         textAlign: 'center',
       }}>
         <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', letterSpacing: '0.01em' }}>
-          Works with any vehicle &mdash; Corvette, Mustang, Porsche, BMW, Ferrari, and everything in between.
+          Works with any vehicle - Corvette, Mustang, Porsche, BMW, Ferrari, and everything in between.
         </p>
       </div>
 
@@ -163,10 +163,10 @@ export default async function HomePage() {
             YOUR BUILD HAS A STORY.
           </h2>
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', marginBottom: '2.25rem' }}>
-            Start documenting it today — free, no card needed, any vehicle.
+            Start documenting it today - free, no card needed, any vehicle.
           </p>
           <Link href="/register" className="btn-primary hp-cta-btn" style={{ fontSize: '1.1rem', padding: '0.85rem 2.5rem', minHeight: 52 }}>
-            Start Free — No Card Needed <ChevronRight size={18} />
+            Start Free - No Card Needed <ChevronRight size={18} />
           </Link>
         </div>
       </section>

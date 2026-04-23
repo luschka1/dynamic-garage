@@ -13,7 +13,7 @@ function readUnit(): Unit {
   return (localStorage.getItem(KEY) as Unit) || 'mi'
 }
 
-/** Shared hook — re-renders whenever the unit changes anywhere on the page */
+/** Shared hook - re-renders whenever the unit changes anywhere on the page */
 export function useMileageUnit(): Unit {
   const [unit, setUnit] = useState<Unit>('mi')
   useEffect(() => {

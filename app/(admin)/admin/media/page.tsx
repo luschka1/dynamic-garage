@@ -206,7 +206,7 @@ export default async function AdminMediaPage() {
                     </span>
                   </td>
                   <td style={{ padding: '0.65rem 1rem', fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-                    {nicknameMap[doc.corvette_id] ?? '—'}
+                    {nicknameMap[doc.corvette_id] ?? ' - '}
                   </td>
                   <td style={{ padding: '0.65rem 1rem', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
                     {new Date(doc.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}

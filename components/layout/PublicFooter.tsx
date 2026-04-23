@@ -24,7 +24,7 @@ export default function PublicFooter() {
       </span>
 
       <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-        &copy; {new Date().getFullYear()} &nbsp;DynamicGarage.app &mdash; Built for enthusiasts.
+        &copy; {new Date().getFullYear()} &nbsp;DynamicGarage.app - Built for enthusiasts.
       </span>
 
       <div style={{ display: 'flex', gap: '1.25rem' }}>

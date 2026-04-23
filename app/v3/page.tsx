@@ -98,7 +98,7 @@ export default function ClarityHomePage() {
               maxWidth: 480,
               marginBottom: '2.25rem',
             }}>
-              Capture every detail of your vehicle in one place &mdash; creating a verified history that builds value, trust, and confidence for enthusiasts, collectors, and buyers.
+              Capture every detail of your vehicle in one place - creating a verified history that builds value, trust, and confidence for enthusiasts, collectors, and buyers.
             </p>
 
             {/* CTAs */}
@@ -126,7 +126,7 @@ export default function ClarityHomePage() {
             </div>
           </div>
 
-          {/* Right column — App UI Mockup */}
+          {/* Right column - App UI Mockup */}
           <div style={{
             borderRadius: 16,
             border: '1px solid var(--border-subtle)',
@@ -234,7 +234,7 @@ export default function ClarityHomePage() {
         textAlign: 'center',
       }}>
         <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', letterSpacing: '0.01em' }}>
-          Works with any vehicle &mdash; Corvette, Mustang, Porsche, BMW, Ferrari, and everything in between.
+          Works with any vehicle - Corvette, Mustang, Porsche, BMW, Ferrari, and everything in between.
         </p>
       </div>
 
@@ -255,7 +255,7 @@ export default function ClarityHomePage() {
               {
                 icon: <Wrench size={22} />,
                 title: 'Mod Log',
-                desc: 'Every upgrade tracked — part number, cost, vendor, install date, and notes.',
+                desc: 'Every upgrade tracked - part number, cost, vendor, install date, and notes.',
                 iconBg: 'var(--red-dim)',
                 iconColor: 'var(--red)',
               },
@@ -269,14 +269,14 @@ export default function ClarityHomePage() {
               {
                 icon: <FileText size={22} />,
                 title: 'Document Vault',
-                desc: 'Upload receipts, window stickers, manuals, and photos — secure and accessible.',
+                desc: 'Upload receipts, window stickers, manuals, and photos - secure and accessible.',
                 iconBg: 'var(--green-dim)',
                 iconColor: 'var(--green)',
               },
               {
                 icon: <Share2 size={22} />,
                 title: 'Public Build Pages',
-                desc: 'Share a live build page with anyone — perfect for shows, sales, or forums.',
+                desc: 'Share a live build page with anyone - perfect for shows, sales, or forums.',
                 iconBg: 'var(--gold-dim)',
                 iconColor: 'var(--gold)',
               },
@@ -329,12 +329,12 @@ export default function ClarityHomePage() {
               {
                 num: '01',
                 title: 'Create Your Garage',
-                desc: 'Free account. Add any vehicle in seconds — any make, any model, any year.',
+                desc: 'Free account. Add any vehicle in seconds - any make, any model, any year.',
               },
               {
                 num: '02',
                 title: 'Log Everything',
-                desc: 'Mods, service records, documents, photos — all in one organized, searchable place.',
+                desc: 'Mods, service records, documents, photos - all in one organized, searchable place.',
               },
               {
                 num: '03',
@@ -381,7 +381,7 @@ export default function ClarityHomePage() {
             lineHeight: 1.65,
             letterSpacing: '0.01em',
           }}>
-            &ldquo;Capture every detail of your vehicle in one place &mdash; creating a verified history that builds value, trust, and confidence.&rdquo;
+            &ldquo;Capture every detail of your vehicle in one place - creating a verified history that builds value, trust, and confidence.&rdquo;
           </p>
 
           {/* Bottom red line */}
@@ -433,7 +433,7 @@ export default function ClarityHomePage() {
           </span>
         </div>
         <span style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-          &copy; {new Date().getFullYear()} DynamicGarage.app &mdash; Built for enthusiasts.
+          &copy; {new Date().getFullYear()} DynamicGarage.app - Built for enthusiasts.
         </span>
         <div style={{ display: 'flex', gap: '1.25rem' }}>
           {['Privacy', 'Terms', 'Contact'].map(l => (

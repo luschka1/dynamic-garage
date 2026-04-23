@@ -4,15 +4,15 @@ import { useEffect } from 'react'
 import type { Corvette, Mod, ServiceRecord, Document } from '@/lib/types'
 
 function fmt(n?: number | null) {
-  if (n == null) return '—'
+  if (n == null) return ' - '
   return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 }
 function fmtDate(d?: string | null) {
-  if (!d) return '—'
+  if (!d) return ' - '
   return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })
 }
 function fmtMiles(n?: number | null) {
-  if (n == null) return '—'
+  if (n == null) return ' - '
   return n.toLocaleString('en-US') + ' mi'
 }
 
@@ -25,7 +25,7 @@ interface Props {
 
 export default function PrintView({ car, mods, service, docs }: Props) {
   useEffect(() => {
-    document.title = `${car.year} ${car.nickname} — Dynamic Garage`
+    document.title = `${car.year} ${car.nickname} - Dynamic Garage`
     setTimeout(() => window.print(), 600)
   }, [car])
 
@@ -115,10 +115,10 @@ export default function PrintView({ car, mods, service, docs }: Props) {
         }
       `}</style>
 
-      {/* Print / Close bar — screen only */}
+      {/* Print / Close bar - screen only */}
       <div className="no-print" style={{ background: '#111', color: '#fff', padding: '0.75rem 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 100 }}>
         <span style={{ fontSize: '0.875rem', fontWeight: 500, color: '#ccc' }}>
-          PDF Preview — <span style={{ color: '#fff' }}>{car.year} {car.nickname}</span>
+          PDF Preview - <span style={{ color: '#fff' }}>{car.year} {car.nickname}</span>
         </span>
         <div style={{ display: 'flex', gap: '0.5rem' }}>
           <button
@@ -165,9 +165,9 @@ export default function PrintView({ car, mods, service, docs }: Props) {
         <div className="specs-grid">
           {[
             { label: 'Year', value: car.year },
-            { label: 'VIN', value: car.vin || '—' },
-            { label: 'Color', value: car.color || '—' },
-            { label: 'Mileage', value: car.mileage ? fmtMiles(car.mileage) : '—' },
+            { label: 'VIN', value: car.vin || ' - ' },
+            { label: 'Color', value: car.color || ' - ' },
+            { label: 'Mileage', value: car.mileage ? fmtMiles(car.mileage) : ' - ' },
           ].map(s => (
             <div key={s.label} className="spec-cell">
               <div className="spec-label">{s.label}</div>
@@ -221,8 +221,8 @@ export default function PrintView({ car, mods, service, docs }: Props) {
                       <div className="td-name">{m.name}</div>
                       {m.notes && <div className="td-muted" style={{ marginTop: '0.2rem' }}>{m.notes}</div>}
                     </td>
-                    <td>{m.category ? <span className="td-cat">{m.category}</span> : <span className="td-muted">—</span>}</td>
-                    <td className="td-muted">{m.vendor || '—'}</td>
+                    <td>{m.category ? <span className="td-cat">{m.category}</span> : <span className="td-muted"> - </span>}</td>
+                    <td className="td-muted">{m.vendor || ' - '}</td>
                     <td className="td-muted">{fmtDate(m.install_date)}</td>
                     <td className="td-cost">{fmt(m.cost)}</td>
                   </tr>
@@ -259,8 +259,8 @@ export default function PrintView({ car, mods, service, docs }: Props) {
                       <div className="td-name">{r.title}</div>
                       {r.notes && <div className="td-muted" style={{ marginTop: '0.2rem' }}>{r.notes}</div>}
                     </td>
-                    <td>{r.category ? <span className="td-cat">{r.category}</span> : <span className="td-muted">—</span>}</td>
-                    <td className="td-muted">{r.shop || '—'}</td>
+                    <td>{r.category ? <span className="td-cat">{r.category}</span> : <span className="td-muted"> - </span>}</td>
+                    <td className="td-muted">{r.shop || ' - '}</td>
                     <td className="td-muted">{fmtMiles(r.mileage)}</td>
                     <td className="td-muted">{fmtDate(r.service_date)}</td>
                     <td className="td-cost">{fmt(r.cost)}</td>
@@ -294,7 +294,7 @@ export default function PrintView({ car, mods, service, docs }: Props) {
 
         {/* ── Footer ── */}
         <div className="pdf-footer">
-          <span>dynamicgarage.app — Vehicle History Report</span>
+          <span>dynamicgarage.app - Vehicle History Report</span>
           <span>{car.year} {car.nickname.toUpperCase()}</span>
           <span>Generated {printDate}</span>
         </div>

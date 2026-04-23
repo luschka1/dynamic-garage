@@ -25,8 +25,8 @@ export async function generateMetadata({ params }: { params: Promise<{ userId: s
 
   if (!car) return {}
 
-  const title = `${car.nickname} — ${car.year} ${car.model}${car.for_sale ? ' · For Sale' : ''}`
-  const description = `${car.year} ${car.model}${car.trim ? ` ${car.trim}` : ''}${car.color ? ` in ${car.color}` : ''} — full build sheet with mods, service history, and photos on Dynamic Garage.${car.for_sale ? ' Currently for sale.' : ''}`
+  const title = `${car.nickname} - ${car.year} ${car.model}${car.for_sale ? ' · For Sale' : ''}`
+  const description = `${car.year} ${car.model}${car.trim ? ` ${car.trim}` : ''}${car.color ? ` in ${car.color}` : ''} - full build sheet with mods, service history, and photos on Dynamic Garage.${car.for_sale ? ' Currently for sale.' : ''}`
   const url = `https://dynamicgarage.app/share/${userId}/${corvetteId}`
 
   return {
@@ -97,7 +97,7 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Car',
-    name: `${car.year} ${car.model} — ${car.nickname}`,
+    name: `${car.year} ${car.model} - ${car.nickname}`,
     vehicleModelDate: String(car.year),
     ...(car.color ? { color: car.color } : {}),
     ...(car.vin ? { vehicleIdentificationNumber: car.vin } : {}),
@@ -197,7 +197,7 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
         {c.for_sale && (
           <ContactSellerForm
             corvetteId={c.id}
-            vehicleLabel={`${c.year} ${c.model} — ${c.nickname}`}
+            vehicleLabel={`${c.year} ${c.model} - ${c.nickname}`}
           />
         )}
 
@@ -558,7 +558,7 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
             Build Your Own
           </p>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-            Track mods, photos, service history, and documents for any vehicle — free during early access.
+            Track mods, photos, service history, and documents for any vehicle - free during early access.
           </p>
           <Link href="/register" className="btn-primary" style={{ display: 'inline-flex' }}>
             Create My Free Garage

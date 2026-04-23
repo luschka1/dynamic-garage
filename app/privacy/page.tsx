@@ -3,7 +3,7 @@ import PublicNav from '@/components/layout/PublicNav'
 import PublicFooter from '@/components/layout/PublicFooter'
 
 export const metadata = {
-  title: 'Privacy Policy — Dynamic Garage',
+  title: 'Privacy Policy - Dynamic Garage',
   description: 'How Dynamic Garage collects, uses, and protects your personal information.',
 }
 
@@ -123,7 +123,7 @@ export default function PrivacyPage() {
             'Photos you have uploaded',
             'Modifications and service records you have added',
             'Documents you have attached (if any)',
-            'Your contact form (if the vehicle is marked For Sale) — messages go to your email, which remains private',
+            'Your contact form (if the vehicle is marked For Sale) - messages go to your email, which remains private',
           ]} />
           <P>
             You can make a vehicle private at any time by toggling the visibility setting in the edit form. Private vehicles are never accessible to the public.

@@ -113,7 +113,7 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
         </div>
       </div>
 
-      {/* Getting Started checklist — shown until all 3 steps are complete */}
+      {/* Getting Started checklist - shown until all 3 steps are complete */}
       {(() => {
         const hasPhoto = (photos ?? []).length > 0 || !!c.photo_url
         const hasMods = (modCount ?? 0) > 0
@@ -165,7 +165,7 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
                   Getting Started
                 </div>
                 <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-                  {doneCount === 0 ? 'Complete these steps to build out your page' : `${doneCount} of 3 steps done — keep going!`}
+                  {doneCount === 0 ? 'Complete these steps to build out your page' : `${doneCount} of 3 steps done - keep going!`}
                 </div>
               </div>
               {/* Progress pills */}
@@ -307,7 +307,7 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
         />
       )}
 
-      {/* NHTSA Recall Tracker — only shown when a VIN is on file */}
+      {/* NHTSA Recall Tracker - only shown when a VIN is on file */}
       {c.vin && (() => {
         // model field stores "Make Model" e.g. "Chevrolet Corvette"
         const MAKES = ['Acura','Alfa Romeo','Aston Martin','Audi','Bentley','BMW','Buick','Cadillac','Chevrolet','Chrysler','Dodge','Ferrari','Fiat','Ford','Genesis','GMC','Honda','Hyundai','Infiniti','Jaguar','Jeep','Kia','Lamborghini','Land Rover','Lexus','Lincoln','Lotus','Maserati','Mazda','McLaren','Mercedes-Benz','MINI','Mitsubishi','Nissan','Pontiac','Porsche','RAM','Rolls-Royce','Subaru','Tesla','Toyota','Volkswagen','Volvo','Other']

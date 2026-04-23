@@ -12,7 +12,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--bg-base)' }}>
-      {/* Sidebar — always dark, consistent with main nav */}
+      {/* Sidebar - always dark, consistent with main nav */}
       <aside style={{
         width: 220,
         minHeight: '100vh',
@@ -89,7 +89,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         </div>
       </aside>
 
-      {/* Main content — respects theme */}
+      {/* Main content - respects theme */}
       <main style={{ flex: 1, minHeight: '100vh', overflowY: 'auto', background: 'var(--bg-base)' }}>
         {children}
       </main>
@@ -97,7 +97,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   )
 }
 
-// Server-side nav link — active state handled via a client wrapper
+// Server-side nav link - active state handled via a client wrapper
 function AdminNavLink({ href, label }: { href: string; label: string }) {
   return (
     <Link

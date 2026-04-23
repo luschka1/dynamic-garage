@@ -131,7 +131,7 @@ export default function EmailUploadAddress({ emailAddress, vehicleName }: Props)
         {[
           'Email any photos, PDFs, or receipts to this address from any device',
           'Attachments are automatically saved to your Document Vault',
-          'Works from your phone — great for snapping a receipt right at the shop',
+          'Works from your phone - great for snapping a receipt right at the shop',
         ].map((tip, i) => (
           <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
             <span style={{

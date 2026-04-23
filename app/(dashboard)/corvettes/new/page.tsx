@@ -160,7 +160,7 @@ export default function NewCarPage() {
               <div>
                 <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.25rem' }}>Make this build public</div>
                 <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                  Anyone with the link can view your mods and service history — great for car shows, forums, or selling.
+                  Anyone with the link can view your mods and service history - great for car shows, forums, or selling.
                 </div>
               </div>
             </label>
@@ -178,7 +178,7 @@ export default function NewCarPage() {
                     Add to Community Gallery
                   </div>
                   <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                    Feature this build in the Dynamic Garage public gallery — visible to anyone browsing the site.
+                    Feature this build in the Dynamic Garage public gallery - visible to anyone browsing the site.
                   </div>
                 </div>
               </label>

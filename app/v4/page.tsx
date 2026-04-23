@@ -120,7 +120,7 @@ export default function HomePageV4() {
             maxWidth: 580,
             margin: '0 auto',
           }}>
-            "Capture every detail of your vehicle in one place — creating a verified history
+            "Capture every detail of your vehicle in one place - creating a verified history
             that builds value, trust, and confidence for enthusiasts, collectors, and buyers."
           </p>
 
@@ -228,11 +228,11 @@ export default function HomePageV4() {
             {[
               {
                 title: 'Mod Log',
-                desc: 'Every upgrade documented — part number, vendor, cost, install date, and notes. A permanent record of every decision made.',
+                desc: 'Every upgrade documented - part number, vendor, cost, install date, and notes. A permanent record of every decision made.',
               },
               {
                 title: 'Service History',
-                desc: 'Complete maintenance records tied to mileage and date. Every oil change, every brake job, every shop visit — logged and searchable.',
+                desc: 'Complete maintenance records tied to mileage and date. Every oil change, every brake job, every shop visit - logged and searchable.',
               },
               {
                 title: 'Document Vault',
@@ -240,7 +240,7 @@ export default function HomePageV4() {
               },
               {
                 title: 'Public Build Pages',
-                desc: 'Share a living build page with anyone — buyers, judges, forums, or shows. A verifiable record that speaks for itself.',
+                desc: 'Share a living build page with anyone - buyers, judges, forums, or shows. A verifiable record that speaks for itself.',
               },
             ].map(f => (
               <div key={f.title}>
@@ -304,7 +304,7 @@ export default function HomePageV4() {
             color: 'var(--text-primary)',
             margin: '0 0 2rem',
           }}>
-            Every modification, every service record, every receipt — together they tell
+            Every modification, every service record, every receipt - together they tell
             the story of a vehicle cared for with purpose.
           </p>
           <p style={{

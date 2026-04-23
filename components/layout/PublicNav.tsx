@@ -5,7 +5,7 @@ import MobileNav from '@/app/MobileNav'
 import { createClient } from '@/lib/supabase/server'
 
 interface Props {
-  /** Optional small badge shown right of the logo — e.g. "Public Build" or "Gallery" */
+  /** Optional small badge shown right of the logo - e.g. "Public Build" or "Gallery" */
   badge?: React.ReactNode
 }
 
@@ -22,10 +22,10 @@ export default async function PublicNav({ badge }: Props) {
       zIndex: 50,
       backdropFilter: 'blur(12px)',
     }}>
-      {/* Red accent line — matches dashboard nav */}
+      {/* Red accent line - matches dashboard nav */}
       <div style={{ height: 2, background: 'linear-gradient(90deg, var(--red) 0%, transparent 60%)', position: 'absolute', top: 0, left: 0, right: 0 }} />
 
-      {/* Inner container — same maxWidth and padding as dashboard nav */}
+      {/* Inner container - same maxWidth and padding as dashboard nav */}
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 1.5rem', height: 60, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
 
         {/* Left: logo + optional badge */}
@@ -71,7 +71,7 @@ export default async function PublicNav({ badge }: Props) {
             </Link>
           )}
 
-          {/* Hamburger — mobile only */}
+          {/* Hamburger - mobile only */}
           <div className="pub-nav-mobile">
             <MobileNav isLoggedIn={!!user} />
           </div>

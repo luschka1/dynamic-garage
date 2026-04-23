@@ -66,7 +66,7 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) { setSaving(false); return }
 
-    // 1. Insert mod — get ID back
+    // 1. Insert mod - get ID back
     const { data: mod, error: modErr } = await supabase
       .from('mods')
       .insert({
@@ -129,12 +129,12 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
 
   return (
     <div>
-    {/* Insurance nudge — shown after saving an incomplete mod */}
+    {/* Insurance nudge - shown after saving an incomplete mod */}
     {showNudge && (
       <div style={{ background: 'rgba(217,119,6,0.08)', border: '1px solid rgba(217,119,6,0.25)', borderRadius: 8, padding: '1rem 1.25rem', marginBottom: '1rem', display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
         <ShieldCheck size={18} color="#d97706" style={{ flexShrink: 0, marginTop: 2 }} />
         <div style={{ flex: 1 }}>
-          <div style={{ fontWeight: 700, fontSize: '0.88rem', color: '#d97706', marginBottom: '0.2rem' }}>Mod saved — make it insurance-ready</div>
+          <div style={{ fontWeight: 700, fontSize: '0.88rem', color: '#d97706', marginBottom: '0.2rem' }}>Mod saved - make it insurance-ready</div>
           <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
             Documented mods with a declared replacement value and receipt are covered by insurance. Undocumented mods usually aren&apos;t.{' '}
             <a href="insurance" style={{ color: '#d97706', fontWeight: 600, textDecoration: 'none' }}>Complete your records →</a>
@@ -231,7 +231,7 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
             {/* ── Attach Receipt ── */}
             <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '1rem' }}>
               <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.65rem' }}>
-                Attach Receipt/Photo/File <span style={{ fontWeight: 500, textTransform: 'none', letterSpacing: 0 }}>— optional</span>
+                Attach Receipt/Photo/File <span style={{ fontWeight: 500, textTransform: 'none', letterSpacing: 0 }}> -  optional</span>
               </p>
 
               {!docFile ? (

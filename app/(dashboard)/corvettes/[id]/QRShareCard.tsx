@@ -33,7 +33,7 @@ export default function QRShareCard({ shareUrl, nickname, year, model, trim, col
     if (!cardRef.current) return
     setDownloading(true)
     try {
-      // Run twice — first pass loads fonts/images, second is clean
+      // Run twice - first pass loads fonts/images, second is clean
       await toPng(cardRef.current, { pixelRatio: 2 })
       const dataUrl = await toPng(cardRef.current, {
         pixelRatio: 2,
@@ -61,7 +61,7 @@ export default function QRShareCard({ shareUrl, nickname, year, model, trim, col
         <meta charset="utf-8">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Roboto:wght@900&display=swap" rel="stylesheet">
-        <title>${nickname} — Dynamic Garage Show Card</title>
+        <title>${nickname} - Dynamic Garage Show Card</title>
         <style>
           * { margin: 0; padding: 0; box-sizing: border-box; }
           body { background: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem; }
@@ -134,7 +134,7 @@ export default function QRShareCard({ shareUrl, nickname, year, model, trim, col
                 {nickname.toUpperCase()}
               </h2>
               <p style={{ fontSize: '0.82rem', color: 'var(--text-muted)', marginTop: '0.3rem' }}>
-                Print or save — hand out at shows, include in listings, post online.
+                Print or save - hand out at shows, include in listings, post online.
               </p>
             </div>
 
@@ -158,7 +158,7 @@ export default function QRShareCard({ shareUrl, nickname, year, model, trim, col
                 {/* Top accent bar */}
                 <div style={{ height: 3, background: 'linear-gradient(90deg, #e03535 0%, #e0353500 65%)', flexShrink: 0 }} />
 
-                {/* Photo strip — fills most of the card, fades into content on left */}
+                {/* Photo strip - fills most of the card, fades into content on left */}
                 {photoUrl && (
                   <div style={{
                     position: 'absolute', top: 0, right: 0, bottom: 0,
