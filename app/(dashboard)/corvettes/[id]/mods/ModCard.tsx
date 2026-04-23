@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
-import { Paperclip, Pencil, Trash2, X, Check } from 'lucide-react'
+import { Paperclip, Pencil, Trash2, X, Check, ShieldCheck } from 'lucide-react'
 import { MOD_CATEGORIES, type Mod } from '@/lib/types'
 
 function Field({ label, value }: { label: string; value: React.ReactNode }) {
@@ -37,6 +37,7 @@ export default function ModCard({ mod, corvetteId }: { mod: Mod; corvetteId: str
     category: mod.category ?? '',
     vendor: mod.vendor ?? '',
     cost: mod.cost != null ? String(mod.cost) : '',
+    replacement_value: mod.replacement_value != null ? String(mod.replacement_value) : '',
     install_date: mod.install_date ?? '',
     purchase_url: mod.purchase_url ?? '',
     notes: mod.notes ?? '',
@@ -53,6 +54,7 @@ export default function ModCard({ mod, corvetteId }: { mod: Mod; corvetteId: str
       category: form.category || null,
       vendor: form.vendor || null,
       cost: form.cost ? parseFloat(form.cost) : null,
+      replacement_value: form.replacement_value ? parseFloat(form.replacement_value) : null,
       install_date: form.install_date || null,
       purchase_url: form.purchase_url || null,
       notes: form.notes || null,
@@ -100,12 +102,18 @@ export default function ModCard({ mod, corvetteId }: { mod: Mod; corvetteId: str
             <input style={inputStyle} value={form.vendor} onChange={e => set('vendor', e.target.value)} placeholder="e.g. Corsa Performance" />
           </div>
           <div>
-            <label style={labelStyle}>Cost ($)</label>
+            <label style={labelStyle}>Purchase Cost ($)</label>
             <input style={inputStyle} type="number" min="0" step="0.01" value={form.cost} onChange={e => set('cost', e.target.value)} placeholder="0.00" />
           </div>
           <div>
             <label style={labelStyle}>Install Date</label>
             <input style={inputStyle} type="date" value={form.install_date} onChange={e => set('install_date', e.target.value)} />
+          </div>
+          <div>
+            <label style={{ ...labelStyle, display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              Replacement Value ($) <span style={{ fontSize: '0.6rem', fontWeight: 700, background: 'rgba(217,119,6,0.12)', color: '#d97706', borderRadius: 3, padding: '0.1rem 0.3rem' }}>INSURANCE</span>
+            </label>
+            <input style={inputStyle} type="number" min="0" step="0.01" value={form.replacement_value} onChange={e => set('replacement_value', e.target.value)} placeholder="Cost to replace today" />
           </div>
           <div style={{ gridColumn: '1 / -1' }}>
             <label style={labelStyle}>Purchase URL</label>
@@ -147,14 +155,26 @@ export default function ModCard({ mod, corvetteId }: { mod: Mod; corvetteId: str
         </div>
 
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', flexShrink: 0 }}>
-          {mod.cost != null && (
-            <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>Cost</div>
-              <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1 }}>
-                ${mod.cost.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+          <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+            {mod.cost != null && (
+              <div>
+                <div style={{ fontSize: '0.6rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.1rem' }}>Paid</div>
+                <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1 }}>
+                  ${mod.cost.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                </div>
               </div>
-            </div>
-          )}
+            )}
+            {mod.replacement_value != null && (
+              <div>
+                <div style={{ fontSize: '0.6rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#d97706', marginBottom: '0.1rem', display: 'flex', alignItems: 'center', gap: '0.25rem', justifyContent: 'flex-end' }}>
+                  <ShieldCheck size={9} /> Insured
+                </div>
+                <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.1rem', fontWeight: 900, color: '#d97706', lineHeight: 1 }}>
+                  ${mod.replacement_value.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                </div>
+              </div>
+            )}
+          </div>
           {/* Edit / Delete buttons */}
           <div style={{ display: 'flex', gap: '0.3rem', marginTop: '0.1rem' }}>
             <button

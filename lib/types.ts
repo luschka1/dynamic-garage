@@ -29,6 +29,7 @@ export interface Mod {
   category?: string
   vendor?: string
   cost?: number
+  replacement_value?: number
   install_date?: string
   purchase_url?: string
   notes?: string

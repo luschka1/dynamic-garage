@@ -9,7 +9,9 @@ import MileageToggle from '@/components/MileageToggle'
 import PhotoGalleryManager from './PhotoGalleryManager'
 import EmailUploadAddress from './EmailUploadAddress'
 import RecallTracker from '@/components/RecallTracker'
-import type { Corvette, VehiclePhoto } from '@/lib/types'
+import InsuranceScore from '@/components/InsuranceScore'
+import { calcInsuranceSummary } from '@/lib/insurance'
+import type { Corvette, Mod, VehiclePhoto } from '@/lib/types'
 
 export default async function CorvettePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -21,16 +23,26 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
   if (!car) notFound()
 
   const [
-    { count: modCount },
+    { data: modsData, count: modCount },
     { count: svcCount },
     { count: docCount },
     { data: photos },
   ] = await Promise.all([
-    supabase.from('mods').select('*', { count: 'exact', head: true }).eq('corvette_id', id),
+    supabase.from('mods').select('*', { count: 'exact' }).eq('corvette_id', id),
     supabase.from('service_records').select('*', { count: 'exact', head: true }).eq('corvette_id', id),
     supabase.from('documents').select('*', { count: 'exact', head: true }).eq('corvette_id', id),
     supabase.from('vehicle_photos').select('*').eq('corvette_id', id).order('sort_order').order('created_at'),
   ])
+
+  const modList = (modsData ?? []) as Mod[]
+  const modIds = modList.map(m => m.id)
+  const { data: receiptDocs } = modIds.length > 0
+    ? await supabase.from('documents').select('mod_id').in('mod_id', modIds)
+    : { data: [] }
+  const receiptSet = new Set<string>(
+    (receiptDocs ?? []).map((d: { mod_id: string }) => d.mod_id).filter(Boolean)
+  )
+  const insuranceSummary = calcInsuranceSummary(modList, receiptSet)
 
   const c = car as Corvette
 
@@ -222,17 +234,21 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
       })()}
 
       {/* Quick nav */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
         {[
-          { label: 'View All Mods', href: `/corvettes/${id}/mods` },
-          { label: 'Service History', href: `/corvettes/${id}/service` },
+          { label: 'Mods', href: `/corvettes/${id}/mods` },
+          { label: 'Service', href: `/corvettes/${id}/service` },
           { label: 'Documents', href: `/corvettes/${id}/documents` },
+          { label: 'Insurance', href: `/corvettes/${id}/insurance` },
         ].map(l => (
           <Link key={l.label} href={l.href} className="btn-secondary" style={{ justifyContent: 'center', fontSize: '0.85rem', padding: '0.7rem', minHeight: 44, borderColor: 'var(--border-default)' }}>
             {l.label}
           </Link>
         ))}
       </div>
+
+      {/* Insurance Score */}
+      <InsuranceScore summary={insuranceSummary} corvetteId={id} />
 
       {/* Share / Export row */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem', flexWrap: 'wrap' }}>

@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { Plus, ChevronDown, ChevronUp, Paperclip, X } from 'lucide-react'
+import { Plus, ChevronDown, ChevronUp, Paperclip, X, ShieldCheck } from 'lucide-react'
 import { MOD_CATEGORIES } from '@/lib/types'
 
 const MAX_MB = 20
@@ -22,8 +22,9 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
   const [form, setForm] = useState({
-    name: '', category: '', vendor: '', cost: '', install_date: '', purchase_url: '', notes: '',
+    name: '', category: '', vendor: '', cost: '', replacement_value: '', install_date: '', purchase_url: '', notes: '',
   })
+  const [showNudge, setShowNudge] = useState(false)
 
   // Document attachment state
   const [docFile, setDocFile] = useState<File | null>(null)
@@ -49,10 +50,11 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
   }
 
   function reset() {
-    setForm({ name: '', category: '', vendor: '', cost: '', install_date: '', purchase_url: '', notes: '' })
+    setForm({ name: '', category: '', vendor: '', cost: '', replacement_value: '', install_date: '', purchase_url: '', notes: '' })
     clearFile()
     setOpen(false)
     setError('')
+    setShowNudge(false)
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -73,6 +75,7 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
         category: form.category || null,
         vendor: form.vendor || null,
         cost: form.cost ? Number(form.cost) : null,
+        replacement_value: form.replacement_value ? Number(form.replacement_value) : null,
         install_date: form.install_date || null,
         purchase_url: form.purchase_url || null,
         notes: form.notes || null,
@@ -110,11 +113,37 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
     }
 
     setSaving(false)
-    reset()
+    // Show insurance nudge if any field is missing
+    const missing = !form.replacement_value || !form.vendor || !form.install_date || !docFile
+    if (missing) {
+      setShowNudge(true)
+      setForm({ name: '', category: '', vendor: '', cost: '', replacement_value: '', install_date: '', purchase_url: '', notes: '' })
+      clearFile()
+      setOpen(false)
+      setError('')
+    } else {
+      reset()
+    }
     router.refresh()
   }
 
   return (
+    <div>
+    {/* Insurance nudge — shown after saving an incomplete mod */}
+    {showNudge && (
+      <div style={{ background: 'rgba(217,119,6,0.08)', border: '1px solid rgba(217,119,6,0.25)', borderRadius: 8, padding: '1rem 1.25rem', marginBottom: '1rem', display: 'flex', alignItems: 'flex-start', gap: '0.75rem' }}>
+        <ShieldCheck size={18} color="#d97706" style={{ flexShrink: 0, marginTop: 2 }} />
+        <div style={{ flex: 1 }}>
+          <div style={{ fontWeight: 700, fontSize: '0.88rem', color: '#d97706', marginBottom: '0.2rem' }}>Mod saved — make it insurance-ready</div>
+          <div style={{ fontSize: '0.82rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+            Documented mods with a declared replacement value and receipt are covered by insurance. Undocumented mods usually aren&apos;t.{' '}
+            <a href="insurance" style={{ color: '#d97706', fontWeight: 600, textDecoration: 'none' }}>Complete your records →</a>
+          </div>
+        </div>
+        <button onClick={() => setShowNudge(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: '0.1rem', flexShrink: 0 }}><X size={14} /></button>
+      </div>
+    )}
+
     <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', borderRadius: 8, overflow: 'hidden' }}>
       {/* Toggle header */}
       <button
@@ -144,19 +173,35 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
               <input className="input-field" type="text" placeholder="e.g. Corsa Sport Exhaust, Stage 2 Tune, Coilover Kit" value={form.name} onChange={e => set('name', e.target.value)} required />
             </div>
 
-            {/* Category + Cost */}
+            {/* Category */}
+            <div>
+              <label className="label">Category</label>
+              <select className="input-field" value={form.category} onChange={e => set('category', e.target.value)}>
+                <option value="">Select…</option>
+                {MOD_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
+            </div>
+
+            {/* Cost + Replacement Value */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
               <div>
-                <label className="label">Category</label>
-                <select className="input-field" value={form.category} onChange={e => set('category', e.target.value)}>
-                  <option value="">Select…</option>
-                  {MOD_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
-                </select>
-              </div>
-              <div>
-                <label className="label">Cost ($)</label>
+                <label className="label">Purchase Cost ($)</label>
                 <input className="input-field" type="number" min={0} step="0.01" placeholder="0.00" value={form.cost} onChange={e => set('cost', e.target.value)} />
               </div>
+              <div>
+                <label className="label" style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  Replacement Value ($) <span style={{ fontSize: '0.65rem', fontWeight: 700, background: 'rgba(217,119,6,0.12)', color: '#d97706', borderRadius: 3, padding: '0.1rem 0.35rem', letterSpacing: '0.06em' }}>FOR INSURANCE</span>
+                </label>
+                <input className="input-field" type="number" min={0} step="0.01" placeholder="Cost to replace today" value={form.replacement_value} onChange={e => set('replacement_value', e.target.value)} />
+              </div>
+            </div>
+
+            {/* Insurance tip */}
+            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', background: 'rgba(217,119,6,0.06)', border: '1px solid rgba(217,119,6,0.18)', borderRadius: 6, padding: '0.65rem 0.85rem' }}>
+              <ShieldCheck size={13} color="#d97706" style={{ flexShrink: 0, marginTop: 2 }} />
+              <p style={{ margin: 0, fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                <strong style={{ color: '#d97706' }}>Tip:</strong> Mods with a declared replacement value, vendor, install date, and receipt attached are covered by insurance. Mods without them usually aren&apos;t.
+              </p>
             </div>
 
             {/* Vendor + Date */}
@@ -259,6 +304,7 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
       )}
 
       <style>{`.doc-drop-zone:hover { border-color: var(--border-default) !important; background: rgba(0,0,0,0.02); }`}</style>
+    </div>
     </div>
   )
 }
