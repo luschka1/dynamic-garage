@@ -38,7 +38,6 @@ export async function generateMetadata({ params }: { params: Promise<{ userId: s
       url,
       type: 'website',
       siteName: 'Dynamic Garage',
-      ...(car.photo_url ? { images: [{ url: car.photo_url, width: 1200, height: 630, alt: title }] } : {}),
     },
     twitter: { card: 'summary_large_image', title, description },
   }
