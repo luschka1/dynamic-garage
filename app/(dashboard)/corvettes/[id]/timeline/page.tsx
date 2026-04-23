@@ -2,7 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, GitBranch } from 'lucide-react'
-import BuildTimeline, { type TimelineEvent } from './BuildTimeline'
+import BuildTimeline, { type TimelineEvent, type TimelineAttachment } from './BuildTimeline'
 
 export default async function TimelinePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -11,11 +11,7 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
   if (!user) redirect('/login')
 
   const { data: car } = await supabase
-    .from('corvettes')
-    .select('*')
-    .eq('id', id)
-    .eq('user_id', user.id)
-    .single()
+    .from('corvettes').select('*').eq('id', id).eq('user_id', user.id).single()
   if (!car) notFound()
 
   const [
@@ -31,6 +27,30 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
   ])
 
   const currency = car.currency ?? 'USD'
+  const allDocs = documents ?? []
+
+  // Map documents by mod_id and service_id for attachment lookup
+  const docsByModId = new Map<string, typeof allDocs>()
+  const docsBySvcId = new Map<string, typeof allDocs>()
+  for (const d of allDocs) {
+    if (d.mod_id) {
+      if (!docsByModId.has(d.mod_id)) docsByModId.set(d.mod_id, [])
+      docsByModId.get(d.mod_id)!.push(d)
+    }
+    if (d.service_id) {
+      if (!docsBySvcId.has(d.service_id)) docsBySvcId.set(d.service_id, [])
+      docsBySvcId.get(d.service_id)!.push(d)
+    }
+  }
+
+  function toAttachments(docs: typeof allDocs): TimelineAttachment[] {
+    return docs.map(d => ({
+      id: d.id,
+      name: d.name,
+      fileUrl: d.file_url,
+      fileType: d.file_type ?? null,
+    }))
+  }
 
   /* ─── Build event list ────────────────────────────────────────── */
   const events: TimelineEvent[] = []
@@ -39,6 +59,7 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
   for (const m of mods ?? []) {
     const date = m.install_date ?? m.created_at?.split('T')[0]
     if (!date) continue
+    const linked = docsByModId.get(m.id) ?? []
     events.push({
       id: `mod-${m.id}`,
       type: 'mod',
@@ -48,6 +69,8 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
       cost: m.cost,
       category: m.category ?? undefined,
       notes: m.notes ?? undefined,
+      purchaseUrl: m.purchase_url ?? undefined,
+      attachments: toAttachments(linked),
       currency,
     })
   }
@@ -56,6 +79,7 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
   for (const s of serviceRecords ?? []) {
     const date = s.service_date ?? s.created_at?.split('T')[0]
     if (!date) continue
+    const linked = docsBySvcId.get(s.id) ?? []
     events.push({
       id: `svc-${s.id}`,
       type: 'service',
@@ -66,12 +90,14 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
       mileage: s.mileage ?? undefined,
       category: s.category ?? undefined,
       notes: s.notes ?? undefined,
+      attachments: toAttachments(linked),
       currency,
     })
   }
 
-  // Documents
-  for (const d of documents ?? []) {
+  // Standalone documents (not linked to a mod or service)
+  for (const d of allDocs) {
+    if (d.mod_id || d.service_id) continue // already shown as attachments
     const date = d.created_at?.split('T')[0]
     if (!date) continue
     events.push({
@@ -79,7 +105,8 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
       type: 'document',
       date,
       title: d.name,
-      category: d.file_type ?? undefined,
+      fileUrl: d.file_url,
+      fileType: d.file_type ?? undefined,
       currency,
     })
   }
@@ -100,9 +127,7 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
 
   /* ─── Auto-generate milestones ────────────────────────────────── */
   const modEvents = events.filter(e => e.type === 'mod')
-  const totalModCost = modEvents.reduce((s, e) => s + (e.cost ?? 0), 0)
 
-  // First entry ever
   if (events.length > 0) {
     const sorted = [...events].sort((a, b) => a.date.localeCompare(b.date))
     events.push({
@@ -115,9 +140,7 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
     })
   }
 
-  // Mod count milestones
-  const modCountMilestones = [5, 10, 25, 50]
-  for (const target of modCountMilestones) {
+  for (const target of [5, 10, 25, 50]) {
     if (modEvents.length >= target) {
       const sorted = [...modEvents].sort((a, b) => a.date.localeCompare(b.date))
       const targetEvent = sorted[target - 1]
@@ -127,23 +150,20 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
           type: 'milestone',
           date: targetEvent.date,
           title: `${target} mods documented`,
-          subtitle: `Major build milestone`,
+          subtitle: 'Build milestone',
           currency,
         })
       }
     }
   }
 
-  // Spend milestones
-  const spendMilestones = [1000, 5000, 10000, 25000, 50000]
   let runningCost = 0
-  const modsSortedByDate = [...modEvents].sort((a, b) => a.date.localeCompare(b.date))
-  const triggeredSpend = new Set<number>()
-  for (const m of modsSortedByDate) {
+  const triggered = new Set<number>()
+  for (const m of [...modEvents].sort((a, b) => a.date.localeCompare(b.date))) {
     runningCost += m.cost ?? 0
-    for (const target of spendMilestones) {
-      if (runningCost >= target && !triggeredSpend.has(target)) {
-        triggeredSpend.add(target)
+    for (const target of [1000, 5000, 10000, 25000, 50000]) {
+      if (runningCost >= target && !triggered.has(target)) {
+        triggered.add(target)
         const label = target >= 1000 ? `$${target / 1000}k` : `$${target}`
         events.push({
           id: `milestone-spend-${target}`,
@@ -157,7 +177,6 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
     }
   }
 
-  // Sort all events newest first
   events.sort((a, b) => b.date.localeCompare(a.date))
 
   const totalEvents = events.filter(e => e.type !== 'milestone').length
@@ -168,17 +187,14 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
         <ArrowLeft size={14} /> {car.nickname}
       </Link>
 
-      {/* Header */}
       <div style={{ marginBottom: '1.75rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.4rem' }}>
           <GitBranch size={18} color="var(--red)" />
           <h1 style={{
             fontFamily: "'Barlow Condensed'",
             fontSize: 'clamp(1.6rem, 4vw, 2.2rem)',
-            fontWeight: 900,
-            letterSpacing: '0.02em',
-            color: 'var(--text-primary)',
-            lineHeight: 1,
+            fontWeight: 900, letterSpacing: '0.02em',
+            color: 'var(--text-primary)', lineHeight: 1,
           }}>
             BUILD TIMELINE
           </h1>
@@ -192,26 +208,17 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
 
       {totalEvents === 0 ? (
         <div style={{
-          background: 'var(--bg-card)',
-          border: '1px solid var(--border-subtle)',
-          borderRadius: 12,
-          padding: '3rem 2rem',
-          textAlign: 'center',
+          background: 'var(--bg-card)', border: '1px solid var(--border-subtle)',
+          borderRadius: 12, padding: '3rem 2rem', textAlign: 'center',
         }}>
           <GitBranch size={40} color="var(--text-muted)" strokeWidth={1} style={{ marginBottom: '1rem' }} />
-          <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>
-            Nothing here yet
-          </div>
+          <div style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-primary)', marginBottom: '0.5rem' }}>Nothing here yet</div>
           <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginBottom: '1.5rem' }}>
             Log your first mod or service record and it will appear here automatically.
           </div>
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <Link href={`/corvettes/${id}/mods`} className="btn-primary" style={{ fontSize: '0.85rem', padding: '0.6rem 1.2rem' }}>
-              Add a Mod
-            </Link>
-            <Link href={`/corvettes/${id}/service`} className="btn-secondary" style={{ fontSize: '0.85rem', padding: '0.6rem 1.2rem' }}>
-              Log Service
-            </Link>
+            <Link href={`/corvettes/${id}/mods`} className="btn-primary" style={{ fontSize: '0.85rem', padding: '0.6rem 1.2rem' }}>Add a Mod</Link>
+            <Link href={`/corvettes/${id}/service`} className="btn-secondary" style={{ fontSize: '0.85rem', padding: '0.6rem 1.2rem' }}>Log Service</Link>
           </div>
         </div>
       ) : (
