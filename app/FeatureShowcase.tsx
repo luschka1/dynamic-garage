@@ -1,6 +1,6 @@
 import {
   Wrench, ClipboardList, FileText, Camera, Share2, Layers,
-  Tag, MessageSquare, ScanLine, Link2, Moon, Car, QrCode, Bell,
+  Tag, MessageSquare, ScanLine, Link2, Moon, Car, QrCode, Bell, ShieldCheck,
 } from 'lucide-react'
 
 const FEATURES = [
@@ -81,6 +81,12 @@ const FEATURES = [
     title: 'NHTSA Recall Alerts',
     desc: 'We check your VIN against federal recall data every week and email you if something new comes up. You just drive.',
     iconBg: 'rgba(220,38,38,0.1)', iconColor: '#dc2626',
+  },
+  {
+    icon: <ShieldCheck size={20} />,
+    title: 'Insurance Documentation',
+    desc: 'Know exactly which mods are covered. Declare replacement values, attach receipts, and generate a print-ready package your insurer will actually accept.',
+    iconBg: 'rgba(22,163,74,0.1)', iconColor: '#16a34a',
   },
   {
     icon: <Car size={20} />,
