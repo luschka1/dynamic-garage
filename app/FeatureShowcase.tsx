@@ -153,7 +153,7 @@ export default function FeatureShowcase() {
             color: 'var(--text-primary)',
             marginBottom: '0.75rem',
           }}>
-            Built for people who give a damn about their cars
+            Document. Prove. Showcase. Everything your vehicle deserves.
           </h2>
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', maxWidth: 520, margin: '0 auto' }}>
             Whether you&apos;re building, showing, or selling — everything you need to prove what you&apos;ve got.
