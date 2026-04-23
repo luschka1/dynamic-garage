@@ -12,6 +12,7 @@ const SLIDES = [
   { src: '/screenshots/screen-public.png',     alt: 'App screen 6' },
   { src: '/screenshots/screen-qrcard.png',     alt: 'App screen 7' },
   { src: '/screenshots/screen-dashboard.png',  alt: 'App screen 8' },
+  { src: '/screenshots/timeline1.png',          alt: 'Build timeline' },
 ]
 
 const INTERVAL = 3800 // ms between slides
