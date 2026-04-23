@@ -44,8 +44,8 @@ export default async function HomePage() {
               color: 'var(--text-primary)',
               marginBottom: '1.5rem',
             }}>
-              Your build deserves proof.<br />
-              <span style={{ color: 'var(--red)' }}>Log it. Show it. Get what it&apos;s worth.</span>
+              Your build deserves better than a spreadsheet.<br />
+              <span style={{ color: 'var(--red)' }}>Log it. Prove it. Share it.</span>
             </h1>
 
             {/* Value statement */}
