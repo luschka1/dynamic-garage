@@ -1,6 +1,6 @@
 import {
   Wrench, ClipboardList, FileText, Camera, Share2, Layers,
-  Tag, MessageSquare, ScanLine, Link2, Moon, Car, QrCode, Bell, ShieldCheck,
+  Tag, MessageSquare, ScanLine, Link2, Moon, Car, QrCode, Bell, ShieldCheck, GitBranch,
 } from 'lucide-react'
 
 const FEATURES = [
@@ -37,6 +37,13 @@ const FEATURES = [
     title: 'VIN Decoder',
     desc: 'Drop in your VIN - year, make, model, trim fills itself.',
     iconColor: 'var(--blue)',
+    group: 'build' as const,
+  },
+  {
+    icon: <GitBranch size={18} />,
+    title: 'Build Timeline',
+    desc: 'Every mod, service, and photo in one chronological story. Your build, from day one.',
+    iconColor: '#f97316',
     group: 'build' as const,
   },
   {
