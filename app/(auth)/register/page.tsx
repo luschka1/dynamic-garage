@@ -24,15 +24,7 @@ export default function RegisterPage() {
     const supabase = createClient()
     const { error } = await supabase.auth.signUp({ email, password, options: { data: { full_name: name } } })
     if (error) { setError(error.message); setLoading(false) }
-    else {
-      // Fire welcome email (non-blocking — don't await)
-      fetch('/api/welcome-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email }),
-      }).catch(() => {/* silent */})
-      setSuccess(true)
-    }
+    else setSuccess(true)
   }
 
   if (success) {
