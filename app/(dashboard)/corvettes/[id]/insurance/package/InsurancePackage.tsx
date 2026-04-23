@@ -35,6 +35,8 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
 
   const totalDeclaredValue = insuredMods.reduce((s, m) => s + (m.replacement_value ?? 0), 0)
   const totalPurchaseCost = insuredMods.reduce((s, m) => s + (m.cost ?? 0), 0)
+  const vehicleValue = car.vehicle_value ?? 0
+  const totalInsuredValue = vehicleValue + totalDeclaredValue
 
   // Group docs by mod
   const docsByMod: Record<string, Document[]> = {}
@@ -74,13 +76,16 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
         .spec-value { font-size: 10pt; font-weight: 700; color: #111; }
 
         /* Summary totals */
-        .totals-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin-bottom: 1.5rem; }
+        .totals-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0.75rem; margin-bottom: 1.5rem; }
         .total-card { border-radius: 8px; padding: 0.8rem 1rem; border: 1px solid #e0e0e0; }
         .total-card.declared { background: #fff8f0; border-color: #f59e0b; }
+        .total-card.total-insured { background: #f0fdf4; border-color: #16a34a; }
         .total-card .tc-label { font-size: 7.5pt; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #999; margin-bottom: 0.2rem; }
         .total-card.declared .tc-label { color: #d97706; }
+        .total-card.total-insured .tc-label { color: #16a34a; }
         .total-card .tc-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1.6rem; font-weight: 900; line-height: 1; color: #111; }
         .total-card.declared .tc-value { color: #d97706; }
+        .total-card.total-insured .tc-value { color: #16a34a; }
         .total-card .tc-sub { font-size: 8pt; color: #888; margin-top: 0.15rem; }
 
         /* Section */
@@ -190,6 +195,7 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
             ...(car.color ? [{ label: 'Color', value: car.color }] : []),
             ...(car.mileage ? [{ label: 'Mileage', value: car.mileage.toLocaleString() + ' mi' }] : []),
             ...(car.vin ? [{ label: 'VIN', value: car.vin.toUpperCase() }] : []),
+            ...(car.vehicle_value ? [{ label: 'Agreed Vehicle Value', value: fmt(car.vehicle_value) }] : []),
           ].map(s => (
             <div key={s.label} className="spec-cell">
               <div className="spec-label">{s.label}</div>
@@ -200,11 +206,25 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
 
         {/* ── Totals ── */}
         <div className="totals-row">
+          {vehicleValue > 0 && (
+            <div className="total-card">
+              <div className="tc-label">Agreed Vehicle Value</div>
+              <div className="tc-value">{fmt(vehicleValue)}</div>
+              <div className="tc-sub">Stated value of vehicle itself</div>
+            </div>
+          )}
           <div className="total-card declared">
-            <div className="tc-label">Total Declared Replacement Value</div>
+            <div className="tc-label">Total Mod Declared Value</div>
             <div className="tc-value">{fmt(totalDeclaredValue)}</div>
-            <div className="tc-sub">Use this figure for your stated-value rider</div>
+            <div className="tc-sub">Replacement value of modifications</div>
           </div>
+          {vehicleValue > 0 && (
+            <div className="total-card total-insured">
+              <div className="tc-label">Total Insured Value</div>
+              <div className="tc-value">{fmt(totalInsuredValue)}</div>
+              <div className="tc-sub">Vehicle + modifications combined</div>
+            </div>
+          )}
           <div className="total-card">
             <div className="tc-label">Total Purchase Cost</div>
             <div className="tc-value">{fmt(totalPurchaseCost)}</div>

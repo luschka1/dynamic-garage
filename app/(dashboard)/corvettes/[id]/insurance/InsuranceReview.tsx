@@ -15,6 +15,7 @@ interface Props {
   car: Corvette
   summary: InsuranceSummary
   corvetteId: string
+  vehicleValue?: number
 }
 
 const inputStyle: React.CSSProperties = {
@@ -161,9 +162,10 @@ function ModRow({ detail, corvetteId, onSaved }: { detail: ModReadiness; corvett
   )
 }
 
-export default function InsuranceReview({ car, summary, corvetteId }: Props) {
+export default function InsuranceReview({ car, summary, corvetteId, vehicleValue }: Props) {
   const router = useRouter()
   const isReady = summary.percentage === 100
+  const totalInsuredValue = (vehicleValue ?? 0) + summary.totalDeclaredValue
 
   return (
     <div>
@@ -202,11 +204,27 @@ export default function InsuranceReview({ car, summary, corvetteId }: Props) {
               <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.6rem', fontWeight: 900, color: '#16a34a', lineHeight: 1 }}>{summary.readyCount}<span style={{ fontSize: '1rem', color: 'var(--text-muted)' }}>/{summary.totalMods}</span></div>
             </div>
             <div style={{ background: 'var(--bg-elevated)', borderRadius: 8, padding: '0.75rem 1rem', textAlign: 'center' }}>
-              <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#d97706', marginBottom: '0.2rem' }}>Declared Value</div>
+              <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#d97706', marginBottom: '0.2rem' }}>Mod Declared Value</div>
               <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.4rem', fontWeight: 900, color: '#d97706', lineHeight: 1 }}>
                 {summary.totalDeclaredValue > 0 ? `$${summary.totalDeclaredValue.toLocaleString()}` : '—'}
               </div>
             </div>
+            {vehicleValue != null && vehicleValue > 0 && (
+              <>
+                <div style={{ background: 'var(--bg-elevated)', borderRadius: 8, padding: '0.75rem 1rem', textAlign: 'center' }}>
+                  <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>Agreed Vehicle Value</div>
+                  <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1 }}>
+                    ${vehicleValue.toLocaleString()}
+                  </div>
+                </div>
+                <div style={{ background: 'rgba(22,163,74,0.07)', border: '1px solid rgba(22,163,74,0.2)', borderRadius: 8, padding: '0.75rem 1rem', textAlign: 'center' }}>
+                  <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#16a34a', marginBottom: '0.2rem' }}>Total Insured Value</div>
+                  <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.4rem', fontWeight: 900, color: '#16a34a', lineHeight: 1 }}>
+                    ${totalInsuredValue.toLocaleString()}
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
 

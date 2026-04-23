@@ -44,6 +44,7 @@ export default async function InsurancePage({ params }: { params: Promise<{ id: 
         car={c}
         summary={summary}
         corvetteId={id}
+        vehicleValue={c.vehicle_value}
       />
     </div>
   )
