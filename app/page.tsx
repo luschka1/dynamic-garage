@@ -56,7 +56,7 @@ export default async function HomePage() {
               maxWidth: 480,
               marginBottom: '2.25rem',
             }}>
-              Most car people can&apos;t answer two simple questions: what have I spent, and what can I prove? Dynamic Garage answers both — every mod, every receipt, every service record, in one place. Ready to share at a show or hand to a buyer.
+              You know what you&apos;ve built. Can you prove it? Everything about your car — mods, history, documents, photos — organized, documented, and ready to share.
             </p>
 
             {/* CTAs */}
