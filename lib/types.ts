@@ -79,6 +79,38 @@ export interface VehiclePhoto {
   created_at: string
 }
 
+export interface ShowEvent {
+  id: string
+  corvette_id: string
+  user_id: string
+  name: string
+  event_date: string
+  location?: string
+  class?: string
+  placement?: string
+  trophy: boolean
+  notes?: string
+  created_at: string
+}
+
+export interface ShowEventPhoto {
+  id: string
+  show_event_id: string
+  corvette_id: string
+  user_id: string
+  storage_path: string
+  public_url: string
+  caption?: string
+  created_at: string
+}
+
+export const PLACEMENT_OPTIONS = [
+  '1st Place', '2nd Place', '3rd Place',
+  'Best in Show', "People's Choice", 'Best Paint',
+  'Best Interior', 'Best Engine Bay', 'Best of Class',
+  'Participant', 'Other',
+]
+
 export const MOD_CATEGORIES = [
   'Performance', 'Appearance', 'Audio/Video', 'Wheels & Tires',
   'Suspension', 'Interior', 'Lighting', 'Safety', 'Other'

@@ -234,12 +234,13 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
       })()}
 
       {/* Quick nav */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
         {[
           { label: 'Mods', href: `/corvettes/${id}/mods` },
           { label: 'Service', href: `/corvettes/${id}/service` },
           { label: 'Documents', href: `/corvettes/${id}/documents` },
           { label: 'Insurance', href: `/corvettes/${id}/insurance` },
+          { label: 'Shows', href: `/corvettes/${id}/shows` },
           { label: 'Timeline', href: `/corvettes/${id}/timeline` },
         ].map(l => (
           <Link key={l.label} href={l.href} className="btn-secondary" style={{ justifyContent: 'center', fontSize: '0.85rem', padding: '0.7rem', minHeight: 44, borderColor: 'var(--border-default)' }}>

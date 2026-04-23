@@ -19,11 +19,13 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
     { data: serviceRecords },
     { data: documents },
     { data: photos },
+    { data: shows },
   ] = await Promise.all([
     supabase.from('mods').select('*').eq('corvette_id', id).order('install_date', { ascending: false, nullsFirst: false }),
     supabase.from('service_records').select('*').eq('corvette_id', id).order('service_date', { ascending: false, nullsFirst: false }),
     supabase.from('documents').select('*').eq('corvette_id', id).order('created_at', { ascending: false }),
     supabase.from('vehicle_photos').select('*').eq('corvette_id', id).order('created_at', { ascending: false }),
+    supabase.from('show_events').select('*').eq('corvette_id', id).order('event_date', { ascending: false }),
   ])
 
   const currency = car.currency ?? 'USD'
@@ -91,6 +93,22 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
       category: s.category ?? undefined,
       notes: s.notes ?? undefined,
       attachments: toAttachments(linked),
+      currency,
+    })
+  }
+
+  // Show events
+  for (const s of shows ?? []) {
+    events.push({
+      id: `show-${s.id}`,
+      type: 'show',
+      date: s.event_date,
+      title: s.name,
+      subtitle: [s.location, s.class].filter(Boolean).join(' · ') || undefined,
+      category: s.placement ?? undefined,
+      notes: s.notes ?? undefined,
+      trophy: s.trophy,
+      showLink: `/corvettes/${id}/shows/${s.id}`,
       currency,
     })
   }

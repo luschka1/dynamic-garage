@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Wrench, ClipboardList, FileText, Camera, Trophy, SlidersHorizontal, ExternalLink, FileText as FileIcon, Image as ImageIcon, File } from 'lucide-react'
+import { Wrench, ClipboardList, FileText, Camera, Trophy, SlidersHorizontal, ExternalLink, FileText as FileIcon, Image as ImageIcon, File, Star } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
 export type TimelineAttachment = {
@@ -13,7 +13,7 @@ export type TimelineAttachment = {
 
 export type TimelineEvent = {
   id: string
-  type: 'mod' | 'service' | 'document' | 'photo' | 'milestone'
+  type: 'mod' | 'service' | 'document' | 'photo' | 'milestone' | 'show'
   date: string
   title: string
   subtitle?: string
@@ -26,6 +26,8 @@ export type TimelineEvent = {
   fileType?: string | null    // pdf / image / other
   purchaseUrl?: string | null // mod purchase link
   attachments?: TimelineAttachment[] // linked receipts/docs
+  trophy?: boolean
+  showLink?: string
   currency?: string
 }
 
@@ -35,12 +37,13 @@ const TYPE_CONFIG = {
   document:  { color: '#16a34a', dimColor: 'rgba(22,163,74,0.1)',   borderColor: 'rgba(22,163,74,0.25)',   label: 'Document',  icon: <FileText size={13} /> },
   photo:     { color: '#8b5cf6', dimColor: 'rgba(139,92,246,0.1)',  borderColor: 'rgba(139,92,246,0.25)',  label: 'Photo',     icon: <Camera size={13} /> },
   milestone: { color: '#f59e0b', dimColor: 'rgba(245,158,11,0.1)', borderColor: 'rgba(245,158,11,0.3)',   label: 'Milestone', icon: <Trophy size={13} /> },
+  show:      { color: '#f59e0b', dimColor: 'rgba(245,158,11,0.08)', borderColor: 'rgba(245,158,11,0.3)', label: 'Show',      icon: <Star size={13} /> },
 }
 
-const FILTERS = ['All', 'Mods', 'Service', 'Documents', 'Photos', 'Milestones'] as const
+const FILTERS = ['All', 'Mods', 'Service', 'Shows', 'Documents', 'Photos', 'Milestones'] as const
 type Filter = typeof FILTERS[number]
 const FILTER_MAP: Record<Filter, TimelineEvent['type'] | null> = {
-  All: null, Mods: 'mod', Service: 'service', Documents: 'document', Photos: 'photo', Milestones: 'milestone',
+  All: null, Mods: 'mod', Service: 'service', Shows: 'show', Documents: 'document', Photos: 'photo', Milestones: 'milestone',
 }
 
 function formatDate(dateStr: string) {
