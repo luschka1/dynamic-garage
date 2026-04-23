@@ -14,6 +14,7 @@ export interface Corvette {
   for_sale: boolean
   show_vin_decoder: boolean
   email_token?: string
+  currency?: string
   vehicle_value?: number
   insurance_expiry_date?: string
   recall_alerts: boolean

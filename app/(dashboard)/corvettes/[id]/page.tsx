@@ -248,7 +248,7 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
       </div>
 
       {/* Insurance Score */}
-      <InsuranceScore summary={insuranceSummary} corvetteId={id} />
+      <InsuranceScore summary={insuranceSummary} corvetteId={id} currency={c.currency} />
 
       {/* Share / Export row */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '2rem', flexWrap: 'wrap' }}>

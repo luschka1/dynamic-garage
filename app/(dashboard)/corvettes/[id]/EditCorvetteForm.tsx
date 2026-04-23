@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 import { Save, Trash2, Upload, ImageIcon } from 'lucide-react'
 import type { Corvette } from '@/lib/types'
+import { CURRENCIES } from '@/lib/currency'
 
 const MI_TO_KM = 1.60934
 
@@ -44,6 +45,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
     color: car.color || '',
     vin: car.vin || '',
     mileage: car.mileage?.toString() || '',
+    currency: car.currency || 'USD',
     vehicle_value: car.vehicle_value?.toString() || '',
     insurance_expiry_date: car.insurance_expiry_date || '',
     is_public: car.is_public,
@@ -111,6 +113,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
       color: form.color || null,
       vin: form.vin || null,
       mileage: form.mileage ? Math.round(mileageUnit === 'km' ? Number(form.mileage) / MI_TO_KM : Number(form.mileage)) : null,
+      currency: form.currency,
       vehicle_value: form.vehicle_value ? parseFloat(form.vehicle_value) : null,
       insurance_expiry_date: form.insurance_expiry_date || null,
       is_public: form.is_public,
@@ -228,10 +231,47 @@ export default function EditCarForm({ car }: { car: Corvette }) {
           )}
         </div>
 
-        {/* Insurance / agreed value */}
+        {/* ── Insurance section ── */}
         <div style={{ paddingTop: '0.5rem', borderTop: '1px solid var(--border-subtle)' }}>
+          <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#16a34a', marginBottom: '1rem' }}>
+            Insurance &amp; Currency
+          </div>
+
+          {/* Currency toggle */}
+          <div style={{ marginBottom: '1.1rem' }}>
+            <label className="label">Currency</label>
+            <div style={{ display: 'flex', gap: '0.5rem' }}>
+              {CURRENCIES.map(c => (
+                <button
+                  key={c.value}
+                  type="button"
+                  onClick={() => set('currency', c.value)}
+                  style={{
+                    padding: '0.5rem 1.1rem',
+                    borderRadius: 6,
+                    border: `1px solid ${form.currency === c.value ? '#16a34a' : 'var(--border-default)'}`,
+                    background: form.currency === c.value ? 'rgba(22,163,74,0.1)' : 'var(--bg-base)',
+                    color: form.currency === c.value ? '#16a34a' : 'var(--text-secondary)',
+                    fontWeight: 700,
+                    fontSize: '0.85rem',
+                    cursor: 'pointer',
+                    transition: 'all 150ms',
+                  }}
+                >
+                  {c.value}
+                </button>
+              ))}
+            </div>
+            <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.35rem' }}>
+              All dollar amounts for this vehicle will display in the selected currency.
+            </div>
+          </div>
+        </div>
+
+        {/* Insurance / agreed value */}
+        <div>
           <label className="label" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            Agreed / Stated Vehicle Value ($)
+            Agreed / Stated Vehicle Value ({form.currency})
             <span style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', background: 'rgba(22,163,74,0.1)', color: '#16a34a', padding: '0.15rem 0.5rem', borderRadius: 4 }}>Insurance</span>
           </label>
           <input
@@ -249,10 +289,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
         </div>
 
         <div>
-          <label className="label" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            Insurance Expiry Date
-            <span style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', background: 'rgba(22,163,74,0.1)', color: '#16a34a', padding: '0.15rem 0.5rem', borderRadius: 4 }}>Insurance</span>
-          </label>
+          <label className="label">Insurance Expiry Date</label>
           <input
             className="input-field"
             type="date"

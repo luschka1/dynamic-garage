@@ -2,11 +2,7 @@
 
 import { useEffect } from 'react'
 import type { Corvette, Mod, Document } from '@/lib/types'
-
-function fmt(n?: number | null) {
-  if (n == null) return '—'
-  return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
-}
+import { formatCurrency } from '@/lib/currency'
 function fmtDate(d?: string | null) {
   if (!d) return '—'
   return new Date(d + 'T12:00:00').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
@@ -195,7 +191,7 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
             ...(car.color ? [{ label: 'Color', value: car.color }] : []),
             ...(car.mileage ? [{ label: 'Mileage', value: car.mileage.toLocaleString() + ' mi' }] : []),
             ...(car.vin ? [{ label: 'VIN', value: car.vin.toUpperCase() }] : []),
-            ...(car.vehicle_value ? [{ label: 'Agreed Vehicle Value', value: fmt(car.vehicle_value) }] : []),
+            ...(car.vehicle_value ? [{ label: 'Agreed Vehicle Value', value: formatCurrency(car.vehicle_value, car.currency) }] : []),
           ].map(s => (
             <div key={s.label} className="spec-cell">
               <div className="spec-label">{s.label}</div>
@@ -209,25 +205,25 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
           {vehicleValue > 0 && (
             <div className="total-card">
               <div className="tc-label">Agreed Vehicle Value</div>
-              <div className="tc-value">{fmt(vehicleValue)}</div>
+              <div className="tc-value">{formatCurrency(vehicleValue, car.currency)}</div>
               <div className="tc-sub">Stated value of vehicle itself</div>
             </div>
           )}
           <div className="total-card declared">
             <div className="tc-label">Total Mod Declared Value</div>
-            <div className="tc-value">{fmt(totalDeclaredValue)}</div>
+            <div className="tc-value">{formatCurrency(totalDeclaredValue, car.currency)}</div>
             <div className="tc-sub">Replacement value of modifications</div>
           </div>
           {vehicleValue > 0 && (
             <div className="total-card total-insured">
               <div className="tc-label">Total Insured Value</div>
-              <div className="tc-value">{fmt(totalInsuredValue)}</div>
+              <div className="tc-value">{formatCurrency(totalInsuredValue, car.currency)}</div>
               <div className="tc-sub">Vehicle + modifications combined</div>
             </div>
           )}
           <div className="total-card">
             <div className="tc-label">Total Purchase Cost</div>
-            <div className="tc-value">{fmt(totalPurchaseCost)}</div>
+            <div className="tc-value">{formatCurrency(totalPurchaseCost, car.currency)}</div>
             <div className="tc-sub">Original cost at time of purchase</div>
           </div>
           <div className="total-card">
@@ -278,8 +274,8 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
                       <td>{mod.category ?? <span style={{ color: '#ccc' }}>—</span>}</td>
                       <td>{mod.vendor ?? <span style={{ color: '#ccc' }}>—</span>}</td>
                       <td style={{ whiteSpace: 'nowrap' }}>{fmtDate(mod.install_date)}</td>
-                      <td className="td-cost">{fmt(mod.cost)}</td>
-                      <td className="td-declared">{fmt(mod.replacement_value)}</td>
+                      <td className="td-cost">{formatCurrency(mod.cost, car.currency)}</td>
+                      <td className="td-declared">{formatCurrency(mod.replacement_value, car.currency)}</td>
                       <td className="td-receipt">
                         {hasReceipt
                           ? <span className="receipt-yes">✓ {modDocs.length} file{modDocs.length > 1 ? 's' : ''}</span>
@@ -292,8 +288,8 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
               <tfoot>
                 <tr>
                   <td colSpan={4} style={{ fontWeight: 800, fontSize: '9pt', paddingTop: '0.75rem', color: '#111', borderTop: '2px solid #e0e0e0' }}>Totals</td>
-                  <td className="td-cost" style={{ borderTop: '2px solid #e0e0e0', fontWeight: 800 }}>{fmt(totalPurchaseCost)}</td>
-                  <td className="td-declared" style={{ borderTop: '2px solid #e0e0e0', fontWeight: 900, fontSize: '10pt' }}>{fmt(totalDeclaredValue)}</td>
+                  <td className="td-cost" style={{ borderTop: '2px solid #e0e0e0', fontWeight: 800 }}>{formatCurrency(totalPurchaseCost, car.currency)}</td>
+                  <td className="td-declared" style={{ borderTop: '2px solid #e0e0e0', fontWeight: 900, fontSize: '10pt' }}>{formatCurrency(totalDeclaredValue, car.currency)}</td>
                   <td style={{ borderTop: '2px solid #e0e0e0' }}></td>
                 </tr>
               </tfoot>
@@ -325,7 +321,7 @@ export default function InsurancePackage({ car, mods, docs, docUrlMap, userEmail
                     <td>{mod.category ?? '—'}</td>
                     <td>{mod.vendor ?? <span className="no-receipt-warn">missing</span>}</td>
                     <td>{fmtDate(mod.install_date)}</td>
-                    <td className="td-cost">{fmt(mod.cost)}</td>
+                    <td className="td-cost">{formatCurrency(mod.cost, car.currency)}</td>
                   </tr>
                 ))}
               </tbody>

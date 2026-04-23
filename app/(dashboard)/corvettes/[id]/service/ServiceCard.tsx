@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { Paperclip, Pencil, Trash2, X, Check } from 'lucide-react'
 import { SERVICE_CATEGORIES, type ServiceRecord } from '@/lib/types'
+import { formatCurrency } from '@/lib/currency'
 import MileageDisplay from '@/components/MileageDisplay'
 
 function Field({ label, value }: { label: string; value: React.ReactNode }) {
@@ -28,7 +29,7 @@ const labelStyle: React.CSSProperties = {
   textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block', marginBottom: '0.35rem',
 }
 
-export default function ServiceCard({ rec, corvetteId }: { rec: ServiceRecord; corvetteId: string }) {
+export default function ServiceCard({ rec, corvetteId, currency = 'USD' }: { rec: ServiceRecord; corvetteId: string; currency?: string }) {
   const router = useRouter()
   const [mode, setMode] = useState<'view' | 'edit' | 'deleting'>('view')
   const [saving, setSaving] = useState(false)
@@ -152,7 +153,7 @@ export default function ServiceCard({ rec, corvetteId }: { rec: ServiceRecord; c
             <div style={{ textAlign: 'right' }}>
               <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>Cost</div>
               <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.5rem', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1 }}>
-                ${rec.cost.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                {formatCurrency(rec.cost, currency)}
               </div>
             </div>
           )}

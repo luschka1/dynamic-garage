@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 import { Paperclip, Pencil, Trash2, X, Check, ShieldCheck } from 'lucide-react'
 import { MOD_CATEGORIES, type Mod } from '@/lib/types'
+import { formatCurrency } from '@/lib/currency'
 
 function Field({ label, value }: { label: string; value: React.ReactNode }) {
   return (
@@ -27,7 +28,7 @@ const labelStyle: React.CSSProperties = {
   textTransform: 'uppercase', color: 'var(--text-muted)', display: 'block', marginBottom: '0.35rem',
 }
 
-export default function ModCard({ mod, corvetteId }: { mod: Mod; corvetteId: string }) {
+export default function ModCard({ mod, corvetteId, currency = 'USD' }: { mod: Mod; corvetteId: string; currency?: string }) {
   const router = useRouter()
   const [mode, setMode] = useState<'view' | 'edit' | 'deleting'>('view')
   const [saving, setSaving] = useState(false)
@@ -160,7 +161,7 @@ export default function ModCard({ mod, corvetteId }: { mod: Mod; corvetteId: str
               <div>
                 <div style={{ fontSize: '0.6rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.1rem' }}>Paid</div>
                 <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1 }}>
-                  ${mod.cost.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                  {formatCurrency(mod.cost, currency)}
                 </div>
               </div>
             )}
@@ -170,7 +171,7 @@ export default function ModCard({ mod, corvetteId }: { mod: Mod; corvetteId: str
                   <ShieldCheck size={9} /> Insured
                 </div>
                 <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.1rem', fontWeight: 900, color: '#d97706', lineHeight: 1 }}>
-                  ${mod.replacement_value.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                  {formatCurrency(mod.replacement_value, currency)}
                 </div>
               </div>
             )}

@@ -3,6 +3,7 @@ import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Wrench } from 'lucide-react'
 import type { Corvette, Mod } from '@/lib/types'
+import { formatCurrency } from '@/lib/currency'
 import AddModForm from './AddModForm'
 import ModCard from './ModCard'
 
@@ -51,7 +52,7 @@ export default async function ModsPage({ params }: { params: Promise<{ id: strin
               Total Invested
             </div>
             <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '2rem', fontWeight: 900, color: 'var(--red-bright)', lineHeight: 1 }}>
-              ${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+              {formatCurrency(totalCost, c.currency)}
             </div>
           </div>
         )}
@@ -90,7 +91,7 @@ export default async function ModsPage({ params }: { params: Promise<{ id: strin
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {(mods as Mod[]).map(mod => (
-              <ModCard key={mod.id} mod={mod} corvetteId={id} />
+              <ModCard key={mod.id} mod={mod} corvetteId={id} currency={c.currency} />
             ))}
           </div>
         </div>

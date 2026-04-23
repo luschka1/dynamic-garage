@@ -8,6 +8,7 @@ import {
   ShieldCheck, ShieldAlert, Check, X, FileText,
   Paperclip, ExternalLink, ChevronDown, ChevronUp,
 } from 'lucide-react'
+import { fmtC } from '@/lib/currency'
 import type { Corvette } from '@/lib/types'
 import type { InsuranceSummary, ModReadiness } from '@/lib/insurance'
 
@@ -36,7 +37,7 @@ function CriteriaCheck({ met, label }: { met: boolean; label: string }) {
   )
 }
 
-function ModRow({ detail, corvetteId, onSaved }: { detail: ModReadiness; corvetteId: string; onSaved: () => void }) {
+function ModRow({ detail, corvetteId, currency = 'USD', onSaved }: { detail: ModReadiness; corvetteId: string; currency?: string; onSaved: () => void }) {
   const [expanded, setExpanded] = useState(!detail.isReady)
   const [saving, setSaving] = useState(false)
   const [form, setForm] = useState({
@@ -87,7 +88,7 @@ function ModRow({ detail, corvetteId, onSaved }: { detail: ModReadiness; corvett
           </div>
           {detail.replacementValue != null && (
             <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#d97706' }}>
-              ${detail.replacementValue.toLocaleString()}
+              {fmtC(detail.replacementValue, currency)}
             </span>
           )}
           {expanded ? <ChevronUp size={14} color="var(--text-muted)" /> : <ChevronDown size={14} color="var(--text-muted)" />}
@@ -206,7 +207,7 @@ export default function InsuranceReview({ car, summary, corvetteId, vehicleValue
             <div style={{ background: 'var(--bg-elevated)', borderRadius: 8, padding: '0.75rem 1rem', textAlign: 'center' }}>
               <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#d97706', marginBottom: '0.2rem' }}>Mod Declared Value</div>
               <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.4rem', fontWeight: 900, color: '#d97706', lineHeight: 1 }}>
-                {summary.totalDeclaredValue > 0 ? `$${summary.totalDeclaredValue.toLocaleString()}` : '—'}
+                {summary.totalDeclaredValue > 0 ? fmtC(summary.totalDeclaredValue, car.currency) : '—'}
               </div>
             </div>
             {vehicleValue != null && vehicleValue > 0 && (
@@ -214,13 +215,13 @@ export default function InsuranceReview({ car, summary, corvetteId, vehicleValue
                 <div style={{ background: 'var(--bg-elevated)', borderRadius: 8, padding: '0.75rem 1rem', textAlign: 'center' }}>
                   <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.2rem' }}>Agreed Vehicle Value</div>
                   <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1 }}>
-                    ${vehicleValue.toLocaleString()}
+                    {fmtC(vehicleValue, car.currency)}
                   </div>
                 </div>
                 <div style={{ background: 'rgba(22,163,74,0.07)', border: '1px solid rgba(22,163,74,0.2)', borderRadius: 8, padding: '0.75rem 1rem', textAlign: 'center' }}>
                   <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#16a34a', marginBottom: '0.2rem' }}>Total Insured Value</div>
                   <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.4rem', fontWeight: 900, color: '#16a34a', lineHeight: 1 }}>
-                    ${totalInsuredValue.toLocaleString()}
+                    {fmtC(totalInsuredValue, car.currency)}
                   </div>
                 </div>
               </>
@@ -297,6 +298,7 @@ export default function InsuranceReview({ car, summary, corvetteId, vehicleValue
                 key={detail.modId}
                 detail={detail}
                 corvetteId={corvetteId}
+                currency={car.currency}
                 onSaved={() => router.refresh()}
               />
             ))}

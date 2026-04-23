@@ -3,6 +3,7 @@ import { notFound, redirect } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, ClipboardList } from 'lucide-react'
 import type { Corvette, ServiceRecord } from '@/lib/types'
+import { formatCurrency } from '@/lib/currency'
 import AddServiceForm from './AddServiceForm'
 import ServiceCard from './ServiceCard'
 
@@ -51,7 +52,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
               Total Service Cost
             </div>
             <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '2rem', fontWeight: 900, color: 'var(--blue)', lineHeight: 1 }}>
-              ${totalCost.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+              {formatCurrency(totalCost, c.currency)}
             </div>
           </div>
         )}
@@ -90,7 +91,7 @@ export default async function ServicePage({ params }: { params: Promise<{ id: st
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {(records as ServiceRecord[]).map(rec => (
-              <ServiceCard key={rec.id} rec={rec} corvetteId={id} />
+              <ServiceCard key={rec.id} rec={rec} corvetteId={id} currency={c.currency} />
             ))}
           </div>
         </div>

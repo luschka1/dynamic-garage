@@ -3,13 +3,15 @@
 import Link from 'next/link'
 import { ShieldCheck, ShieldAlert } from 'lucide-react'
 import type { InsuranceSummary } from '@/lib/insurance'
+import { fmtC } from '@/lib/currency'
 
 interface Props {
   summary: InsuranceSummary
   corvetteId: string
+  currency?: string
 }
 
-export default function InsuranceScore({ summary, corvetteId }: Props) {
+export default function InsuranceScore({ summary, corvetteId, currency = 'USD' }: Props) {
   if (summary.totalMods === 0) return null
 
   const isReady = summary.percentage === 100
@@ -73,7 +75,7 @@ export default function InsuranceScore({ summary, corvetteId }: Props) {
             {summary.readyCount} of {summary.totalMods} mods insurance-ready
             {summary.totalDeclaredValue > 0 && (
               <span style={{ marginLeft: '0.75rem', color: summary.color, fontWeight: 600 }}>
-                ${summary.totalDeclaredValue.toLocaleString('en-US', { minimumFractionDigits: 0 })} declared value
+                {fmtC(summary.totalDeclaredValue, currency)} declared value
               </span>
             )}
           </div>
