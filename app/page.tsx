@@ -44,8 +44,8 @@ export default async function HomePage() {
               color: 'var(--text-primary)',
               marginBottom: '1.5rem',
             }}>
-              Track everything.<br />
-              <span style={{ color: 'var(--red)' }}>Build real value.</span>
+              Your build deserves proof.<br />
+              <span style={{ color: 'var(--red)' }}>Log it. Show it. Get what it&apos;s worth.</span>
             </h1>
 
             {/* Value statement */}
@@ -56,7 +56,7 @@ export default async function HomePage() {
               maxWidth: 480,
               marginBottom: '2.25rem',
             }}>
-              Capture every detail of your vehicle in one place - creating a verified history that builds value, trust, and confidence for enthusiasts, collectors, and buyers.
+              Most car people can&apos;t answer two simple questions: what have I spent, and what can I prove? Dynamic Garage answers both — every mod, every receipt, every service record, in one place. Ready to share at a show or hand to a buyer.
             </p>
 
             {/* CTAs */}
@@ -92,7 +92,7 @@ export default async function HomePage() {
             <div style={{ display: 'flex', gap: '1.25rem', flexWrap: 'wrap' }}>
               {[
                 { icon: <Check size={13} strokeWidth={2.5} />, label: 'Free during early access' },
-                { icon: <Check size={13} strokeWidth={2.5} />, label: 'No card required now' },
+                { icon: <Check size={13} strokeWidth={2.5} />, label: 'Any make · Any model · Any country' },
                 { icon: <Shield size={13} strokeWidth={2} />, label: 'Secure cloud' },
               ].map(item => (
                 <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
@@ -139,7 +139,7 @@ export default async function HomePage() {
             lineHeight: 1.65,
             letterSpacing: '0.01em',
           }}>
-            &ldquo;Capture every mod, milestone, and memory in one place — your vehicle&apos;s full story, ready to share on your terms.&rdquo;
+            &ldquo;The first time you sell a car with a full build sheet, you&apos;ll never go without one again.&rdquo;
           </p>
 
           {/* Bottom red line */}
@@ -160,10 +160,10 @@ export default async function HomePage() {
             marginBottom: '0.75rem',
             lineHeight: 1.05,
           }}>
-            YOUR GARAGE AWAITS.
+            YOUR BUILD HAS A STORY.
           </h2>
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', marginBottom: '2.25rem' }}>
-            Free during early access — no credit card required.
+            Start documenting it today — free, no card needed, any vehicle.
           </p>
           <Link href="/register" className="btn-primary hp-cta-btn" style={{ fontSize: '1.1rem', padding: '0.85rem 2.5rem', minHeight: 52 }}>
             Start Free — No Card Needed <ChevronRight size={18} />

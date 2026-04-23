@@ -7,7 +7,7 @@ const FEATURES = [
   {
     icon: <Wrench size={20} />,
     title: 'Mod Log',
-    desc: 'Track every upgrade — part, cost, vendor, install date, and notes.',
+    desc: 'Know exactly what you\'ve spent and what\'s been done — every part, every dollar, every install date.',
     iconBg: 'var(--red-dim)', iconColor: 'var(--red)',
   },
   {
@@ -37,7 +37,7 @@ const FEATURES = [
   {
     icon: <Share2 size={20} />,
     title: 'Public Build Pages',
-    desc: 'A shareable live page for every vehicle — perfect for shows, forums, and buyers.',
+    desc: 'Your build\'s own URL — scan it at a show, post it on a forum, send it to a buyer. Live, always up to date.',
     iconBg: 'var(--gold-dim)', iconColor: 'var(--gold)',
   },
   {
@@ -61,7 +61,7 @@ const FEATURES = [
   {
     icon: <QrCode size={20} />,
     title: 'QR Show Cards',
-    desc: 'Generate a branded show card with QR code — print it, save it as PNG, or hand it out at car meets.',
+    desc: 'Print a show card or save a PNG. Set it on your dash — anyone who scans it sees your full build instantly.',
     iconBg: 'var(--gold-dim)', iconColor: 'var(--gold)',
   },
   {
@@ -79,7 +79,7 @@ const FEATURES = [
   {
     icon: <Bell size={20} />,
     title: 'NHTSA Recall Alerts',
-    desc: 'Auto-checks your VIN against federal recall data and emails you if a new recall is issued — weekly, hands-free.',
+    desc: 'We check your VIN against federal recall data every week and email you if something new comes up. You just drive.',
     iconBg: 'rgba(220,38,38,0.1)', iconColor: '#dc2626',
   },
   {
@@ -137,10 +137,10 @@ export default function FeatureShowcase() {
         <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
           <p className="page-eyebrow" style={{ marginBottom: '0.6rem' }}>EVERYTHING INCLUDED</p>
           <h2 style={{ fontFamily: "'Barlow Condensed'", fontSize: 'clamp(2rem, 4vw, 2.8rem)', fontWeight: 900, letterSpacing: '0.01em', color: 'var(--text-primary)', marginBottom: '0.75rem' }}>
-            Built for serious enthusiasts
+            Built for people who give a damn about their cars
           </h2>
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', maxWidth: 520, margin: '0 auto' }}>
-            Every tool you need to document, protect, and share your build — all in one place.
+            Whether you&apos;re building, showing, or selling — everything you need to prove what you&apos;ve got.
           </p>
         </div>
 
