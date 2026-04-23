@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { Search, Car, Wrench, ClipboardList, ArrowRight, X, Tag } from 'lucide-react'
 import type { GalleryCar } from './page'
 
@@ -184,7 +185,7 @@ export default function GalleryClient({ cars }: { cars: GalleryCar[] }) {
               {/* Photo */}
               <div style={{ position: 'relative', height: 210, background: 'linear-gradient(135deg, #111 0%, #1c1c1c 100%)', overflow: 'hidden' }}>
                 {car.photo_url ? (
-                  <img src={car.photo_url} alt={car.nickname} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <Image src={car.photo_url} alt={car.nickname} fill style={{ objectFit: 'cover' }} sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                 ) : (
                   <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <Car size={52} color="#444" strokeWidth={1} />

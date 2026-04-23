@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import Image from 'next/image'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
 import type { VehiclePhoto } from '@/lib/types'
 
@@ -39,12 +40,15 @@ export default function PublicGallery({ photos }: Props) {
       return (
         <div
           onClick={() => setLightbox(0)}
-          style={{ cursor: 'zoom-in', borderRadius: 12, overflow: 'hidden', height: 420 }}
+          style={{ cursor: 'zoom-in', borderRadius: 12, overflow: 'hidden', height: 420, position: 'relative' }}
         >
-          <img
+          <Image
             src={photos[0].public_url}
             alt={photos[0].caption || ''}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            fill
+            style={{ objectFit: 'cover' }}
+            sizes="(max-width: 900px) 100vw, 900px"
+            priority
           />
         </div>
       )
@@ -54,13 +58,15 @@ export default function PublicGallery({ photos }: Props) {
       return (
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4, borderRadius: 12, overflow: 'hidden', height: 360 }}>
           {photos.map((p, i) => (
-            <img
-              key={p.id}
-              src={p.public_url}
-              alt={p.caption || ''}
-              onClick={() => setLightbox(i)}
-              style={{ width: '100%', height: '100%', objectFit: 'cover', cursor: 'zoom-in', display: 'block' }}
-            />
+            <div key={p.id} style={{ position: 'relative', overflow: 'hidden', cursor: 'zoom-in' }} onClick={() => setLightbox(i)}>
+              <Image
+                src={p.public_url}
+                alt={p.caption || ''}
+                fill
+                style={{ objectFit: 'cover' }}
+                sizes="(max-width: 900px) 50vw, 450px"
+              />
+            </div>
           ))}
         </div>
       )
@@ -70,26 +76,35 @@ export default function PublicGallery({ photos }: Props) {
     return (
       <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gridTemplateRows: '1fr 1fr', gap: 4, borderRadius: 12, overflow: 'hidden', height: 400 }}>
         {/* Main */}
-        <img
-          src={photos[0].public_url}
-          alt={photos[0].caption || ''}
-          onClick={() => setLightbox(0)}
-          style={{ gridRow: '1 / 3', width: '100%', height: '100%', objectFit: 'cover', cursor: 'zoom-in', display: 'block' }}
-        />
+        <div style={{ gridRow: '1 / 3', position: 'relative', overflow: 'hidden', cursor: 'zoom-in' }} onClick={() => setLightbox(0)}>
+          <Image
+            src={photos[0].public_url}
+            alt={photos[0].caption || ''}
+            fill
+            style={{ objectFit: 'cover' }}
+            sizes="(max-width: 900px) 66vw, 600px"
+            priority
+          />
+        </div>
         {/* Top-right */}
-        <img
-          src={photos[1].public_url}
-          alt={photos[1].caption || ''}
-          onClick={() => setLightbox(1)}
-          style={{ width: '100%', height: '100%', objectFit: 'cover', cursor: 'zoom-in', display: 'block' }}
-        />
+        <div style={{ position: 'relative', overflow: 'hidden', cursor: 'zoom-in' }} onClick={() => setLightbox(1)}>
+          <Image
+            src={photos[1].public_url}
+            alt={photos[1].caption || ''}
+            fill
+            style={{ objectFit: 'cover' }}
+            sizes="(max-width: 900px) 33vw, 300px"
+          />
+        </div>
         {/* Bottom-right — overlay "+N more" if needed */}
         <div style={{ position: 'relative', overflow: 'hidden' }}>
-          <img
+          <Image
             src={photos[2].public_url}
             alt={photos[2].caption || ''}
+            fill
+            style={{ objectFit: 'cover', cursor: 'zoom-in' }}
+            sizes="(max-width: 900px) 33vw, 300px"
             onClick={() => setLightbox(2)}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', cursor: 'zoom-in', display: 'block' }}
           />
           {photos.length > 3 && (
             <div
@@ -120,13 +135,15 @@ export default function PublicGallery({ photos }: Props) {
         {photos.length >= 4 && (
           <div style={{ display: 'flex', gap: 4, marginTop: 4, overflowX: 'auto', paddingBottom: 2 }}>
             {photos.slice(3).map((p, i) => (
-              <img
-                key={p.id}
-                src={p.public_url}
-                alt={p.caption || ''}
-                onClick={() => setLightbox(i + 3)}
-                style={{ width: 72, height: 52, objectFit: 'cover', borderRadius: 4, cursor: 'zoom-in', flexShrink: 0, display: 'block' }}
-              />
+              <div key={p.id} style={{ position: 'relative', width: 72, height: 52, flexShrink: 0, borderRadius: 4, overflow: 'hidden', cursor: 'zoom-in' }} onClick={() => setLightbox(i + 3)}>
+                <Image
+                  src={p.public_url}
+                  alt={p.caption || ''}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                  sizes="72px"
+                />
+              </div>
             ))}
           </div>
         )}

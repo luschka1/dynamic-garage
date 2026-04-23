@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import NextImage from 'next/image'
 import { Car, Wrench, ClipboardList, DollarSign, Share2, ExternalLink, Paperclip, Gauge, FileText, File, Image as ImageIcon, Tag } from 'lucide-react'
 import PublicNav from '@/components/layout/PublicNav'
 import PublicFooter from '@/components/layout/PublicFooter'
@@ -120,7 +121,7 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
           {/* Photo */}
           <div style={{ position: 'relative', height: 300, background: 'linear-gradient(135deg, #111 0%, #1c1c1c 100%)', overflow: 'hidden' }}>
             {c.photo_url ? (
-              <img src={c.photo_url} alt={c.nickname} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <NextImage src={c.photo_url} alt={c.nickname} fill style={{ objectFit: 'cover' }} sizes="(max-width: 900px) 100vw, 900px" priority />
             ) : (
               <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Car size={72} color="#444" strokeWidth={1} />
