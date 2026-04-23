@@ -120,7 +120,7 @@ export default async function TimelinePage({ params }: { params: Promise<{ id: s
       type: 'photo',
       date,
       title: p.caption ?? 'Photo added',
-      thumbnail: p.photo_url ?? undefined,
+      thumbnail: p.public_url ?? undefined,
       currency,
     })
   }
