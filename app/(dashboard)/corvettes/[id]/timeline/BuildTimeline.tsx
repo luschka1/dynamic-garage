@@ -168,6 +168,8 @@ function DocumentCard({ event }: { event: TimelineEvent }) {
 
 function PhotoCard({ event }: { event: TimelineEvent }) {
   const cfg = TYPE_CONFIG.photo
+  const [expanded, setExpanded] = useState(false)
+
   return (
     <div style={{
       background: 'var(--bg-card)',
@@ -175,21 +177,25 @@ function PhotoCard({ event }: { event: TimelineEvent }) {
       borderLeft: `3px solid ${cfg.color}`,
       borderRadius: '0 10px 10px 0',
       overflow: 'hidden',
-    }}>
-      {event.thumbnail && (
-        <a href={event.thumbnail} target="_blank" rel="noopener noreferrer" style={{ display: 'block' }}>
-          <img src={event.thumbnail} alt={event.title} style={{ width: '100%', maxHeight: 220, objectFit: 'cover' }} />
+      cursor: 'pointer',
+    }} onClick={() => setExpanded(e => !e)} className="timeline-card">
+      <div style={{ padding: '0.75rem 1.1rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', background: cfg.dimColor, borderRadius: 100, padding: '0.15rem 0.55rem' }}>
+            <span style={{ color: cfg.color, display: 'flex', alignItems: 'center' }}>{cfg.icon}</span>
+            <span style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: cfg.color }}>Photo</span>
+          </div>
+          {event.title !== 'Photo added' && (
+            <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>{event.title}</span>
+          )}
+        </div>
+        <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{expanded ? '▲ hide' : '▼ view'}</span>
+      </div>
+      {expanded && event.thumbnail && (
+        <a href={event.thumbnail} target="_blank" rel="noopener noreferrer" style={{ display: 'block' }} onClick={e => e.stopPropagation()}>
+          <img src={event.thumbnail} alt={event.title} style={{ width: '100%', maxHeight: 260, objectFit: 'cover' }} />
         </a>
       )}
-      <div style={{ padding: '0.75rem 1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', background: cfg.dimColor, borderRadius: 100, padding: '0.15rem 0.55rem' }}>
-          <span style={{ color: cfg.color, display: 'flex', alignItems: 'center' }}>{cfg.icon}</span>
-          <span style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: cfg.color }}>Photo</span>
-        </div>
-        {event.title !== 'Photo added' && (
-          <span style={{ fontSize: '0.82rem', color: 'var(--text-secondary)' }}>{event.title}</span>
-        )}
-      </div>
     </div>
   )
 }
