@@ -3,14 +3,15 @@
 import { useState, useEffect } from 'react'
 
 const SLIDES = [
-  { src: '/screenshots/screen-report2.png',   alt: 'App screen 1' },
-  { src: '/screenshots/screen-report3.png',   alt: 'App screen 2' },
-  { src: '/screenshots/screen-report4.png',   alt: 'App screen 3' },
-  { src: '/screenshots/screen-report5.png',   alt: 'App screen 4' },
-  { src: '/screenshots/screen-report66.png',  alt: 'App screen 5' },
-  { src: '/screenshots/screen-public.png',    alt: 'App screen 6' },
-  { src: '/screenshots/screen-qrcard.png',    alt: 'App screen 7' },
-  { src: '/screenshots/screen-dashboard.png', alt: 'App screen 8' },
+  { src: '/screenshots/screen-report2.png',    alt: 'App screen 1' },
+  { src: '/screenshots/screen-report3.png',    alt: 'App screen 2' },
+  { src: '/screenshots/screen-report4.png',    alt: 'App screen 3' },
+  { src: '/screenshots/screen-report5.png',    alt: 'App screen 4' },
+  { src: '/screenshots/screen-report66.png',   alt: 'App screen 5' },
+  { src: '/screenshots/screen-insurance.png',  alt: 'Insurance documentation' },
+  { src: '/screenshots/screen-public.png',     alt: 'App screen 6' },
+  { src: '/screenshots/screen-qrcard.png',     alt: 'App screen 7' },
+  { src: '/screenshots/screen-dashboard.png',  alt: 'App screen 8' },
 ]
 
 const INTERVAL = 3800 // ms between slides
