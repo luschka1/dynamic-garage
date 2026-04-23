@@ -45,6 +45,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
     vin: car.vin || '',
     mileage: car.mileage?.toString() || '',
     vehicle_value: car.vehicle_value?.toString() || '',
+    insurance_expiry_date: car.insurance_expiry_date || '',
     is_public: car.is_public,
     in_gallery: car.in_gallery ?? false,
     for_sale: car.for_sale ?? false,
@@ -111,6 +112,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
       vin: form.vin || null,
       mileage: form.mileage ? Math.round(mileageUnit === 'km' ? Number(form.mileage) / MI_TO_KM : Number(form.mileage)) : null,
       vehicle_value: form.vehicle_value ? parseFloat(form.vehicle_value) : null,
+      insurance_expiry_date: form.insurance_expiry_date || null,
       is_public: form.is_public,
       in_gallery: form.in_gallery,
       for_sale: form.for_sale,
@@ -243,6 +245,22 @@ export default function EditCarForm({ car }: { car: Corvette }) {
           />
           <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.35rem', lineHeight: 1.5 }}>
             The agreed or stated value of the vehicle itself — shown on your Insurance Package alongside mod declared values.
+          </div>
+        </div>
+
+        <div>
+          <label className="label" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            Insurance Expiry Date
+            <span style={{ fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', background: 'rgba(22,163,74,0.1)', color: '#16a34a', padding: '0.15rem 0.5rem', borderRadius: 4 }}>Insurance</span>
+          </label>
+          <input
+            className="input-field"
+            type="date"
+            value={form.insurance_expiry_date}
+            onChange={e => set('insurance_expiry_date', e.target.value)}
+          />
+          <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.35rem', lineHeight: 1.5 }}>
+            We&apos;ll email you 7 days before this date to make sure your documentation is ready for renewal.
           </div>
         </div>
 

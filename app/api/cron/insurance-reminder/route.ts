@@ -3,20 +3,38 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { calcInsuranceSummary } from '@/lib/insurance'
 import type { Mod } from '@/lib/types'
 
-// Fires October 1 at 09:00 UTC — peak insurance renewal season
+// Runs daily at 08:00 UTC (3am EST / 4am EDT)
+// Finds vehicles whose insurance_expiry_date is exactly 7 days from today
 // Vercel sends Authorization: Bearer $CRON_SECRET
 
 async function sendReminderEmail(
   toAddress: string,
-  vehicles: Array<{ nickname: string; year: number; model: string; percentage: number; readyCount: number; totalMods: number; incompleteCount: number; corvetteId: string }>
+  vehicles: Array<{
+    nickname: string
+    year: number
+    model: string
+    percentage: number
+    readyCount: number
+    totalMods: number
+    incompleteCount: number
+    corvetteId: string
+    expiryDate: string
+  }>
 ) {
+  // Format the expiry date for display — all vehicles in one email share the same expiry date
+  const expiryFormatted = new Date(vehicles[0].expiryDate + 'T12:00:00').toLocaleDateString('en-US', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+  })
+
   const vehicleRows = vehicles.map(v => `
     <tr>
       <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;">
         <div style="font-weight:700;color:#111;margin-bottom:2px;">${v.year} ${v.model} — ${v.nickname}</div>
         <div style="font-size:0.82rem;color:#555;">
           ${v.readyCount} of ${v.totalMods} mods insurance-ready
-          ${v.incompleteCount > 0 ? `<span style="color:#dc2626;font-weight:600;"> · ${v.incompleteCount} mod${v.incompleteCount !== 1 ? 's' : ''} need attention</span>` : '<span style="color:#16a34a;font-weight:600;"> · Fully documented</span>'}
+          ${v.incompleteCount > 0
+            ? `<span style="color:#dc2626;font-weight:600;"> · ${v.incompleteCount} mod${v.incompleteCount !== 1 ? 's' : ''} need attention</span>`
+            : '<span style="color:#16a34a;font-weight:600;"> · Fully documented</span>'}
         </div>
       </td>
       <td style="padding:10px 0;border-bottom:1px solid #f0f0f0;text-align:right;white-space:nowrap;">
@@ -39,9 +57,12 @@ async function sendReminderEmail(
         </span>
       </div>
       <div style="background:#fff;border:1px solid #e8e8e8;border-top:none;padding:32px;border-radius:0 0 8px 8px;">
-        <h2 style="margin:0 0 8px;font-size:1.2rem;color:#111;">🛡️ Insurance Renewal Season</h2>
+        <h2 style="margin:0 0 8px;font-size:1.2rem;color:#111;">🛡️ Your insurance renews in 7 days</h2>
+        <p style="margin:0 0 6px;color:#555;font-size:0.95rem;line-height:1.6;">
+          <strong style="color:#111;">Renewal date: ${expiryFormatted}</strong>
+        </p>
         <p style="margin:0 0 20px;color:#555;font-size:0.95rem;line-height:1.6;">
-          It&apos;s that time of year — make sure your modifications are fully documented before you renew.
+          Make sure your modifications are fully documented before you renew.
           Mods without a declared replacement value and receipt typically <strong>aren&apos;t covered</strong> on a claim.
         </p>
 
@@ -65,7 +86,8 @@ async function sendReminderEmail(
         </a>
       </div>
       <p style="text-align:center;font-size:0.75rem;color:#aaa;margin-top:16px;">
-        You&apos;re receiving this annual reminder from Dynamic Garage because you have vehicles with modifications logged.
+        You&apos;re receiving this reminder from Dynamic Garage because your insurance renewal date is saved on your vehicle.
+        To stop these reminders, remove the expiry date from your vehicle settings.
       </p>
     </div>`
 
@@ -75,7 +97,7 @@ async function sendReminderEmail(
     body: JSON.stringify({
       from: { address: 'info@dynamicgarage.app', name: 'Dynamic Garage' },
       to: [{ email_address: { address: toAddress } }],
-      subject: '🛡️ Insurance renewal season — are your mods documented?',
+      subject: `🛡️ Insurance renews in 7 days — are your mods documented?`,
       htmlbody,
     }),
   })
@@ -94,27 +116,34 @@ export async function GET(req: NextRequest) {
 
   const supabase = createAdminClient()
 
-  // Get all corvettes that have at least one mod
+  // Target date = exactly 7 days from today
+  const target = new Date()
+  target.setDate(target.getDate() + 7)
+  const targetDate = target.toISOString().split('T')[0] // YYYY-MM-DD
+
+  // Find all corvettes with insurance expiring on the target date
   const { data: cars } = await supabase
     .from('corvettes')
-    .select('id, user_id, nickname, year, model')
+    .select('id, user_id, nickname, year, model, insurance_expiry_date')
+    .eq('insurance_expiry_date', targetDate)
     .order('user_id')
 
   if (!cars || cars.length === 0) {
-    return NextResponse.json({ sent: 0 })
+    console.log(`Insurance reminder cron: no vehicles expiring on ${targetDate}`)
+    return NextResponse.json({ sent: 0, targetDate })
   }
 
-  // Get all user emails
+  // Get user emails
   const { data: { users: authUsers } } = await supabase.auth.admin.listUsers({ perPage: 1000 })
   const emailByUserId: Record<string, string> = {}
   authUsers?.forEach(u => { if (u.email) emailByUserId[u.id] = u.email })
 
-  // Get all mods grouped by corvette
+  // Get all mods for matching cars
   const carIds = cars.map(c => c.id)
   const { data: allMods } = await supabase.from('mods').select('*').in('corvette_id', carIds)
-  const modsBycar: Record<string, Mod[]> = {}
+  const modsByCar: Record<string, Mod[]> = {}
   ;(allMods ?? []).forEach(m => {
-    modsBycar[m.corvette_id] = [...(modsBycar[m.corvette_id] ?? []), m as Mod]
+    modsByCar[m.corvette_id] = [...(modsByCar[m.corvette_id] ?? []), m as Mod]
   })
 
   // Get receipt docs
@@ -139,25 +168,21 @@ export async function GET(req: NextRequest) {
     const email = emailByUserId[userId]
     if (!email) continue
 
-    // Build summary per vehicle — only include those with mods
-    const vehicleSummaries = vehicles
-      .filter(v => (modsBycar[v.id] ?? []).length > 0)
-      .map(v => {
-        const mods = modsBycar[v.id] ?? []
-        const summary = calcInsuranceSummary(mods, receiptModIds)
-        return {
-          nickname: v.nickname,
-          year: v.year,
-          model: v.model,
-          corvetteId: v.id,
-          percentage: summary.percentage,
-          readyCount: summary.readyCount,
-          totalMods: summary.totalMods,
-          incompleteCount: summary.totalMods - summary.readyCount,
-        }
-      })
-
-    if (vehicleSummaries.length === 0) continue
+    const vehicleSummaries = vehicles.map(v => {
+      const mods = modsByCar[v.id] ?? []
+      const summary = calcInsuranceSummary(mods, receiptModIds)
+      return {
+        nickname: v.nickname,
+        year: v.year,
+        model: v.model,
+        corvetteId: v.id,
+        expiryDate: v.insurance_expiry_date as string,
+        percentage: summary.percentage,
+        readyCount: summary.readyCount,
+        totalMods: summary.totalMods,
+        incompleteCount: summary.totalMods - summary.readyCount,
+      }
+    })
 
     try {
       await sendReminderEmail(email, vehicleSummaries)
@@ -168,6 +193,6 @@ export async function GET(req: NextRequest) {
     }
   }
 
-  console.log(`Insurance reminder cron complete: sent=${sent}`)
-  return NextResponse.json({ sent })
+  console.log(`Insurance reminder cron: sent=${sent}, targetDate=${targetDate}`)
+  return NextResponse.json({ sent, targetDate })
 }
