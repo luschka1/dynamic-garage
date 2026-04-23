@@ -1,6 +1,6 @@
 import {
   Wrench, ClipboardList, FileText, Camera, Share2, Layers,
-  Tag, MessageSquare, ScanLine, Link2, Moon, Car, QrCode, Bell, ShieldCheck, GitBranch,
+  Tag, MessageSquare, ScanLine, Link2, Moon, Car, QrCode, Bell, ShieldCheck, GitBranch, Trophy,
 } from 'lucide-react'
 
 const FEATURES = [
@@ -45,6 +45,13 @@ const FEATURES = [
     desc: 'Every mod, service, and photo in one chronological story. Your build, from day one.',
     iconColor: '#f97316',
     group: 'build' as const,
+  },
+  {
+    icon: <Trophy size={18} />,
+    title: 'Show & Event History',
+    desc: 'Log every car show, placement, and trophy win. Your competition record, all in one place.',
+    iconColor: '#f59e0b',
+    group: 'showcase' as const,
   },
   {
     icon: <Share2 size={18} />,
