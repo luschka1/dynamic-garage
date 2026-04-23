@@ -7,6 +7,7 @@ import { Car, Wrench, ClipboardList, DollarSign, Share2, ExternalLink, Paperclip
 import PublicNav from '@/components/layout/PublicNav'
 import PublicFooter from '@/components/layout/PublicFooter'
 import type { Corvette, Mod, ServiceRecord, VehiclePhoto, Document } from '@/lib/types'
+import { formatCurrency, fmtC } from '@/lib/currency'
 import PublicGallery from './PublicGallery'
 import SocialShare from './SocialShare'
 import ContactSellerForm from './ContactSellerForm'
@@ -103,7 +104,7 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
     ...(car.mileage ? { mileageFromOdometer: { '@type': 'QuantitativeValue', value: car.mileage, unitCode: 'SMI' } } : {}),
     url: `https://dynamicgarage.app/share/${userId}/${corvetteId}`,
     ...(car.photo_url ? { image: car.photo_url } : {}),
-    offers: car.for_sale ? { '@type': 'Offer', availability: 'https://schema.org/InStock', priceCurrency: 'USD' } : undefined,
+    offers: car.for_sale ? { '@type': 'Offer', availability: 'https://schema.org/InStock', priceCurrency: car.currency ?? 'USD' } : undefined,
   }
 
   return (
@@ -184,7 +185,7 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
               <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '1.25rem 1rem', gap: '0.2rem' }}>
                 <DollarSign size={15} color="var(--gold)" />
                 <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '2rem', fontWeight: 900, lineHeight: 1, color: 'var(--text-primary)' }}>
-                  ${totalModCost.toLocaleString('en-US', { minimumFractionDigits: 0 })}
+                  {fmtC(totalModCost, c.currency)}
                 </div>
                 <div style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Total in Mods</div>
               </div>
@@ -292,8 +293,8 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
                     {mod.cost != null && (
                       <div style={{ textAlign: 'right', flexShrink: 0 }}>
                         <div style={{ fontSize: '0.62rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.15rem' }}>Cost</div>
-                        <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1, display: 'flex', alignItems: 'center', gap: '0.05rem' }}>
-                          <DollarSign size={14} />{mod.cost.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                        <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1 }}>
+                          {formatCurrency(mod.cost, c.currency)}
                         </div>
                       </div>
                     )}
@@ -383,8 +384,8 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
                     {rec.cost != null && (
                       <div style={{ textAlign: 'right', flexShrink: 0 }}>
                         <div style={{ fontSize: '0.62rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.15rem' }}>Cost</div>
-                        <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1, display: 'flex', alignItems: 'center', gap: '0.05rem' }}>
-                          <DollarSign size={14} />{rec.cost.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                        <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.4rem', fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1 }}>
+                          {formatCurrency(rec.cost, c.currency)}
                         </div>
                       </div>
                     )}
