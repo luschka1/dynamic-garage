@@ -147,7 +147,7 @@ export default function FeatureShowcase() {
           <p className="page-eyebrow" style={{ marginBottom: '0.6rem' }}>EVERYTHING INCLUDED</p>
           <h2 style={{
             fontFamily: "'Barlow Condensed'",
-            fontSize: 'clamp(2rem, 4vw, 2.8rem)',
+            fontSize: 'clamp(1.5rem, 2.8vw, 2.1rem)',
             fontWeight: 900,
             letterSpacing: '0.01em',
             color: 'var(--text-primary)',
