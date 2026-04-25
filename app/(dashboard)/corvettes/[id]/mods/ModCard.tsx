@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
-import { Paperclip, Pencil, Trash2, X, Check, ShieldCheck } from 'lucide-react'
-import { MOD_CATEGORIES, type Mod } from '@/lib/types'
+import { Paperclip, Pencil, Trash2, X, Check, ShieldCheck, Eye, EyeOff } from 'lucide-react'
+import { MOD_CATEGORIES, type Mod, type Document } from '@/lib/types'
 import { formatCurrency } from '@/lib/currency'
 
 function Field({ label, value }: { label: string; value: React.ReactNode }) {
@@ -33,6 +33,8 @@ export default function ModCard({ mod, corvetteId, currency = 'USD' }: { mod: Mo
   const [mode, setMode] = useState<'view' | 'edit' | 'deleting'>('view')
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const [linkedDocs, setLinkedDocs] = useState<Document[]>([])
+  const [docSharing, setDocSharing] = useState<Record<string, boolean>>({})
   const [form, setForm] = useState({
     name: mod.name,
     category: mod.category ?? '',
@@ -45,6 +47,23 @@ export default function ModCard({ mod, corvetteId, currency = 'USD' }: { mod: Mo
   })
 
   function set(key: string, val: string) { setForm(f => ({ ...f, [key]: val })) }
+
+  async function enterEditMode() {
+    setMode('edit')
+    setError('')
+    const supabase = createClient()
+    const { data: docs } = await supabase
+      .from('documents')
+      .select('*')
+      .eq('mod_id', mod.id)
+      .order('created_at', { ascending: true })
+    if (docs && docs.length > 0) {
+      setLinkedDocs(docs)
+      const sharing: Record<string, boolean> = {}
+      docs.forEach(d => { sharing[d.id] = d.is_shared ?? false })
+      setDocSharing(sharing)
+    }
+  }
 
   async function handleSave() {
     if (!form.name.trim()) { setError('Name is required.'); return }
@@ -61,6 +80,14 @@ export default function ModCard({ mod, corvetteId, currency = 'USD' }: { mod: Mo
       notes: form.notes || null,
     }).eq('id', mod.id)
     if (err) { setError(err.message); setSaving(false); return }
+
+    // Update is_shared for each linked document
+    await Promise.all(
+      linkedDocs.map(d =>
+        supabase.from('documents').update({ is_shared: docSharing[d.id] ?? false }).eq('id', d.id)
+      )
+    )
+
     setSaving(false)
     setMode('view')
     router.refresh()
@@ -79,7 +106,7 @@ export default function ModCard({ mod, corvetteId, currency = 'USD' }: { mod: Mo
       <div className="record-row red" style={{ padding: '1.25rem 1.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
           <span style={{ fontFamily: "'Barlow Condensed'", fontWeight: 900, fontSize: '1rem', letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--red)' }}>Editing Mod</span>
-          <button onClick={() => { setMode('view'); setError('') }} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: '0.2rem', display: 'flex' }}>
+          <button onClick={() => { setMode('view'); setError(''); setLinkedDocs([]); setDocSharing({}) }} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: '0.2rem', display: 'flex' }}>
             <X size={18} />
           </button>
         </div>
@@ -126,8 +153,37 @@ export default function ModCard({ mod, corvetteId, currency = 'USD' }: { mod: Mo
           </div>
         </div>
 
+        {/* ── Linked documents sharing ── */}
+        {linkedDocs.length > 0 && (
+          <div style={{ gridColumn: '1 / -1', borderTop: '1px solid var(--border-subtle)', paddingTop: '1rem', marginTop: '0.25rem' }}>
+            <div style={{ fontSize: '0.68rem', fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '0.6rem' }}>
+              Attached Files
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              {linkedDocs.map(doc => {
+                const icon = doc.file_type === 'image' ? '🖼️' : doc.file_type === 'pdf' ? '📄' : '📎'
+                const shared = docSharing[doc.id] ?? false
+                return (
+                  <div key={doc.id} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.6rem 0.85rem', borderRadius: 6, border: `1px solid ${shared ? 'rgba(22,163,74,0.25)' : 'var(--border-subtle)'}`, background: shared ? 'rgba(22,163,74,0.05)' : 'var(--bg-base)', transition: 'all 150ms' }}>
+                    <span style={{ fontSize: '1.1rem', flexShrink: 0 }}>{icon}</span>
+                    <span style={{ flex: 1, fontSize: '0.85rem', fontWeight: 500, color: 'var(--text-primary)', minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{doc.name}</span>
+                    <button
+                      type="button"
+                      onClick={() => setDocSharing(s => ({ ...s, [doc.id]: !s[doc.id] }))}
+                      style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', background: 'none', border: 'none', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 700, color: shared ? '#16a34a' : 'var(--text-muted)', flexShrink: 0, padding: '0.25rem 0.5rem', borderRadius: 4, transition: 'color 150ms' }}
+                      title={shared ? 'Visible on public page — click to hide' : 'Hidden from public page — click to show'}
+                    >
+                      {shared ? <><Eye size={13} /> Public</> : <><EyeOff size={13} /> Private</>}
+                    </button>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
         <div style={{ display: 'flex', gap: '0.5rem', marginTop: '1rem', justifyContent: 'flex-end' }}>
-          <button onClick={() => { setMode('view'); setError('') }} className="btn-secondary" style={{ fontSize: '0.85rem', padding: '0.5rem 1rem', minHeight: 36 }}>
+          <button onClick={() => { setMode('view'); setError(''); setLinkedDocs([]); setDocSharing({}) }} className="btn-secondary" style={{ fontSize: '0.85rem', padding: '0.5rem 1rem', minHeight: 36 }}>
             Cancel
           </button>
           <button onClick={handleSave} disabled={saving} className="btn-primary" style={{ fontSize: '0.85rem', padding: '0.5rem 1.1rem', minHeight: 36, gap: '0.4rem' }}>
@@ -179,7 +235,7 @@ export default function ModCard({ mod, corvetteId, currency = 'USD' }: { mod: Mo
           {/* Edit / Delete buttons */}
           <div style={{ display: 'flex', gap: '0.3rem', marginTop: '0.1rem' }}>
             <button
-              onClick={() => setMode('edit')}
+              onClick={enterEditMode}
               title="Edit mod"
               style={{ background: 'var(--bg-base)', border: '1px solid var(--border-default)', borderRadius: 6, padding: '0.4rem 0.6rem', cursor: 'pointer', color: 'var(--text-secondary)', display: 'flex', alignItems: 'center', transition: 'all 150ms' }}
               className="action-btn-edit"
