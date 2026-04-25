@@ -61,12 +61,20 @@ export default async function HomePage() {
 
             {/* CTAs */}
             <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
-              <Link href="/register" className="btn-primary" style={{ fontSize: '0.95rem', padding: '0.7rem 1.5rem', minHeight: 44 }}>
-                Get Started Free <ChevronRight size={16} />
-              </Link>
-              <Link href="/login" className="btn-secondary" style={{ fontSize: '0.95rem', padding: '0.7rem 1.5rem', minHeight: 44 }}>
-                Sign In
-              </Link>
+              {user ? (
+                <Link href="/dashboard" className="btn-primary" style={{ fontSize: '0.95rem', padding: '0.7rem 1.5rem', minHeight: 44 }}>
+                  My Garage <ChevronRight size={16} />
+                </Link>
+              ) : (
+                <>
+                  <Link href="/register" className="btn-primary" style={{ fontSize: '0.95rem', padding: '0.7rem 1.5rem', minHeight: 44 }}>
+                    Get Started Free <ChevronRight size={16} />
+                  </Link>
+                  <Link href="/login" className="btn-secondary" style={{ fontSize: '0.95rem', padding: '0.7rem 1.5rem', minHeight: 44 }}>
+                    Sign In
+                  </Link>
+                </>
+              )}
             </div>
 
             {/* Pill badge */}
@@ -165,9 +173,15 @@ export default async function HomePage() {
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', marginBottom: '2.25rem' }}>
             Start documenting it today - free, no card needed, any vehicle.
           </p>
-          <Link href="/register" className="btn-primary hp-cta-btn" style={{ fontSize: '1.1rem', padding: '0.85rem 2.5rem', minHeight: 52 }}>
-            Start Free - No Card Needed <ChevronRight size={18} />
-          </Link>
+          {user ? (
+            <Link href="/dashboard" className="btn-primary hp-cta-btn" style={{ fontSize: '1.1rem', padding: '0.85rem 2.5rem', minHeight: 52 }}>
+              Go to My Garage <ChevronRight size={18} />
+            </Link>
+          ) : (
+            <Link href="/register" className="btn-primary hp-cta-btn" style={{ fontSize: '1.1rem', padding: '0.85rem 2.5rem', minHeight: 52 }}>
+              Start Free - No Card Needed <ChevronRight size={18} />
+            </Link>
+          )}
         </div>
       </section>
 

@@ -113,6 +113,23 @@ export default function PrintView({ car, mods, service, docs }: Props) {
           body { background: #e8e8e8; }
           .page { background: white; box-shadow: 0 4px 32px rgba(0,0,0,0.15); margin: 2rem auto; border-radius: 4px; }
         }
+        @media screen and (max-width: 640px) {
+          body { background: #fff; }
+          .page { padding: 1rem 0.75rem; margin: 0; border-radius: 0; box-shadow: none; }
+          .pdf-header { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+          .pdf-meta { text-align: left; }
+          .car-title h1 { font-size: 1.6rem; }
+          .specs-grid { grid-template-columns: repeat(2, 1fr); }
+          .spec-cell:nth-child(2) { border-right: none; }
+          .summary-row { grid-template-columns: 1fr; gap: 0.5rem; }
+          .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+          table { font-size: 8.5pt; min-width: 480px; }
+          .col-cat, .col-vendor, .col-shop { display: none; }
+          .docs-grid { grid-template-columns: 1fr; }
+          .pdf-footer { flex-direction: column; gap: 0.25rem; align-items: flex-start; }
+          .no-print { padding: 0.5rem 0.75rem; }
+          .no-print button { padding: 0.4rem 0.75rem !important; font-size: 0.8rem !important; }
+        }
       `}</style>
 
       {/* Print / Close bar - screen only */}
@@ -204,31 +221,33 @@ export default function PrintView({ car, mods, service, docs }: Props) {
           {mods.length === 0 ? (
             <div className="no-records">No modifications recorded.</div>
           ) : (
-            <table>
-              <thead>
-                <tr>
-                  <th style={{ width: '32%' }}>Modification</th>
-                  <th style={{ width: '16%' }}>Category</th>
-                  <th style={{ width: '18%' }}>Vendor</th>
-                  <th style={{ width: '16%' }}>Date</th>
-                  <th style={{ width: '14%', textAlign: 'right' }}>Cost</th>
-                </tr>
-              </thead>
-              <tbody>
-                {mods.map(m => (
-                  <tr key={m.id}>
-                    <td>
-                      <div className="td-name">{m.name}</div>
-                      {m.notes && <div className="td-muted" style={{ marginTop: '0.2rem' }}>{m.notes}</div>}
-                    </td>
-                    <td>{m.category ? <span className="td-cat">{m.category}</span> : <span className="td-muted"> - </span>}</td>
-                    <td className="td-muted">{m.vendor || ' - '}</td>
-                    <td className="td-muted">{fmtDate(m.install_date)}</td>
-                    <td className="td-cost">{fmt(m.cost)}</td>
+            <div className="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th style={{ width: '32%' }}>Modification</th>
+                    <th style={{ width: '16%' }} className="col-cat">Category</th>
+                    <th style={{ width: '18%' }} className="col-vendor">Vendor</th>
+                    <th style={{ width: '16%' }}>Date</th>
+                    <th style={{ width: '14%', textAlign: 'right' }}>Cost</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {mods.map(m => (
+                    <tr key={m.id}>
+                      <td>
+                        <div className="td-name">{m.name}</div>
+                        {m.notes && <div className="td-muted" style={{ marginTop: '0.2rem' }}>{m.notes}</div>}
+                      </td>
+                      <td className="col-cat">{m.category ? <span className="td-cat">{m.category}</span> : <span className="td-muted"> - </span>}</td>
+                      <td className="col-vendor td-muted">{m.vendor || ' - '}</td>
+                      <td className="td-muted">{fmtDate(m.install_date)}</td>
+                      <td className="td-cost">{fmt(m.cost)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
 
@@ -241,33 +260,35 @@ export default function PrintView({ car, mods, service, docs }: Props) {
           {service.length === 0 ? (
             <div className="no-records">No service records found.</div>
           ) : (
-            <table>
-              <thead>
-                <tr>
-                  <th style={{ width: '32%' }}>Service</th>
-                  <th style={{ width: '16%' }}>Category</th>
-                  <th style={{ width: '18%' }}>Shop</th>
-                  <th style={{ width: '10%' }}>Mileage</th>
-                  <th style={{ width: '12%' }}>Date</th>
-                  <th style={{ width: '12%', textAlign: 'right' }}>Cost</th>
-                </tr>
-              </thead>
-              <tbody>
-                {service.map(r => (
-                  <tr key={r.id}>
-                    <td>
-                      <div className="td-name">{r.title}</div>
-                      {r.notes && <div className="td-muted" style={{ marginTop: '0.2rem' }}>{r.notes}</div>}
-                    </td>
-                    <td>{r.category ? <span className="td-cat">{r.category}</span> : <span className="td-muted"> - </span>}</td>
-                    <td className="td-muted">{r.shop || ' - '}</td>
-                    <td className="td-muted">{fmtMiles(r.mileage)}</td>
-                    <td className="td-muted">{fmtDate(r.service_date)}</td>
-                    <td className="td-cost">{fmt(r.cost)}</td>
+            <div className="table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th style={{ width: '32%' }}>Service</th>
+                    <th style={{ width: '16%' }} className="col-cat">Category</th>
+                    <th style={{ width: '18%' }} className="col-shop">Shop</th>
+                    <th style={{ width: '10%' }}>Mileage</th>
+                    <th style={{ width: '12%' }}>Date</th>
+                    <th style={{ width: '12%', textAlign: 'right' }}>Cost</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {service.map(r => (
+                    <tr key={r.id}>
+                      <td>
+                        <div className="td-name">{r.title}</div>
+                        {r.notes && <div className="td-muted" style={{ marginTop: '0.2rem' }}>{r.notes}</div>}
+                      </td>
+                      <td className="col-cat">{r.category ? <span className="td-cat">{r.category}</span> : <span className="td-muted"> - </span>}</td>
+                      <td className="col-shop td-muted">{r.shop || ' - '}</td>
+                      <td className="td-muted">{fmtMiles(r.mileage)}</td>
+                      <td className="td-muted">{fmtDate(r.service_date)}</td>
+                      <td className="td-cost">{fmt(r.cost)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
 
