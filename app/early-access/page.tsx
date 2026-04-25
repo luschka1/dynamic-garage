@@ -171,7 +171,7 @@ export default function EarlyAccessPage() {
             src="/screenshots/dd_inCar.jpg"
             alt="David in his Corvette"
             style={{
-              width: 80, height: 80, borderRadius: '50%',
+              width: 120, height: 120, borderRadius: '50%',
               objectFit: 'cover', objectPosition: 'center top',
               margin: '0 auto 1.25rem', display: 'block',
               border: '3px solid var(--border-default)',
@@ -225,7 +225,7 @@ export default function EarlyAccessPage() {
             fontWeight: 900, lineHeight: 1.05,
             color: 'var(--text-primary)', marginBottom: '1rem',
           }}>
-            Stop hunting through receipts.<br />
+            Receipts in a shoebox. Mods in a spreadsheet. Photos on your phone. ENOUGH!<br />
             <span style={{ color: 'var(--red)' }}>Start your garage today.</span>
           </h2>
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '2rem' }}>
