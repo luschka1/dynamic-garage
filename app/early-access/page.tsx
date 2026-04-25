@@ -166,13 +166,18 @@ export default function EarlyAccessPage() {
       {/* ── FOUNDER STORY ── */}
       <section style={{ padding: 'clamp(3rem, 6vw, 5rem) 1.5rem' }}>
         <div style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center' }}>
-          <div style={{
-            width: 56, height: 56, borderRadius: '50%', margin: '0 auto 1.25rem',
-            background: 'var(--red)', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: '1.5rem',
-          }}>
-            🇨🇦
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/screenshots/dd_inCar.jpg"
+            alt="David in his Corvette"
+            style={{
+              width: 80, height: 80, borderRadius: '50%',
+              objectFit: 'cover', objectPosition: 'center top',
+              margin: '0 auto 1.25rem', display: 'block',
+              border: '3px solid var(--border-default)',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+            }}
+          />
           <blockquote style={{
             fontFamily: "'Barlow Condensed'",
             fontSize: 'clamp(1.4rem, 3vw, 1.9rem)',
