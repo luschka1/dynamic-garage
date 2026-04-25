@@ -24,6 +24,7 @@ export default function AddServiceForm({ corvetteId }: { corvetteId: string }) {
   const [form, setForm] = useState({
     title: '', category: '', shop: '', mileage: '', cost: '', service_date: '', notes: '',
   })
+  const [mileageUnit, setMileageUnit] = useState<'mi' | 'km'>('mi')
 
   // Document attachment state
   const [docFile, setDocFile] = useState<File | null>(null)
@@ -50,6 +51,7 @@ export default function AddServiceForm({ corvetteId }: { corvetteId: string }) {
 
   function reset() {
     setForm({ title: '', category: '', shop: '', mileage: '', cost: '', service_date: '', notes: '' })
+    setMileageUnit('mi')
     clearFile()
     setOpen(false)
     setError('')
@@ -73,6 +75,7 @@ export default function AddServiceForm({ corvetteId }: { corvetteId: string }) {
         category: form.category || null,
         shop: form.shop || null,
         mileage: form.mileage ? Number(form.mileage) : null,
+        mileage_unit: mileageUnit,
         cost: form.cost ? Number(form.cost) : null,
         service_date: form.service_date || null,
         notes: form.notes || null,
@@ -166,8 +169,17 @@ export default function AddServiceForm({ corvetteId }: { corvetteId: string }) {
                 <input className="input-field" type="text" placeholder="e.g. Dealer, Jiffy Lube" value={form.shop} onChange={e => set('shop', e.target.value)} />
               </div>
               <div>
-                <label className="label">Mileage at Service</label>
-                <input className="input-field" type="number" min={0} placeholder="e.g. 15000" value={form.mileage} onChange={e => set('mileage', e.target.value)} />
+                <label className="label">Odometer at Service</label>
+                <div style={{ display: 'flex', gap: '0.4rem' }}>
+                  <input className="input-field" type="number" min={0} placeholder="e.g. 15000" value={form.mileage} onChange={e => set('mileage', e.target.value)} style={{ flex: 1 }} />
+                  <div style={{ display: 'flex', borderRadius: 6, overflow: 'hidden', border: '1px solid var(--border-default)', flexShrink: 0 }}>
+                    {(['mi', 'km'] as const).map(u => (
+                      <button key={u} type="button" onClick={() => setMileageUnit(u)} style={{ padding: '0 0.75rem', fontSize: '0.78rem', fontWeight: 700, border: 'none', cursor: 'pointer', background: mileageUnit === u ? 'var(--blue)' : 'var(--bg-input)', color: mileageUnit === u ? '#fff' : 'var(--text-muted)', transition: 'all 150ms' }}>
+                        {u}
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
 

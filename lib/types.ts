@@ -47,6 +47,7 @@ export interface ServiceRecord {
   category?: string
   shop?: string
   mileage?: number
+  mileage_unit?: string
   cost?: number
   service_date?: string
   notes?: string

@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     if (dbErr) return NextResponse.json({ error: dbErr.message }, { status: 500 })
 
     // Send notification email via ZeptoMail
-    const adminEmail = process.env.ADMIN_EMAIL ?? 'info@dynamicgarage.app'
+    const adminEmail = process.env.NOTIFICATION_EMAIL ?? 'info@dynamicgarage.app'
     const priorityLabel = priority ? `${priority}/5 — ${PRIORITY_LABELS[priority]}` : 'Not rated'
 
     await fetch('https://api.zeptomail.ca/v1.1/email', {

@@ -7,7 +7,6 @@ import { createClient } from '@/lib/supabase/client'
 import { Paperclip, Pencil, Trash2, X, Check } from 'lucide-react'
 import { SERVICE_CATEGORIES, type ServiceRecord } from '@/lib/types'
 import { formatCurrency } from '@/lib/currency'
-import MileageDisplay from '@/components/MileageDisplay'
 
 function Field({ label, value }: { label: string; value: React.ReactNode }) {
   return (
@@ -43,6 +42,7 @@ export default function ServiceCard({ rec, corvetteId, currency = 'USD' }: { rec
     mileage: rec.mileage != null ? String(rec.mileage) : '',
     notes: rec.notes ?? '',
   })
+  const [mileageUnit, setMileageUnit] = useState<'mi' | 'km'>((rec.mileage_unit as 'mi' | 'km') ?? 'mi')
 
   function set(key: string, val: string) { setForm(f => ({ ...f, [key]: val })) }
 
@@ -57,6 +57,7 @@ export default function ServiceCard({ rec, corvetteId, currency = 'USD' }: { rec
       cost: form.cost ? parseFloat(form.cost) : null,
       service_date: form.service_date || null,
       mileage: form.mileage ? parseInt(form.mileage) : null,
+      mileage_unit: mileageUnit,
       notes: form.notes || null,
     }).eq('id', rec.id)
     if (err) { setError(err.message); setSaving(false); return }
@@ -110,8 +111,17 @@ export default function ServiceCard({ rec, corvetteId, currency = 'USD' }: { rec
             <input style={inputStyle} type="date" value={form.service_date} onChange={e => set('service_date', e.target.value)} />
           </div>
           <div>
-            <label style={labelStyle}>Mileage at Service</label>
-            <input style={inputStyle} type="number" min="0" step="1" value={form.mileage} onChange={e => set('mileage', e.target.value)} placeholder="e.g. 42000" />
+            <label style={labelStyle}>Odometer at Service</label>
+            <div style={{ display: 'flex', gap: '0.4rem' }}>
+              <input style={{ ...inputStyle, flex: 1 }} type="number" min="0" step="1" value={form.mileage} onChange={e => set('mileage', e.target.value)} placeholder="e.g. 42000" />
+              <div style={{ display: 'flex', borderRadius: 6, overflow: 'hidden', border: '1px solid var(--border-default)', flexShrink: 0 }}>
+                {(['mi', 'km'] as const).map(u => (
+                  <button key={u} type="button" onClick={() => setMileageUnit(u)} style={{ padding: '0 0.75rem', fontSize: '0.78rem', fontWeight: 700, border: 'none', cursor: 'pointer', background: mileageUnit === u ? 'var(--blue)' : 'var(--bg-input)', color: mileageUnit === u ? '#fff' : 'var(--text-muted)', transition: 'all 150ms' }}>
+                    {u}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
           <div style={{ gridColumn: '1 / -1' }}>
             <label style={labelStyle}>Notes</label>
@@ -204,7 +214,7 @@ export default function ServiceCard({ rec, corvetteId, currency = 'USD' }: { rec
           {rec.service_date && (
             <Field label="Service Date" value={new Date(rec.service_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} />
           )}
-          {rec.mileage && <Field label="Mileage at Service" value={<MileageDisplay value={rec.mileage} />} />}
+          {rec.mileage && <Field label="Odometer at Service" value={`${rec.mileage.toLocaleString()} ${rec.mileage_unit ?? 'mi'}`} />}
         </div>
       )}
 
