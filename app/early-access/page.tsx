@@ -24,10 +24,10 @@ const FEATURES = [
 ]
 
 const SCREENSHOTS = [
-  { src: '/screenshots/screen-dashboard.png', alt: 'Vehicle profile with mods and service stats', caption: 'Vehicle Profile' },
-  { src: '/screenshots/timeline1.png',         alt: 'Build timeline showing all events chronologically', caption: 'Build Timeline' },
-  { src: '/screenshots/screen-public.png',     alt: 'Public build page anyone can view', caption: 'Public Build Page' },
-  { src: '/screenshots/screen-qrcard.png',     alt: 'QR show card for car shows', caption: 'QR Show Card' },
+  { src: '/screenshots/export1.png',       alt: 'Vehicle report with full build documentation', caption: 'Vehicle Report' },
+  { src: '/screenshots/timeline1.png',     alt: 'Build timeline showing all events chronologically', caption: 'Build Timeline' },
+  { src: '/screenshots/dd_car1.png',       alt: 'Public build page anyone can view', caption: 'Public Build Page' },
+  { src: '/screenshots/screen-report4.png', alt: 'QR show card for car shows', caption: 'QR Show Card' },
 ]
 
 export default function EarlyAccessPage() {
