@@ -11,55 +11,50 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false }, // don't index ad landing pages
 }
 
-const GROUPS = [
-  {
-    label: 'Build & Document',
-    color: '#3b82f6',
-    tagline: 'Track every dollar. Prove your build is worth it.',
-    features: [
-      { icon: <Wrench size={15} />,      color: '#e53e3e', title: 'Mod Log',              desc: 'Track every dollar - prove your build is worth it.' },
-      { icon: <ClipboardList size={15} />, color: '#2563eb', title: 'Service History',    desc: 'Show buyers and judges your car was done right.' },
-      { icon: <FileText size={15} />,    color: '#16a34a', title: 'Document Vault',        desc: 'Receipts, titles, window stickers - all in one place, forever.' },
-      { icon: <Camera size={15} />,      color: '#8b5cf6', title: 'Photo Gallery',         desc: 'Every stage of the build, organized and shareable.' },
-      { icon: <ScanLine size={15} />,    color: '#2563eb', title: 'VIN Decoder',           desc: 'Drop in your VIN - year, make, model, trim fills itself.' },
-      { icon: <GitBranch size={15} />,   color: '#f97316', title: 'Build Timeline',        desc: 'Every mod, service, and photo in one chronological story.' },
-    ],
-  },
-  {
-    label: 'Showcase & Share',
-    color: '#f59e0b',
-    tagline: 'One link. Your entire build. Anywhere.',
-    features: [
-      { icon: <Trophy size={15} />,      color: '#f59e0b', title: 'Show & Event History', desc: 'Log every car show, placement, and trophy win.' },
-      { icon: <Share2 size={15} />,      color: '#f59e0b', title: 'Public Build Pages',   desc: 'One link that proves everything about your car.' },
-      { icon: <Layers size={15} />,      color: '#14b8a6', title: 'Public Garage',         desc: 'Your whole collection at a single URL.' },
-      { icon: <QrCode size={15} />,      color: '#f59e0b', title: 'QR Show Cards',         desc: 'Set it on your dash - anyone who scans it sees your full build.' },
-      { icon: <Link2 size={15} />,       color: '#6366f1', title: 'Social Sharing',        desc: 'Share to X, Facebook, or WhatsApp with a rich preview card.' },
-      { icon: <Moon size={15} />,        color: '#8b5cf6', title: 'Dark & Light Mode',     desc: 'Dark or light - your garage, your vibe.' },
-    ],
-  },
-  {
-    label: 'Sell & Protect',
-    color: '#16a34a',
-    tagline: 'Selling or insuring - you\'re covered either way.',
-    features: [
-      { icon: <Tag size={15} />,         color: '#16a34a', title: 'For Sale Listings',     desc: 'List it for sale with a badge buyers can\'t miss.' },
-      { icon: <MessageSquare size={15} />, color: '#f97316', title: 'Contact Seller',      desc: 'Buyers reach you directly - your email stays private.' },
-      { icon: <Bell size={15} />,        color: '#dc2626', title: 'NHTSA Recall Alerts',   desc: 'We watch your VIN. If a recall drops, you hear about it first.' },
-      { icon: <ShieldCheck size={15} />, color: '#16a34a', title: 'Insurance Documentation', desc: 'Print-ready mod package your insurer will actually accept.' },
-      { icon: <Car size={15} />,         color: '#e53e3e', title: 'Any Make & Model',       desc: 'Corvette, Mustang, Porsche, BMW - every car, every year.' },
-    ],
-  },
-]
-
-const PROOF = [
-  'Free during early access',
-  'No credit card required',
-  'Any make and model',
-  'Works on mobile',
-]
-
 export default function EarlyAccessPage() {
+  const GROUPS = [
+    {
+      label: 'Build & Document',
+      color: '#3b82f6',
+      tagline: 'Track every dollar. Prove your build is worth it.',
+      features: [
+        { icon: <Wrench size={15} />,        color: '#e53e3e', title: 'Mod Log',                  desc: 'Track every dollar - prove your build is worth it.' },
+        { icon: <ClipboardList size={15} />,  color: '#2563eb', title: 'Service History',          desc: 'Show buyers and judges your car was done right.' },
+        { icon: <FileText size={15} />,       color: '#16a34a', title: 'Document Vault',           desc: 'Receipts, titles, window stickers - all in one place, forever.' },
+        { icon: <Camera size={15} />,         color: '#8b5cf6', title: 'Photo Gallery',            desc: 'Every stage of the build, organized and shareable.' },
+        { icon: <ScanLine size={15} />,       color: '#2563eb', title: 'VIN Decoder',              desc: 'Drop in your VIN - year, make, model, trim fills itself.' },
+        { icon: <GitBranch size={15} />,      color: '#f97316', title: 'Build Timeline',           desc: 'Every mod, service, and photo in one chronological story.' },
+      ],
+    },
+    {
+      label: 'Showcase & Share',
+      color: '#f59e0b',
+      tagline: 'One link. Your entire build. Anywhere.',
+      features: [
+        { icon: <Trophy size={15} />,         color: '#f59e0b', title: 'Show & Event History',     desc: 'Log every car show, placement, and trophy win.' },
+        { icon: <Share2 size={15} />,         color: '#f59e0b', title: 'Public Build Pages',       desc: 'One link that proves everything about your car.' },
+        { icon: <Layers size={15} />,         color: '#14b8a6', title: 'Public Garage',            desc: 'Your whole collection at a single URL.' },
+        { icon: <QrCode size={15} />,         color: '#f59e0b', title: 'QR Show Cards',            desc: 'Set it on your dash - anyone who scans it sees your full build.' },
+        { icon: <Link2 size={15} />,          color: '#6366f1', title: 'Social Sharing',           desc: 'Share to X, Facebook, or WhatsApp with a rich preview card.' },
+        { icon: <Moon size={15} />,           color: '#8b5cf6', title: 'Dark & Light Mode',        desc: 'Dark or light - your garage, your vibe.' },
+      ],
+    },
+    {
+      label: 'Sell & Protect',
+      color: '#16a34a',
+      tagline: "Selling or insuring - you're covered either way.",
+      features: [
+        { icon: <Tag size={15} />,            color: '#16a34a', title: 'For Sale Listings',        desc: "List it for sale with a badge buyers can't miss." },
+        { icon: <MessageSquare size={15} />,  color: '#f97316', title: 'Contact Seller',           desc: 'Buyers reach you directly - your email stays private.' },
+        { icon: <Bell size={15} />,           color: '#dc2626', title: 'NHTSA Recall Alerts',      desc: 'We watch your VIN. If a recall drops, you hear about it first.' },
+        { icon: <ShieldCheck size={15} />,    color: '#16a34a', title: 'Insurance Documentation',  desc: 'Print-ready mod package your insurer will actually accept.' },
+        { icon: <Car size={15} />,            color: '#e53e3e', title: 'Any Make & Model',         desc: 'Corvette, Mustang, Porsche, BMW - every car, every year.' },
+      ],
+    },
+  ]
+
+  const PROOF = ['Free during early access', 'No credit card required', 'Any make and model', 'Works on mobile']
+
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--text-primary)', fontFamily: "'Inter', -apple-system, sans-serif" }}>
 
