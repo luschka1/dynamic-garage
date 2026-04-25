@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
 import { ChevronRight, Check } from 'lucide-react'
 
 const PRIORITY_LABELS = ['', 'Nice to have', 'Would use it', 'Really want it', 'Need it badly', 'Can\'t live without it']
@@ -29,17 +28,14 @@ export default function FeedbackForm({ categories, userId, userEmail }: Props) {
     }
     setLoading(true)
     setError('')
-    const supabase = createClient()
-    const { error: err } = await supabase.from('feature_requests').insert({
-      user_id: userId,
-      user_email: userEmail,
-      title: title.trim(),
-      description: description.trim(),
-      category: category || null,
-      priority: priority || null,
+    const res = await fetch('/api/feature-request', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title, description, category, priority }),
     })
-    if (err) {
-      setError(err.message)
+    const data = await res.json()
+    if (!res.ok) {
+      setError(data.error ?? 'Something went wrong. Please try again.')
       setLoading(false)
     } else {
       setSuccess(true)
