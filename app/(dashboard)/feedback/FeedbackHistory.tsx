@@ -4,9 +4,10 @@ import type { FeatureRequest } from '@/lib/types'
 
 const STATUS_STYLES: Record<string, { label: string; bg: string; color: string }> = {
   open:     { label: 'Submitted',  bg: 'rgba(59,130,246,0.12)',  color: '#3b82f6' },
-  planned:  { label: 'Planned',    bg: 'rgba(234,179,8,0.12)',   color: '#ca8a04' },
-  done:     { label: 'Shipped!',   bg: 'rgba(22,163,74,0.12)',   color: '#16a34a' },
-  declined: { label: 'Declined',   bg: 'rgba(107,114,128,0.12)', color: '#6b7280' },
+  will_do:  { label: 'On Roadmap', bg: 'rgba(22,163,74,0.12)',   color: '#16a34a' },
+  maybe:    { label: 'Considering', bg: 'rgba(234,179,8,0.12)',  color: '#ca8a04' },
+  no:       { label: 'Not Planned', bg: 'rgba(107,114,128,0.12)', color: '#6b7280' },
+  done:     { label: 'Shipped! 🚀', bg: 'rgba(139,92,246,0.12)', color: '#8b5cf6' },
 }
 
 function fmtDate(d: string) {
