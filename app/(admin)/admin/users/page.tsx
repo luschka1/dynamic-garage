@@ -1,4 +1,5 @@
 import { createAdminClient } from '@/lib/supabase/admin'
+import UserActions from './UserActions'
 
 export default async function AdminUsersPage() {
   const admin = createAdminClient()
@@ -54,7 +55,7 @@ export default async function AdminUsersPage() {
         <table style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ borderBottom: '1px solid var(--border-subtle)' }}>
-              {['Email', 'User ID', 'Vehicles', 'Joined', 'Last Sign In'].map(h => (
+              {['Email', 'User ID', 'Vehicles', 'Joined', 'Last Sign In', 'Actions'].map(h => (
                 <th key={h} style={{
                   padding: '0.75rem 1rem',
                   textAlign: 'left',
@@ -127,11 +128,16 @@ export default async function AdminUsersPage() {
                     : ' - '
                   }
                 </td>
+
+                {/* Actions */}
+                <td style={{ padding: '0.75rem 1rem', whiteSpace: 'nowrap' }}>
+                  <UserActions userId={user.id} email={user.email ?? ''} />
+                </td>
               </tr>
             ))}
             {sortedUsers.length === 0 && (
               <tr>
-                <td colSpan={5} style={{ padding: '2rem 1rem', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.88rem' }}>
+                <td colSpan={6} style={{ padding: '2rem 1rem', textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.88rem' }}>
                   No users yet
                 </td>
               </tr>
