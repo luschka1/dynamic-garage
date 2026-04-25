@@ -24,7 +24,13 @@ export default function RegisterPage() {
     const supabase = createClient()
     const { error } = await supabase.auth.signUp({ email, password, options: { data: { full_name: name } } })
     if (error) { setError(error.message); setLoading(false) }
-    else setSuccess(true)
+    else {
+      // Fire Meta Pixel CompleteRegistration event
+      if (typeof window !== 'undefined' && (window as any).fbq) {
+        (window as any).fbq('track', 'CompleteRegistration')
+      }
+      setSuccess(true)
+    }
   }
 
   if (success) {
