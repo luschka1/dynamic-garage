@@ -167,7 +167,7 @@ export default function QRShareCard({ shareUrl, nickname, year, model, trim, col
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                   }}>
-                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, #0a0a0b 0%, rgba(10,10,11,0.55) 38%, rgba(10,10,11,0.08) 100%)' }} />
+                    <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, rgba(10,10,11,0.72) 0%, rgba(10,10,11,0.35) 42%, rgba(10,10,11,0.04) 100%)' }} />
                   </div>
                 )}
 
