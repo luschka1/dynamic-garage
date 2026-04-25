@@ -38,6 +38,7 @@ export async function proxy(request: NextRequest) {
 
   if (!user && !isPublicPage) {
     const url = request.nextUrl.clone()
+    url.searchParams.set('next', request.nextUrl.pathname)
     url.pathname = '/login'
     return NextResponse.redirect(url)
   }
