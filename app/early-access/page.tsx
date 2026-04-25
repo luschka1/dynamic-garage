@@ -85,12 +85,12 @@ export default function EarlyAccessPage() {
           {/* Eyebrow */}
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-            background: 'rgba(204,32,32,0.1)', border: '1px solid rgba(204,32,32,0.25)',
-            borderRadius: 100, padding: '0.3rem 0.9rem', marginBottom: '1.75rem',
+            background: 'rgba(22,163,74,0.12)', border: '1px solid rgba(22,163,74,0.3)',
+            borderRadius: 100, padding: '0.4rem 1.1rem', marginBottom: '1.75rem',
           }}>
-            <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--red)', display: 'inline-block', animation: 'pulse 2s infinite' }} />
-            <span style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--red)' }}>
-              Early Access - Free
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#16a34a', display: 'inline-block', animation: 'pulse 2s infinite', flexShrink: 0 }} />
+            <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#16a34a' }}>
+              Free during early access · Any make · Any model
             </span>
           </div>
 
