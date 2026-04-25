@@ -17,13 +17,24 @@ function getFileType(contentType: string): string {
   return 'other'
 }
 
-// Extract the UUID token from the local part of the To address
-// e.g. "a1b2c3d4-xxxx-xxxx-xxxx-xxxxxxxxxxxx@uploads.domain.com" → token
+// Extract the UUID token from the To address.
+// Handles plain "token@domain" and display-name "Name <token@domain>" formats.
+// Also scans all recipients in case the token address is in CC or a secondary To.
 function extractToken(toRaw: string): string | null {
-  const local = toRaw.split('@')[0]?.trim().toLowerCase() ?? ''
-  // Basic UUID v4 pattern check
+  // Strip display name: "My Car <token@domain>" → "token@domain"
+  const angleMatch = toRaw.match(/<([^>]+)>/)
+  const email = angleMatch ? angleMatch[1] : toRaw
+  const local = email.split('@')[0]?.trim().toLowerCase() ?? ''
   if (/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(local)) {
     return local
+  }
+  return null
+}
+
+function extractTokenFromAny(candidates: string[]): string | null {
+  for (const c of candidates) {
+    const token = extractToken(c)
+    if (token) return token
   }
   return null
 }
@@ -47,14 +58,22 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
 
-  // ── 3. Resolve the vehicle token from the To address ──────────────────────
-  // Postmark sends { To: "token@domain" } or { ToFull: [{Email:"..."}] }
-  const toRaw: string =
-    (body.To as string) ||
-    ((body.ToFull as Array<{ Email: string }>)?.[0]?.Email) ||
-    ''
+  // ── 3. Resolve the vehicle token from the To/CC addresses ─────────────────
+  // Build a list of all candidate addresses to scan for the UUID token.
+  // Postmark: ToFull/CcFull are [{Email, Name}]; To/Cc are raw header strings.
+  const toFull   = (body.ToFull as Array<{ Email: string }> | undefined) ?? []
+  const ccFull   = (body.CcFull as Array<{ Email: string }> | undefined) ?? []
+  const toRaw    = (body.To as string) ?? ''
+  const ccRaw    = (body.Cc as string) ?? ''
 
-  const token = extractToken(toRaw)
+  const candidates = [
+    ...toFull.map(r => r.Email),
+    ...ccFull.map(r => r.Email),
+    toRaw,
+    ccRaw,
+  ].filter(Boolean)
+
+  const token = extractTokenFromAny(candidates)
   if (!token) {
     // Not addressed to a valid vehicle — silently accept so Postmark doesn't retry
     return NextResponse.json({ ok: true, skipped: 'no valid token' })
