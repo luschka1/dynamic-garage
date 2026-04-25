@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ChevronRight, Check, Wrench, ClipboardList, FileText, Camera, Trophy, GitBranch, Share2, QrCode, Layers, Tag, MessageSquare, ScanLine, Link2, Moon, Car, Bell, ShieldCheck } from 'lucide-react'
+import { Check, Wrench, ClipboardList, FileText, Camera, Trophy, GitBranch, Share2, QrCode, Layers, Tag, MessageSquare, ScanLine, Link2, Moon, Car, Bell, ShieldCheck } from 'lucide-react'
 import PublicFooter from '@/components/layout/PublicFooter'
 import ThemeToggle from '@/components/ThemeToggle'
-import { createClient } from '@/lib/supabase/server'
+import EarlyAccessCTA from './EarlyAccessCTA'
 
 export const metadata: Metadata = {
   title: 'Early Access - Dynamic Garage',
@@ -59,12 +59,7 @@ const PROOF = [
   'Works on mobile',
 ]
 
-export default async function EarlyAccessPage() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  const ctaHref = user ? '/dashboard' : '/register'
-  const ctaLabel = user ? 'Go to My Garage' : 'Claim Your Free Garage'
-  const navCtaLabel = user ? 'My Garage' : 'Get Started Free'
+export default function EarlyAccessPage() {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--text-primary)', fontFamily: "'Inter', -apple-system, sans-serif" }}>
 
@@ -83,9 +78,7 @@ export default async function EarlyAccessPage() {
           </Link>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <ThemeToggle />
-            <Link href={ctaHref} className="btn-primary" style={{ fontSize: '0.85rem', padding: '0.45rem 1rem', minHeight: 34 }}>
-              {navCtaLabel}
-            </Link>
+            <EarlyAccessCTA size="small" />
           </div>
         </div>
       </nav>
@@ -131,13 +124,7 @@ export default async function EarlyAccessPage() {
 
           {/* Primary CTA */}
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-            <Link href={ctaHref} className="btn-primary" style={{
-              fontSize: '1.05rem', padding: '0.85rem 2.25rem',
-              minHeight: 52, display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-              boxShadow: '0 4px 20px rgba(204,32,32,0.35)',
-            }}>
-              {ctaLabel} <ChevronRight size={18} />
-            </Link>
+            <EarlyAccessCTA size="large" />
 
             {/* Trust signals */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap', justifyContent: 'center' }}>
@@ -249,13 +236,7 @@ export default async function EarlyAccessPage() {
           <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: '2rem' }}>
             Join during early access and get full access to every feature at no cost. Any make, any model, any build.
           </p>
-          <Link href={ctaHref} className="btn-primary" style={{
-            fontSize: '1.05rem', padding: '0.85rem 2.25rem',
-            minHeight: 52, display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-            boxShadow: '0 4px 20px rgba(204,32,32,0.3)',
-          }}>
-            {ctaLabel} <ChevronRight size={18} />
-          </Link>
+          <EarlyAccessCTA size="large" />
           <p style={{ marginTop: '1rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
             No credit card. No commitment. Cancel anytime.
           </p>

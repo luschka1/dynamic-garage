@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 
 const SLIDES = [
-  { src: '/screenshots/screen-report2.png',    alt: 'App screen 1' },
   { src: '/screenshots/screen-report3.png',    alt: 'App screen 2' },
   { src: '/screenshots/screen-report4.png',    alt: 'App screen 3' },
   { src: '/screenshots/screen-report5.png',    alt: 'App screen 4' },
