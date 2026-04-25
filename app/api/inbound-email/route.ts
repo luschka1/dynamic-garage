@@ -116,7 +116,8 @@ export async function POST(req: NextRequest) {
 
   for (const att of attachments) {
     const rawName    = att.Name       ?? att.name       ?? 'attachment'
-    const mimeType   = (att.ContentType ?? att.contentType ?? 'application/octet-stream').toLowerCase()
+    // Strip MIME parameters e.g. "application/pdf; name=file.pdf" → "application/pdf"
+    const mimeType   = (att.ContentType ?? att.contentType ?? 'application/octet-stream').split(';')[0].trim().toLowerCase()
     const b64content = att.Content    ?? att.content    ?? ''
     const byteLength = att.ContentLength ?? att.contentLength ?? 0
 
