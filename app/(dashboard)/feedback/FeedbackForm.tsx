@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { ChevronRight, Check } from 'lucide-react'
 
 const PRIORITY_LABELS = ['', 'Nice to have', 'Would use it', 'Really want it', 'Need it badly', 'Can\'t live without it']
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export default function FeedbackForm({ categories, userId, userEmail }: Props) {
+  const router = useRouter()
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [category, setCategory] = useState('')
@@ -40,6 +42,7 @@ export default function FeedbackForm({ categories, userId, userEmail }: Props) {
     } else {
       setSuccess(true)
       setLoading(false)
+      router.refresh()
     }
   }
 
