@@ -103,7 +103,7 @@ export default function NavBar({ user }: { user: User }) {
           </Link>
 
           <Link
-            href="/dashboard/feedback"
+            href="/feedback"
             style={{
               display: 'flex', alignItems: 'center', gap: '0.4rem',
               padding: '0.45rem 0.85rem',
@@ -112,8 +112,8 @@ export default function NavBar({ user }: { user: User }) {
               fontWeight: 600,
               letterSpacing: '0.06em',
               textTransform: 'uppercase',
-              color: pathname === '/dashboard/feedback' ? 'var(--text-primary)' : 'var(--text-secondary)',
-              background: pathname === '/dashboard/feedback' ? 'rgba(0,0,0,0.05)' : 'transparent',
+              color: pathname === '/feedback' ? 'var(--text-primary)' : 'var(--text-secondary)',
+              background: pathname === '/feedback' ? 'rgba(0,0,0,0.05)' : 'transparent',
               transition: 'all var(--transition)',
               textDecoration: 'none',
             }}
@@ -161,7 +161,7 @@ export default function NavBar({ user }: { user: User }) {
           <Link href="/gallery" onClick={() => setMenuOpen(false)} style={{ color: 'var(--text-secondary)', fontWeight: 600, fontSize: '1rem', padding: '0.75rem', borderRadius: 4, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <LayoutGrid size={16} /> Gallery
           </Link>
-          <Link href="/dashboard/feedback" onClick={() => setMenuOpen(false)} style={{ color: 'var(--text-secondary)', fontWeight: 600, fontSize: '1rem', padding: '0.75rem', borderRadius: 4, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <Link href="/feedback" onClick={() => setMenuOpen(false)} style={{ color: 'var(--text-secondary)', fontWeight: 600, fontSize: '1rem', padding: '0.75rem', borderRadius: 4, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <Lightbulb size={16} /> Feature Requests
           </Link>
           <hr style={{ border: 'none', borderTop: '1px solid var(--border-subtle)' }} />

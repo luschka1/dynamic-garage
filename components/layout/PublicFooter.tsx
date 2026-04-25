@@ -30,7 +30,7 @@ export default function PublicFooter({ showFeedback = false }: { showFeedback?: 
       <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
         {showFeedback && (
           <Link
-            href="/dashboard/feedback"
+            href="/feedback"
             className="pub-footer-link"
             style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 150ms', display: 'flex', alignItems: 'center', gap: '0.3rem' }}
           >
