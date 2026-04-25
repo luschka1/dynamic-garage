@@ -201,6 +201,58 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
           />
         )}
 
+        {/* ── CARFAX ── */}
+        {c.for_sale && c.vin && c.show_carfax && (
+          <div style={{
+            background: 'var(--bg-card)',
+            border: '1px solid var(--border-subtle)',
+            borderRadius: 12,
+            padding: '1.25rem 1.5rem',
+            marginBottom: '1.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            boxShadow: 'var(--shadow-card)',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div style={{
+                width: 44, height: 44, borderRadius: 10,
+                background: '#003087',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                flexShrink: 0, padding: '6px',
+              }}>
+                <img src="https://www.carfax.com/favicon.ico" alt="CARFAX" width={28} height={28} style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
+              </div>
+              <div>
+                <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.1rem', fontWeight: 900, letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--text-primary)', marginBottom: '0.2rem' }}>
+                  CARFAX Vehicle History
+                </div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                  Accidents, ownership, title — see the full history before you buy.
+                </div>
+              </div>
+            </div>
+            <a
+              href={`https://www.carfax.com/VehicleHistory/p/Report.cfx?vin=${c.vin}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.45rem',
+                background: '#003087', color: '#fff',
+                padding: '0.6rem 1.2rem', borderRadius: 7,
+                fontSize: '0.85rem', fontWeight: 800,
+                textDecoration: 'none', letterSpacing: '0.05em',
+                textTransform: 'uppercase', whiteSpace: 'nowrap',
+                fontFamily: "'Barlow Condensed', sans-serif",
+              }}
+            >
+              View Report <ExternalLink size={13} />
+            </a>
+          </div>
+        )}
+
         {/* ── VIN DECODER CTA ── */}
         {c.vin && c.show_vin_decoder && (
           <div style={{

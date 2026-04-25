@@ -13,6 +13,7 @@ export interface Corvette {
   in_gallery: boolean
   for_sale: boolean
   show_vin_decoder: boolean
+  show_carfax: boolean
   email_token?: string
   currency?: string
   vehicle_value?: number

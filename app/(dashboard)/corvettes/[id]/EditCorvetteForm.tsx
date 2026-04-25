@@ -52,6 +52,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
     in_gallery: car.in_gallery ?? false,
     for_sale: car.for_sale ?? false,
     show_vin_decoder: car.show_vin_decoder ?? true,
+    show_carfax: car.show_carfax ?? false,
     photo_url: car.photo_url || '',
   })
 
@@ -120,6 +121,7 @@ export default function EditCarForm({ car }: { car: Corvette }) {
       in_gallery: form.in_gallery,
       for_sale: form.for_sale,
       show_vin_decoder: form.show_vin_decoder,
+      show_carfax: form.show_carfax,
       photo_url: form.photo_url || null,
       updated_at: new Date().toISOString(),
     }).eq('id', car.id)
@@ -357,6 +359,21 @@ export default function EditCarForm({ car }: { car: Corvette }) {
               </div>
             </div>
           </label>
+
+          {form.for_sale && form.vin && (
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.85rem 1rem', marginTop: '0.5rem', background: 'var(--bg-base)', borderRadius: 6, border: '1px solid var(--border-default)' }}>
+              <input
+                type="checkbox"
+                checked={form.show_carfax}
+                onChange={e => set('show_carfax', e.target.checked)}
+                style={{ width: 16, height: 16, accentColor: 'var(--red)', cursor: 'pointer', flexShrink: 0 }}
+              />
+              <div>
+                <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)' }}>Show CARFAX Report Link on Listing</div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.1rem' }}>Lets buyers check the vehicle history report directly from your listing page</div>
+              </div>
+            </label>
+          )}
         </div>
 
         <button type="submit" className="btn-primary" disabled={saving} style={{ width: '100%' }}>

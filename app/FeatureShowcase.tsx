@@ -1,6 +1,6 @@
 import {
   Wrench, ClipboardList, FileText, Camera, Share2, Layers,
-  Tag, MessageSquare, ScanLine, Link2, Moon, Car, QrCode, Bell, ShieldCheck, GitBranch, Trophy,
+  Tag, MessageSquare, ScanLine, Link2, Moon, Car, QrCode, Bell, ShieldCheck, GitBranch, Trophy, Printer, BadgeCheck,
 } from 'lucide-react'
 
 const FEATURES = [
@@ -44,6 +44,13 @@ const FEATURES = [
     title: 'Build Timeline',
     desc: 'Every mod, service, and photo in one chronological story. Your build, from day one.',
     iconColor: '#f97316',
+    group: 'build' as const,
+  },
+  {
+    icon: <Printer size={18} />,
+    title: 'Vehicle Report',
+    desc: 'Print or export a full build report — specs, mods, service history, and photos on one page.',
+    iconColor: '#14b8a6',
     group: 'build' as const,
   },
   {
@@ -93,6 +100,13 @@ const FEATURES = [
     title: 'For Sale Listings',
     desc: 'List it for sale with a badge buyers can\'t miss.',
     iconColor: 'var(--green)',
+    group: 'protect' as const,
+  },
+  {
+    icon: <BadgeCheck size={18} />,
+    title: 'CARFAX Integration',
+    desc: 'Buyers get a direct CARFAX link on every listing — accidents, ownership, and title history in one click.',
+    iconColor: '#003087',
     group: 'protect' as const,
   },
   {
