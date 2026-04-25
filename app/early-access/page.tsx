@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ChevronRight, Check, Wrench, ClipboardList, FileText, Camera, Trophy, GitBranch, Share2, QrCode } from 'lucide-react'
+import { ChevronRight, Check, Wrench, ClipboardList, FileText, Camera, Trophy, GitBranch, Share2, QrCode, Layers, Tag, MessageSquare, ScanLine, Link2, Moon, Car, Bell, ShieldCheck } from 'lucide-react'
 import PublicFooter from '@/components/layout/PublicFooter'
 import ThemeToggle from '@/components/ThemeToggle'
 
@@ -10,15 +10,45 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false }, // don't index ad landing pages
 }
 
-const FEATURES = [
-  { icon: <Wrench size={16} />, color: '#e53e3e', title: 'Mod Log',            desc: 'Every part, every dollar, documented.' },
-  { icon: <ClipboardList size={16} />, color: '#2563eb', title: 'Service History', desc: 'Oil changes to engine builds - all in one place.' },
-  { icon: <FileText size={16} />, color: '#16a34a', title: 'Document Vault',    desc: 'Receipts, titles, window stickers - stored forever.' },
-  { icon: <Camera size={16} />, color: '#8b5cf6', title: 'Photo Gallery',      desc: 'Every stage of the build, organized.' },
-  { icon: <Trophy size={16} />, color: '#f59e0b', title: 'Show History',       desc: 'Log placements, trophies, and event wins.' },
-  { icon: <GitBranch size={16} />, color: '#f97316', title: 'Build Timeline',  desc: 'Your entire build, from day one, in order.' },
-  { icon: <Share2 size={16} />, color: '#f59e0b', title: 'Public Build Page',  desc: 'One link. Your entire build. Anyone can see it.' },
-  { icon: <QrCode size={16} />, color: '#14b8a6', title: 'QR Show Card',       desc: 'Scan at a show - full build, right there.' },
+const GROUPS = [
+  {
+    label: 'Build & Document',
+    color: '#3b82f6',
+    tagline: 'Track every dollar. Prove your build is worth it.',
+    features: [
+      { icon: <Wrench size={15} />,      color: '#e53e3e', title: 'Mod Log',              desc: 'Track every dollar - prove your build is worth it.' },
+      { icon: <ClipboardList size={15} />, color: '#2563eb', title: 'Service History',    desc: 'Show buyers and judges your car was done right.' },
+      { icon: <FileText size={15} />,    color: '#16a34a', title: 'Document Vault',        desc: 'Receipts, titles, window stickers - all in one place, forever.' },
+      { icon: <Camera size={15} />,      color: '#8b5cf6', title: 'Photo Gallery',         desc: 'Every stage of the build, organized and shareable.' },
+      { icon: <ScanLine size={15} />,    color: '#2563eb', title: 'VIN Decoder',           desc: 'Drop in your VIN - year, make, model, trim fills itself.' },
+      { icon: <GitBranch size={15} />,   color: '#f97316', title: 'Build Timeline',        desc: 'Every mod, service, and photo in one chronological story.' },
+    ],
+  },
+  {
+    label: 'Showcase & Share',
+    color: '#f59e0b',
+    tagline: 'One link. Your entire build. Anywhere.',
+    features: [
+      { icon: <Trophy size={15} />,      color: '#f59e0b', title: 'Show & Event History', desc: 'Log every car show, placement, and trophy win.' },
+      { icon: <Share2 size={15} />,      color: '#f59e0b', title: 'Public Build Pages',   desc: 'One link that proves everything about your car.' },
+      { icon: <Layers size={15} />,      color: '#14b8a6', title: 'Public Garage',         desc: 'Your whole collection at a single URL.' },
+      { icon: <QrCode size={15} />,      color: '#f59e0b', title: 'QR Show Cards',         desc: 'Set it on your dash - anyone who scans it sees your full build.' },
+      { icon: <Link2 size={15} />,       color: '#6366f1', title: 'Social Sharing',        desc: 'Share to X, Facebook, or WhatsApp with a rich preview card.' },
+      { icon: <Moon size={15} />,        color: '#8b5cf6', title: 'Dark & Light Mode',     desc: 'Dark or light - your garage, your vibe.' },
+    ],
+  },
+  {
+    label: 'Sell & Protect',
+    color: '#16a34a',
+    tagline: 'Selling or insuring - you\'re covered either way.',
+    features: [
+      { icon: <Tag size={15} />,         color: '#16a34a', title: 'For Sale Listings',     desc: 'List it for sale with a badge buyers can\'t miss.' },
+      { icon: <MessageSquare size={15} />, color: '#f97316', title: 'Contact Seller',      desc: 'Buyers reach you directly - your email stays private.' },
+      { icon: <Bell size={15} />,        color: '#dc2626', title: 'NHTSA Recall Alerts',   desc: 'We watch your VIN. If a recall drops, you hear about it first.' },
+      { icon: <ShieldCheck size={15} />, color: '#16a34a', title: 'Insurance Documentation', desc: 'Print-ready mod package your insurer will actually accept.' },
+      { icon: <Car size={15} />,         color: '#e53e3e', title: 'Any Make & Model',       desc: 'Corvette, Mustang, Porsche, BMW - every car, every year.' },
+    ],
+  },
 ]
 
 const PROOF = [
@@ -141,7 +171,7 @@ export default function EarlyAccessPage() {
         borderBottom: '1px solid var(--border-subtle)',
         padding: 'clamp(3rem, 6vw, 5rem) 1.5rem',
       }}>
-        <div style={{ maxWidth: 1000, margin: '0 auto' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <p style={{ fontSize: '0.72rem', fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--red)', marginBottom: '0.6rem' }}>
               Everything Included
@@ -156,29 +186,41 @@ export default function EarlyAccessPage() {
             </h2>
           </div>
 
-          <div className="ea-grid">
-            {FEATURES.map(f => (
-              <div key={f.title} style={{
-                background: 'var(--bg-card)',
-                border: '1px solid var(--border-subtle)',
-                borderRadius: 12,
-                padding: '1.25rem',
-                display: 'flex',
-                gap: '0.85rem',
-                alignItems: 'flex-start',
+          <div className="ea-pillars">
+            {GROUPS.map((group, gi) => (
+              <div key={group.label} style={{
+                borderLeft: `3px solid ${group.color}`,
+                paddingLeft: '1.75rem',
+                paddingRight: gi < 2 ? '2.5rem' : 0,
               }}>
-                <div style={{
-                  width: 36, height: 36, borderRadius: 9, flexShrink: 0,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  background: `${f.color}18`,
-                  color: f.color,
-                  border: `1px solid ${f.color}30`,
-                }}>
-                  {f.icon}
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <div style={{
+                    fontSize: '1.1rem', fontWeight: 900,
+                    fontFamily: "'Barlow Condensed', sans-serif",
+                    letterSpacing: '0.04em', textTransform: 'uppercase',
+                    color: group.color, lineHeight: 1, marginBottom: '0.4rem',
+                  }}>
+                    {group.label}
+                  </div>
+                  <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                    {group.tagline}
+                  </div>
                 </div>
-                <div>
-                  <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.2rem' }}>{f.title}</div>
-                  <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{f.desc}</div>
+
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  {group.features.map((f, i) => (
+                    <div key={f.title} style={{
+                      display: 'flex', alignItems: 'flex-start', gap: '0.6rem',
+                      padding: '0.75rem 0',
+                      borderBottom: i < group.features.length - 1 ? '1px solid var(--border-subtle)' : 'none',
+                    }}>
+                      <div style={{ color: f.color, flexShrink: 0, marginTop: 2, opacity: 0.9 }}>{f.icon}</div>
+                      <div>
+                        <div style={{ fontSize: '0.83rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '0.1rem' }}>{f.title}</div>
+                        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>{f.desc}</div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             ))}
@@ -217,17 +259,19 @@ export default function EarlyAccessPage() {
       <PublicFooter />
 
       <style>{`
-        .ea-grid {
+        .ea-pillars {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 0.85rem;
+          grid-template-columns: repeat(3, 1fr);
         }
         @keyframes pulse {
           0%, 100% { opacity: 1; }
           50% { opacity: 0.4; }
         }
-        @media (max-width: 900px) { .ea-grid { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 480px) { .ea-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+          .ea-pillars { grid-template-columns: 1fr !important; }
+          .ea-pillars > div { padding-right: 0 !important; margin-bottom: 2.5rem; }
+          .ea-pillars > div:last-child { margin-bottom: 0; }
+        }
       `}</style>
     </div>
   )
