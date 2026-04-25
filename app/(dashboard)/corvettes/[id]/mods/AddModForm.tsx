@@ -6,11 +6,12 @@ import { createClient } from '@/lib/supabase/client'
 import { Plus, ChevronDown, ChevronUp, Paperclip, X, ShieldCheck } from 'lucide-react'
 import { MOD_CATEGORIES } from '@/lib/types'
 
-const MAX_MB = 20
+const MAX_MB = 50
 
 function getFileType(file: File) {
   if (file.type.startsWith('image/')) return 'image'
   if (file.type === 'application/pdf') return 'pdf'
+  if (file.type.startsWith('video/')) return 'video'
   return 'other'
 }
 
@@ -249,7 +250,7 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
                   {/* File info row */}
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <span style={{ fontSize: '1.4rem' }}>
-                      {docFile.type.startsWith('image/') ? '🖼️' : docFile.type === 'application/pdf' ? '📄' : '📎'}
+                      {docFile.type.startsWith('image/') ? '🖼️' : docFile.type === 'application/pdf' ? '📄' : docFile.type.startsWith('video/') ? '🎬' : '📎'}
                     </span>
                     <div style={{ flex: 1, minWidth: 0 }}>
                       <input
@@ -289,7 +290,7 @@ export default function AddModForm({ corvetteId }: { corvetteId: string }) {
                 </div>
               )}
 
-              <input ref={fileRef} type="file" accept="image/*,.pdf,.doc,.docx" style={{ display: 'none' }} onChange={handleFileChange} />
+              <input ref={fileRef} type="file" accept="image/*,.pdf,.doc,.docx,video/mp4" style={{ display: 'none' }} onChange={handleFileChange} />
             </div>
 
             {/* Submit */}
