@@ -64,12 +64,12 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
             </div>
           )}
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 55%)' }} />
-          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '1.5rem 2rem', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+          <div className="hero-overlay">
             <div>
               <h1 style={{ fontFamily: "'Barlow Condensed'", fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 900, lineHeight: 1, color: 'white' }}>
                 {c.nickname.toUpperCase()}
               </h1>
-              <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1rem', marginTop: '0.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+              <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.9rem', marginTop: '0.2rem', display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
                 <span>{c.year} {c.model}{c.trim ? ` · ${c.trim}` : ''}{c.color ? ` · ${c.color}` : ''}</span>
                 {c.mileage && (
                   <>
@@ -83,7 +83,7 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
               </p>
             </div>
             {c.is_public && (
-              <Link href={`/share/${user.id}/${id}`} target="_blank" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(22,163,74,0.8)', backdropFilter: 'blur(4px)', color: '#86efac', fontSize: '0.8rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', padding: '0.5rem 0.9rem', borderRadius: 4, textDecoration: 'none' }}>
+              <Link href={`/share/${user.id}/${id}`} target="_blank" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(22,163,74,0.8)', backdropFilter: 'blur(4px)', color: '#86efac', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', padding: '0.45rem 0.8rem', borderRadius: 4, textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0 }}>
                 <Share2 size={13} /> Public Page <ExternalLink size={11} />
               </Link>
             )}
@@ -234,7 +234,7 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
       })()}
 
       {/* Quick nav */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
+      <div className="quick-nav" style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>
         {[
           { label: 'Mods', href: `/corvettes/${id}/mods` },
           { label: 'Service', href: `/corvettes/${id}/service` },
@@ -333,7 +333,19 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
       {/* Edit form */}
       <EditCorvetteForm car={c} />
 
-      <style>{`.stat-link:hover { background: rgba(0,0,0,0.03); }`}</style>
+      <style>{`
+        .stat-link:hover { background: rgba(0,0,0,0.03); }
+        .hero-overlay {
+          position: absolute; bottom: 0; left: 0; right: 0;
+          padding: 1.5rem 2rem;
+          display: flex; align-items: flex-end; justify-content: space-between;
+        }
+        .quick-nav { grid-template-columns: repeat(6, 1fr) !important; }
+        @media (max-width: 640px) {
+          .hero-overlay { padding: 1rem 1rem; }
+          .quick-nav { grid-template-columns: repeat(3, 1fr) !important; gap: 0.5rem !important; }
+        }
+      `}</style>
     </div>
   )
 }
