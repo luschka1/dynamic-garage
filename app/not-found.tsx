@@ -9,7 +9,7 @@ export default async function NotFound() {
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-base)', color: 'var(--text-primary)', display: 'flex', flexDirection: 'column' }}>
-      <PublicNav user={user} />
+      <PublicNav />
 
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '4rem 1.5rem', textAlign: 'center' }}>
 
