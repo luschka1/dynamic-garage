@@ -68,11 +68,11 @@ export default function EarlyAccessPage() {
 
           <h1 style={{
             fontFamily: "'Barlow Condensed'",
-            fontSize: 'clamp(2.8rem, 7vw, 5rem)',
+            fontSize: 'clamp(2.2rem, 5.5vw, 4rem)',
             fontWeight: 900, lineHeight: 1.0, letterSpacing: '-0.01em',
             color: 'var(--text-primary)', marginBottom: '1.25rem',
           }}>
-            Your build deserves better than a spreadsheet.
+            Your build deserves better than a shoebox and a spreadsheet.
           </h1>
 
           <p style={{
