@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { calcInsuranceSummary } from '@/lib/insurance'
+import { sendEmail, emailLayout } from '@/lib/email'
 import type { Mod } from '@/lib/types'
 
 // Runs daily at 08:00 UTC (3am EST / 4am EDT)
@@ -49,63 +50,40 @@ async function sendReminderEmail(
       </td>
     </tr>`).join('')
 
-  const htmlbody = `
-    <div style="font-family:Inter,sans-serif;max-width:620px;margin:0 auto;color:#111;">
-      <div style="background:#111;padding:24px 32px;border-radius:8px 8px 0 0;">
-        <span style="font-family:sans-serif;font-weight:900;font-size:1.1rem;letter-spacing:0.04em;text-transform:uppercase;">
-          <span style="color:#a8a8a8;">Dynamic</span><span style="color:#cc1f1f;"> Garage</span>
-        </span>
-      </div>
-      <div style="background:#fff;border:1px solid #e8e8e8;border-top:none;padding:32px;border-radius:0 0 8px 8px;">
-        <h2 style="margin:0 0 8px;font-size:1.2rem;color:#111;">🛡️ Your insurance renews in 7 days</h2>
-        <p style="margin:0 0 6px;color:#555;font-size:0.95rem;line-height:1.6;">
-          <strong style="color:#111;">Renewal date: ${expiryFormatted}</strong>
-        </p>
-        <p style="margin:0 0 20px;color:#555;font-size:0.95rem;line-height:1.6;">
-          Make sure your modifications are fully documented before you renew.
-          Mods without a declared replacement value and receipt typically <strong>aren&apos;t covered</strong> on a claim.
-        </p>
+  const htmlbody = emailLayout(`
+    <h2 style="margin:0 0 8px;font-size:1.25rem;color:#111;font-weight:800;">🛡️ Your insurance renews in 7 days</h2>
+    <p style="margin:0 0 4px;color:#555;font-size:0.95rem;line-height:1.6;">
+      <strong style="color:#111;">Renewal date: ${expiryFormatted}</strong>
+    </p>
+    <p style="margin:0 0 20px;color:#555;font-size:0.95rem;line-height:1.6;">
+      Make sure your modifications are fully documented before you renew.
+      Mods without a declared replacement value and receipt typically <strong>aren't covered</strong> on a claim.
+    </p>
+    <table style="width:100%;border-collapse:collapse;">
+      <thead>
+        <tr style="background:#f8f8f8;">
+          <th style="text-align:left;padding:8px 0;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#999;border-bottom:2px solid #e8e8e8;">Vehicle</th>
+          <th style="text-align:right;padding:8px 0;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#999;border-bottom:2px solid #e8e8e8;">Ready</th>
+          <th style="padding:8px 0 8px 12px;border-bottom:2px solid #e8e8e8;"></th>
+        </tr>
+      </thead>
+      <tbody>${vehicleRows}</tbody>
+    </table>
+    <div style="margin-top:24px;padding:16px;background:#fff8f0;border:1px solid #f59e0b;border-radius:8px;font-size:0.85rem;color:#92400e;line-height:1.6;">
+      <strong>Why this matters:</strong> A documented modification with a declared replacement value and receipt is covered by your insurer. One without documentation usually isn't — and you absorb the loss on a claim.
+    </div>
+    <div style="text-align:center;margin-top:24px;">
+      <a href="https://dynamicgarage.app/dashboard" style="display:inline-block;background:#cc1f1f;color:#fff;padding:12px 28px;border-radius:8px;font-size:0.875rem;font-weight:800;text-decoration:none;letter-spacing:0.06em;text-transform:uppercase;">
+        Review My Documentation
+      </a>
+    </div>
+  `, "You're receiving this because your insurance renewal date is saved on your vehicle. To stop these reminders, remove the expiry date from your vehicle settings.")
 
-        <table style="width:100%;border-collapse:collapse;">
-          <thead>
-            <tr style="background:#f8f8f8;">
-              <th style="text-align:left;padding:8px 0;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#999;border-bottom:2px solid #e8e8e8;">Vehicle</th>
-              <th style="text-align:right;padding:8px 0;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#999;border-bottom:2px solid #e8e8e8;">Ready</th>
-              <th style="padding:8px 0 8px 12px;border-bottom:2px solid #e8e8e8;"></th>
-            </tr>
-          </thead>
-          <tbody>${vehicleRows}</tbody>
-        </table>
-
-        <div style="margin-top:24px;padding:16px;background:#fff8f0;border:1px solid #f59e0b;border-radius:8px;font-size:0.85rem;color:#92400e;line-height:1.6;">
-          <strong>Why this matters:</strong> A documented modification with a declared replacement value and receipt is covered by your insurer. One without documentation usually isn&apos;t — and you absorb the loss on a claim.
-        </div>
-
-        <a href="https://dynamicgarage.app/dashboard" style="display:inline-block;margin-top:24px;background:#cc1f1f;color:#fff;padding:10px 22px;border-radius:6px;font-size:0.875rem;font-weight:700;text-decoration:none;letter-spacing:0.04em;">
-          Review My Documentation
-        </a>
-      </div>
-      <p style="text-align:center;font-size:0.75rem;color:#aaa;margin-top:16px;">
-        You&apos;re receiving this reminder from Dynamic Garage because your insurance renewal date is saved on your vehicle.
-        To stop these reminders, remove the expiry date from your vehicle settings.
-      </p>
-    </div>`
-
-  const res = await fetch('https://api.zeptomail.ca/v1.1/email', {
-    method: 'POST',
-    headers: { 'Authorization': process.env.ZEPTOMAIL_API_KEY!, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      from: { address: 'info@dynamicgarage.app', name: 'Dynamic Garage' },
-      to: [{ email_address: { address: toAddress } }],
-      subject: `🛡️ Insurance renews in 7 days — are your mods documented?`,
-      htmlbody,
-    }),
+  await sendEmail({
+    to: toAddress,
+    subject: `🛡️ Insurance renews in 7 days — are your mods documented?`,
+    htmlbody,
   })
-
-  if (!res.ok) {
-    const body = await res.json().catch(() => ({}))
-    console.error('ZeptoMail insurance reminder error:', JSON.stringify(body))
-  }
 }
 
 export async function GET(req: NextRequest) {
