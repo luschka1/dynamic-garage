@@ -111,6 +111,22 @@ export const PLACEMENT_OPTIONS = [
   'Participant', 'Other',
 ]
 
+export interface FeatureRequest {
+  id: string
+  user_id: string
+  user_email?: string
+  title: string
+  description: string
+  category?: string
+  priority?: number
+  status: string
+  created_at: string
+}
+
+export const FEATURE_CATEGORIES = [
+  'New Feature', 'UI / UX Improvement', 'Integration', 'Performance', 'Bug Report', 'Other',
+]
+
 export const MOD_CATEGORIES = [
   'Performance', 'Appearance', 'Audio/Video', 'Wheels & Tires',
   'Suspension', 'Interior', 'Lighting', 'Safety', 'Other'

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
-import { LogOut, LayoutDashboard, Menu, X, Plus, LayoutGrid } from 'lucide-react'
+import { LogOut, LayoutDashboard, Menu, X, Plus, LayoutGrid, Lightbulb } from 'lucide-react'
 import { useState } from 'react'
 import type { User } from '@supabase/supabase-js'
 import ThemeToggle from '@/components/ThemeToggle'
@@ -102,6 +102,25 @@ export default function NavBar({ user }: { user: User }) {
             <LayoutGrid size={15} /> Gallery
           </Link>
 
+          <Link
+            href="/dashboard/feedback"
+            style={{
+              display: 'flex', alignItems: 'center', gap: '0.4rem',
+              padding: '0.45rem 0.85rem',
+              borderRadius: 4,
+              fontSize: '0.85rem',
+              fontWeight: 600,
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              color: pathname === '/dashboard/feedback' ? 'var(--text-primary)' : 'var(--text-secondary)',
+              background: pathname === '/dashboard/feedback' ? 'rgba(0,0,0,0.05)' : 'transparent',
+              transition: 'all var(--transition)',
+              textDecoration: 'none',
+            }}
+          >
+            <Lightbulb size={15} /> Ideas
+          </Link>
+
           <div style={{ width: 1, height: 20, background: 'var(--border-default)', margin: '0 0.5rem' }} />
 
           <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', padding: '0 0.5rem', fontWeight: 500 }}>
@@ -141,6 +160,9 @@ export default function NavBar({ user }: { user: User }) {
           </Link>
           <Link href="/gallery" onClick={() => setMenuOpen(false)} style={{ color: 'var(--text-secondary)', fontWeight: 600, fontSize: '1rem', padding: '0.75rem', borderRadius: 4, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <LayoutGrid size={16} /> Gallery
+          </Link>
+          <Link href="/dashboard/feedback" onClick={() => setMenuOpen(false)} style={{ color: 'var(--text-secondary)', fontWeight: 600, fontSize: '1rem', padding: '0.75rem', borderRadius: 4, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <Lightbulb size={16} /> Feature Requests
           </Link>
           <hr style={{ border: 'none', borderTop: '1px solid var(--border-subtle)' }} />
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0.5rem 0.75rem' }}>

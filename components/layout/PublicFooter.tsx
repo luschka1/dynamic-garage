@@ -6,7 +6,7 @@ const LINKS = [
   { label: 'Contact', href: '/contact' },
 ]
 
-export default function PublicFooter() {
+export default function PublicFooter({ showFeedback = false }: { showFeedback?: boolean }) {
   return (
     <footer style={{
       borderTop: '1px solid var(--border-subtle)',
@@ -27,7 +27,16 @@ export default function PublicFooter() {
         &copy; {new Date().getFullYear()} &nbsp;DynamicGarage.app - Built for enthusiasts.
       </span>
 
-      <div style={{ display: 'flex', gap: '1.25rem' }}>
+      <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
+        {showFeedback && (
+          <Link
+            href="/dashboard/feedback"
+            className="pub-footer-link"
+            style={{ fontSize: '0.78rem', color: 'var(--text-muted)', textDecoration: 'none', transition: 'color 150ms', display: 'flex', alignItems: 'center', gap: '0.3rem' }}
+          >
+            💡 Feature Requests
+          </Link>
+        )}
         {LINKS.map(l => (
           <Link
             key={l.label}

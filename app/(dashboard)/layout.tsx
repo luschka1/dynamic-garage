@@ -14,7 +14,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
       <main className="dashboard-main" style={{ flex: 1, maxWidth: 1100, width: '100%', margin: '0 auto', padding: '2.5rem 1.5rem' }}>
         {children}
       </main>
-      <PublicFooter />
+      <PublicFooter showFeedback />
       <style>{`
         @media (max-width: 640px) {
           .dashboard-main { padding: 1.25rem 1rem !important; }
