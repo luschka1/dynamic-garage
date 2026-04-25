@@ -12,6 +12,7 @@ const SLIDES = [
   { src: '/screenshots/screen-public.png',     alt: 'App screen 6' },
   { src: '/screenshots/screen-qrcard.png',     alt: 'App screen 7' },
   { src: '/screenshots/timeline1.png',         alt: 'Build timeline' },
+  { src: '/screenshots/export1.png',           alt: 'PDF export' },
   { src: '/screenshots/screen-dashboard.png',  alt: 'Vehicle profile' },
 ]
 
