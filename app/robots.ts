@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: ['/', '/gallery', '/contact', '/privacy', '/terms', '/share/', '/garage/'],
-        disallow: ['/dashboard', '/corvettes/', '/admin/', '/api/', '/login', '/register'],
+        allow: ['/', '/gallery', '/help', '/contact', '/privacy', '/terms', '/share/', '/garage/'],
+        disallow: ['/dashboard', '/corvettes/', '/admin/', '/api/', '/login', '/register', '/forgot-password', '/update-password'],
       },
     ],
     sitemap: 'https://dynamicgarage.app/sitemap.xml',
