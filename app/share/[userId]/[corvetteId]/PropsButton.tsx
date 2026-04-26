@@ -16,14 +16,16 @@ export default function PropsButton({ corvetteId, initialCount, initialHasProppe
   const [hasPropped, setHasPropped] = useState(initialHasPropped)
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
+  const [messageType, setMessageType] = useState<'info' | 'error'>('info')
 
-  function showMessage(msg: string) {
+  function showMessage(msg: string, type: 'info' | 'error' = 'info') {
     setMessage(msg)
-    setTimeout(() => setMessage(''), 3500)
+    setMessageType(type)
+    setTimeout(() => setMessage(''), 4500)
   }
 
   async function handleClick() {
-    if (isOwner) { showMessage("You can't give Props to your own build."); return }
+    if (isOwner) { showMessage("You can't give Props to your own build.", 'info'); return }
 
     if (!isLoggedIn) {
       window.location.href = `/register?next=${encodeURIComponent(window.location.pathname)}`
@@ -45,7 +47,7 @@ export default function PropsButton({ corvetteId, initialCount, initialHasProppe
         window.location.href = `/register?next=${encodeURIComponent(window.location.pathname)}`
         return
       }
-      showMessage(data.error ?? 'Something went wrong.')
+      showMessage(data.error ?? 'Something went wrong.', 'error')
       return
     }
 
@@ -57,8 +59,8 @@ export default function PropsButton({ corvetteId, initialCount, initialHasProppe
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.35rem' }}>
       <button
         onClick={handleClick}
-        disabled={loading || isOwner}
-        title={isOwner ? "Your build" : hasPropped ? "Remove Props" : "Give Props"}
+        disabled={loading}
+        title={isOwner ? "This is your build" : hasPropped ? "Remove Props" : "Give Props"}
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -70,10 +72,10 @@ export default function PropsButton({ corvetteId, initialCount, initialHasProppe
           padding: '0.75rem 1.1rem',
           cursor: isOwner ? 'default' : 'pointer',
           transition: 'all 150ms',
-          opacity: loading ? 0.7 : 1,
+          opacity: loading ? 0.7 : isOwner ? 0.5 : 1,
           minWidth: 72,
         }}
-        className="props-btn"
+        className={isOwner ? 'props-btn-owner' : 'props-btn'}
       >
         <Flame
           size={22}
@@ -107,25 +109,30 @@ export default function PropsButton({ corvetteId, initialCount, initialHasProppe
           bottom: '1.5rem',
           left: '50%',
           transform: 'translateX(-50%)',
-          background: 'var(--bg-elevated)',
-          border: '1px solid var(--border-subtle)',
-          borderRadius: 8,
-          padding: '0.75rem 1.25rem',
-          fontSize: '0.88rem',
-          color: 'var(--text-primary)',
+          background: messageType === 'error' ? '#1a0a0a' : 'var(--bg-elevated)',
+          border: `1px solid ${messageType === 'error' ? 'rgba(220,38,38,0.4)' : 'var(--border-subtle)'}`,
+          borderRadius: 10,
+          padding: '0.85rem 1.5rem',
+          fontSize: '0.9rem',
+          color: messageType === 'error' ? '#fca5a5' : 'var(--text-primary)',
           fontWeight: 600,
-          boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.35)',
           zIndex: 999,
-          whiteSpace: 'nowrap',
+          maxWidth: '90vw',
+          textAlign: 'center',
+          lineHeight: 1.5,
         }}>
           {message}
         </div>
       )}
 
       <style>{`
-        .props-btn:hover:not(:disabled) {
+        .props-btn:hover {
           border-color: rgba(249,115,22,0.4) !important;
           background: rgba(249,115,22,0.06) !important;
+        }
+        .props-btn-owner {
+          pointer-events: auto;
         }
       `}</style>
     </div>
