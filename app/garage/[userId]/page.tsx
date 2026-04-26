@@ -38,6 +38,10 @@ export default async function PublicGaragePage({ params }: { params: Promise<{ u
 
   if (!cars || cars.length === 0) notFound()
 
+  // Check if viewer is the owner
+  const { data: { user: viewer } } = await supabase.auth.getUser()
+  const isOwner = viewer?.id === userId
+
   // Get owner's name
   const admin = createAdminClient()
   const { data: ownerData } = await admin.auth.admin.getUserById(userId)
@@ -188,6 +192,21 @@ export default async function PublicGaragePage({ params }: { params: Promise<{ u
           url={`https://dynamicgarage.app/garage/${userId}`}
           ownerName={ownerName}
         />
+
+        {/* Footer CTA — only shown to visitors, not the owner */}
+        {!isOwner && (
+          <div style={{ textAlign: 'center', paddingTop: '2rem', borderTop: '1px solid var(--border-subtle)' }}>
+            <p style={{ fontFamily: "'Barlow Condensed'", fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--red)', marginBottom: '0.6rem' }}>
+              Build Your Own
+            </p>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+              Track mods, photos, service history, and documents for any vehicle - free during early access.
+            </p>
+            <Link href="/register" className="btn-primary" style={{ display: 'inline-flex' }}>
+              Create My Free Garage
+            </Link>
+          </div>
+        )}
 
       </div>
 
