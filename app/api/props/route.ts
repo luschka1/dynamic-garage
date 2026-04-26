@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 
-const ELIGIBILITY_DAYS = 14
+const ELIGIBILITY_DAYS = Number(process.env.PROPS_ELIGIBILITY_DAYS ?? 14)
 
 async function checkEligibility(userId: string): Promise<{ eligible: boolean; reason?: string }> {
   const admin = createAdminClient()
