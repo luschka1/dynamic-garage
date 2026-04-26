@@ -21,6 +21,8 @@ export interface Corvette {
   recall_alerts: boolean
   last_recall_check?: string
   known_recall_ids: string[]
+  props_count?: number
+  props_notified_at?: string
   created_at: string
   updated_at: string
 }

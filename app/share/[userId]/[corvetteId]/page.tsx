@@ -11,6 +11,7 @@ import { formatCurrency, fmtC } from '@/lib/currency'
 import PublicGallery from './PublicGallery'
 import SocialShare from './SocialShare'
 import ContactSellerForm from './ContactSellerForm'
+import PropsButton from './PropsButton'
 
 export async function generateMetadata({ params }: { params: Promise<{ userId: string; corvetteId: string }> }): Promise<Metadata> {
   const { userId, corvetteId } = await params
@@ -89,6 +90,13 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
       else { standaloneDocs.push(d as Document) }
     })
   }
+
+  // Props — viewer's session
+  const { data: { user: viewer } } = await supabase.auth.getUser()
+  const viewerHasPropped = viewer
+    ? !!(await supabase.from('build_props').select('id').eq('corvette_id', corvetteId).eq('user_id', viewer.id).single()).data
+    : false
+  const isOwner = viewer?.id === userId
 
   const c = car as Corvette
   const totalModCost = (mods || []).reduce((s, m) => s + (m.cost || 0), 0)
@@ -191,6 +199,29 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
               </div>
             )}
           </div>
+        </div>
+
+        {/* ── PROPS ── */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'var(--bg-card)', border: '1px solid var(--border-subtle)', borderRadius: 12, padding: '1rem 1.5rem', marginBottom: '1.5rem', boxShadow: 'var(--shadow-card)', flexWrap: 'wrap', gap: '1rem' }}>
+          <div>
+            <div style={{ fontFamily: "'Barlow Condensed'", fontSize: '1.1rem', fontWeight: 900, letterSpacing: '0.04em', textTransform: 'uppercase', color: 'var(--text-primary)', marginBottom: '0.15rem' }}>
+              Community Props
+            </div>
+            <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+              {!viewer
+                ? 'Create a free account to give this build Props.'
+                : isOwner
+                ? 'Props from the community show here.'
+                : 'Give this build Props if it impresses you.'}
+            </div>
+          </div>
+          <PropsButton
+            corvetteId={c.id}
+            initialCount={c.props_count ?? 0}
+            initialHasPropped={viewerHasPropped}
+            isOwner={isOwner}
+            isLoggedIn={!!viewer}
+          />
         </div>
 
         {/* ── CONTACT SELLER ── */}
