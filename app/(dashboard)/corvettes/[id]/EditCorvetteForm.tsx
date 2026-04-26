@@ -6,6 +6,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Save, Trash2, Upload, ImageIcon } from 'lucide-react'
 import type { Corvette } from '@/lib/types'
 import { CURRENCIES } from '@/lib/currency'
+import Tooltip from '@/components/ui/Tooltip'
 
 const MI_TO_KM = 1.60934
 
@@ -316,7 +317,10 @@ export default function EditCarForm({ car }: { car: Corvette }) {
             style={{ width: 18, height: 18, accentColor: 'var(--red)', cursor: 'pointer', flexShrink: 0 }}
           />
           <div>
-            <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)' }}>Public Build Page</div>
+            <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              Public Build Page
+              <Tooltip content="Creates a shareable link anyone can visit to see your mods, service history, and photos. You control what's visible — nothing is shared without your permission." />
+            </div>
             <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.15rem' }}>Let others view your mods and service history via a shareable link</div>
           </div>
         </label>
@@ -331,8 +335,9 @@ export default function EditCarForm({ car }: { car: Corvette }) {
               style={{ width: 17, height: 17, accentColor: 'var(--red)', cursor: 'pointer', flexShrink: 0 }}
             />
             <div>
-              <div style={{ fontSize: '0.9rem', fontWeight: 700, color: form.in_gallery ? 'var(--red)' : 'var(--text-primary)', transition: 'color 150ms' }}>
+              <div style={{ fontSize: '0.9rem', fontWeight: 700, color: form.in_gallery ? 'var(--red)' : 'var(--text-primary)', transition: 'color 150ms', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 Add to Community Gallery
+                <Tooltip content="Your build will appear in the public Build Gallery at dynamicgarage.app/gallery, where other members can browse and give you Props. You can remove it at any time." />
               </div>
               <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.1rem', lineHeight: 1.4 }}>
                 Feature this build in the Dynamic Garage public gallery
@@ -351,8 +356,9 @@ export default function EditCarForm({ car }: { car: Corvette }) {
               style={{ width: 18, height: 18, accentColor: '#16a34a', cursor: 'pointer', flexShrink: 0 }}
             />
             <div>
-              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: form.for_sale ? '#16a34a' : 'var(--text-primary)', transition: 'color 150ms' }}>
+              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: form.for_sale ? '#16a34a' : 'var(--text-primary)', transition: 'color 150ms', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                 Mark as For Sale
+                <Tooltip content="Adds a green FOR SALE badge on your public build page and makes the car searchable in the For Sale filter. Buyers can contact you directly from the listing." />
               </div>
               <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.1rem', lineHeight: 1.4 }}>
                 Displays a <strong style={{ color: '#16a34a' }}>FOR SALE</strong> banner on the public build page hero image
@@ -369,7 +375,10 @@ export default function EditCarForm({ car }: { car: Corvette }) {
                 style={{ width: 16, height: 16, accentColor: 'var(--red)', cursor: 'pointer', flexShrink: 0 }}
               />
               <div>
-                <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)' }}>Show CARFAX Report Link on Listing</div>
+                <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  Show CARFAX Report Link on Listing
+                  <Tooltip content="Adds a CARFAX button to your listing page using your VIN. Buyers can purchase a full vehicle history report directly from CARFAX. Your VIN is used only to generate this link." />
+                </div>
                 <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.1rem' }}>Lets buyers check the vehicle history report directly from your listing page</div>
               </div>
             </label>

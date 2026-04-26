@@ -1,9 +1,10 @@
 import Link from 'next/link'
 
 const LINKS = [
-  { label: 'Privacy', href: '/privacy' },
-  { label: 'Terms',   href: '/terms'   },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Help & FAQ', href: '/help'    },
+  { label: 'Privacy',    href: '/privacy' },
+  { label: 'Terms',      href: '/terms'   },
+  { label: 'Contact',    href: '/contact' },
 ]
 
 export default function PublicFooter({ showFeedback = false }: { showFeedback?: boolean }) {

@@ -50,6 +50,9 @@ export default async function PublicNav({ badge }: Props) {
           <Link href="/gallery" className="pub-nav-link pub-nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-secondary)', padding: '0.4rem 0.65rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
             <LayoutGrid size={13} /> Gallery
           </Link>
+          <Link href="/help" className="pub-nav-link pub-nav-desktop" style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.65rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
+            Help
+          </Link>
           <Link href="/contact" className="pub-nav-link pub-nav-desktop" style={{ fontSize: '0.85rem', fontWeight: 500, color: 'var(--text-secondary)', padding: '0.4rem 0.65rem', borderRadius: 6, textDecoration: 'none', transition: 'color 150ms' }}>
             Contact
           </Link>
