@@ -10,6 +10,7 @@ import PhotoGalleryManager from './PhotoGalleryManager'
 import EmailUploadAddress from './EmailUploadAddress'
 import RecallTracker from '@/components/RecallTracker'
 import InsuranceScore from '@/components/InsuranceScore'
+import GettingStartedChecklist from '@/components/ui/GettingStartedChecklist'
 import { calcInsuranceSummary } from '@/lib/insurance'
 import type { Corvette, Mod, VehiclePhoto } from '@/lib/types'
 
@@ -113,125 +114,16 @@ export default async function CorvettePage({ params }: { params: Promise<{ id: s
         </div>
       </div>
 
-      {/* Getting Started checklist - shown until all 3 steps are complete */}
-      {(() => {
-        const hasPhoto = (photos ?? []).length > 0 || !!c.photo_url
-        const hasMods = (modCount ?? 0) > 0
-        const hasService = (svcCount ?? 0) > 0
-        const allDone = hasPhoto && hasMods && hasService
-        if (allDone) return null
-
-        const steps = [
-          {
-            done: hasPhoto,
-            icon: <Camera size={15} />,
-            label: 'Add a cover photo',
-            desc: 'Put a face to your build',
-            href: `#photos`,
-            cta: 'Upload photo',
-          },
-          {
-            done: hasMods,
-            icon: <Wrench size={15} />,
-            label: 'Log your first mod',
-            desc: 'Parts, tunes, upgrades',
-            href: `/corvettes/${id}/mods`,
-            cta: 'Add mod',
-          },
-          {
-            done: hasService,
-            icon: <ClipboardList size={15} />,
-            label: 'Add a service record',
-            desc: 'Oil changes, repairs, inspections',
-            href: `/corvettes/${id}/service`,
-            cta: 'Log service',
-          },
-        ]
-        const doneCount = steps.filter(s => s.done).length
-
-        return (
-          <div style={{
-            background: 'var(--bg-card)',
-            border: '1px solid var(--border-subtle)',
-            borderRadius: 12,
-            padding: '1.25rem 1.5rem',
-            marginBottom: '1rem',
-            boxShadow: 'var(--shadow-card)',
-          }}>
-            {/* Header */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-              <div>
-                <div style={{ fontSize: '0.65rem', fontWeight: 800, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--red)', marginBottom: '0.2rem' }}>
-                  Getting Started
-                </div>
-                <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--text-primary)' }}>
-                  {doneCount === 0 ? 'Complete these steps to build out your page' : `${doneCount} of 3 steps done - keep going!`}
-                </div>
-              </div>
-              {/* Progress pills */}
-              <div style={{ display: 'flex', gap: '0.3rem', flexShrink: 0 }}>
-                {steps.map((s, i) => (
-                  <div key={i} style={{ width: 28, height: 6, borderRadius: 3, background: s.done ? 'var(--red)' : 'var(--border-default)', transition: 'background 300ms' }} />
-                ))}
-              </div>
-            </div>
-
-            {/* Steps */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-              {steps.map(step => (
-                <div key={step.label} style={{
-                  display: 'flex', alignItems: 'center', gap: '0.85rem',
-                  padding: '0.7rem 0.85rem',
-                  borderRadius: 8,
-                  background: step.done ? 'var(--bg-base)' : 'var(--bg-elevated)',
-                  border: `1px solid ${step.done ? 'var(--border-subtle)' : 'var(--border-default)'}`,
-                  opacity: step.done ? 0.65 : 1,
-                  transition: 'all 200ms',
-                }}>
-                  {/* Check / icon */}
-                  <div style={{
-                    width: 28, height: 28, borderRadius: 7, flexShrink: 0,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    background: step.done ? 'rgba(22,163,74,0.12)' : 'var(--red-dim)',
-                    color: step.done ? '#16a34a' : 'var(--red)',
-                    border: `1px solid ${step.done ? 'rgba(22,163,74,0.2)' : 'var(--red-glow)'}`,
-                  }}>
-                    {step.done ? <Check size={14} strokeWidth={2.5} /> : step.icon}
-                  </div>
-
-                  {/* Text */}
-                  <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: '0.88rem', fontWeight: 600, color: step.done ? 'var(--text-secondary)' : 'var(--text-primary)', textDecoration: step.done ? 'line-through' : 'none' }}>
-                      {step.label}
-                    </div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginTop: '0.05rem' }}>
-                      {step.desc}
-                    </div>
-                  </div>
-
-                  {/* CTA */}
-                  {!step.done && (
-                    <Link href={step.href} style={{
-                      flexShrink: 0,
-                      fontSize: '0.75rem', fontWeight: 700,
-                      color: 'var(--red)',
-                      textDecoration: 'none',
-                      padding: '0.3rem 0.7rem',
-                      borderRadius: 5,
-                      border: '1px solid var(--red-glow)',
-                      background: 'var(--red-dim)',
-                      whiteSpace: 'nowrap',
-                      letterSpacing: '0.04em',
-                    }}>
-                      {step.cta} →
-                    </Link>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )
-      })()}
+      {/* Getting Started checklist */}
+      <GettingStartedChecklist
+        carId={id}
+        hasPhoto={(photos ?? []).length > 0 || !!c.photo_url}
+        hasMods={(modCount ?? 0) > 0}
+        hasService={(svcCount ?? 0) > 0}
+        hasDocs={(docCount ?? 0) > 0}
+        isPublic={c.is_public}
+        inGallery={c.in_gallery ?? false}
+      />
 
       {/* Quick nav */}
       <div className="quick-nav" style={{ display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', gap: '0.75rem', marginBottom: '1rem' }}>

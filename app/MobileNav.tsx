@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { Menu, X, LayoutGrid, Phone, LogIn } from 'lucide-react'
+import { Menu, X, LayoutGrid, Phone, LogIn, HelpCircle } from 'lucide-react'
 
 interface Props {
   isLoggedIn: boolean
@@ -83,6 +83,21 @@ export default function MobileNav({ isLoggedIn }: Props) {
             className="mobile-nav-item"
           >
             <LayoutGrid size={15} color="var(--text-muted)" /> Gallery
+          </Link>
+          <Link
+            href="/help"
+            onClick={() => setOpen(false)}
+            style={{
+              display: 'flex', alignItems: 'center', gap: '0.75rem',
+              padding: '0.85rem 1.1rem',
+              fontSize: '0.92rem', fontWeight: 600,
+              color: 'var(--text-secondary)', textDecoration: 'none',
+              borderBottom: '1px solid var(--border-subtle)',
+              transition: 'background 150ms',
+            }}
+            className="mobile-nav-item"
+          >
+            <HelpCircle size={15} color="var(--text-muted)" /> Help &amp; FAQ
           </Link>
           <Link
             href="/contact"
