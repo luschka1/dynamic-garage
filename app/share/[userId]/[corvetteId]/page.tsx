@@ -93,9 +93,20 @@ export default async function PublicSharePage({ params }: { params: Promise<{ us
 
   // Props — viewer's session
   const { data: { user: viewer } } = await supabase.auth.getUser()
-  const viewerHasPropped = viewer
-    ? !!(await supabase.from('build_props').select('id').eq('corvette_id', corvetteId).eq('user_id', viewer.id).single()).data
-    : false
+  let viewerHasPropped = false
+  if (viewer) {
+    try {
+      const { data: propRow } = await supabase
+        .from('build_props')
+        .select('id')
+        .eq('corvette_id', corvetteId)
+        .eq('user_id', viewer.id)
+        .single()
+      viewerHasPropped = !!propRow
+    } catch {
+      // build_props table may not exist yet — fail silently
+    }
+  }
   const isOwner = viewer?.id === userId
 
   const c = car as Corvette
