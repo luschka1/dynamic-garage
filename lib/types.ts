@@ -131,6 +131,28 @@ export const FEATURE_CATEGORIES = [
   'New Feature', 'UI / UX Improvement', 'Integration', 'Performance', 'Bug Report', 'Other',
 ]
 
+export interface PartnerCode {
+  id: string
+  code: string
+  partner_name: string
+  logo_url?: string
+  headline: string
+  subheadline: string
+  payout_rate: number
+  active: boolean
+  created_at: string
+}
+
+export interface PartnerSignup {
+  id: string
+  partner_code_id: string
+  user_id: string
+  signed_up_at: string
+  qualified_at?: string
+  payout_status: 'pending' | 'qualified' | 'paid' | 'expired' | 'suspended'
+  paid_at?: string
+}
+
 export const MOD_CATEGORIES = [
   'Performance', 'Appearance', 'Audio/Video', 'Wheels & Tires',
   'Suspension', 'Interior', 'Lighting', 'Safety', 'Other'

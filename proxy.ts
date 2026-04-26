@@ -33,8 +33,9 @@ export async function proxy(request: NextRequest) {
   const isGaragePage = request.nextUrl.pathname.startsWith('/garage')
   const isApiRoute = request.nextUrl.pathname.startsWith('/api/')
   const isEarlyAccess = request.nextUrl.pathname.startsWith('/early-access')
+  const isJoinPage    = request.nextUrl.pathname.startsWith('/join')
   const isStaticPage = request.nextUrl.pathname.startsWith('/privacy') || request.nextUrl.pathname.startsWith('/terms') || request.nextUrl.pathname.startsWith('/monitoring')
-  const isPublicPage = request.nextUrl.pathname === '/' || isAuthPage || isSharePage || isGalleryPage || isContactPage || isGaragePage || isApiRoute || isEarlyAccess || isStaticPage
+  const isPublicPage = request.nextUrl.pathname === '/' || isAuthPage || isSharePage || isGalleryPage || isContactPage || isGaragePage || isApiRoute || isEarlyAccess || isStaticPage || isJoinPage
 
   if (!user && !isPublicPage) {
     const url = request.nextUrl.clone()

@@ -21,6 +21,7 @@ export default function NavBar({ user }: { user: User }) {
   }
 
   const name = user.user_metadata?.full_name?.split(' ')[0] || user.email?.split('@')[0] || 'Driver'
+  const isLifetime = !!user.user_metadata?.is_lifetime
 
   return (
     <nav style={{
@@ -123,8 +124,13 @@ export default function NavBar({ user }: { user: User }) {
 
           <div style={{ width: 1, height: 20, background: 'var(--border-default)', margin: '0 0.5rem' }} />
 
-          <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', padding: '0 0.5rem', fontWeight: 500 }}>
-            {name}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', padding: '0 0.5rem' }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', fontWeight: 500 }}>{name}</span>
+            {isLifetime && (
+              <span style={{ fontSize: '0.6rem', fontWeight: 800, letterSpacing: '0.08em', textTransform: 'uppercase', background: 'linear-gradient(135deg, #f59e0b, #f97316)', color: '#fff', borderRadius: 10, padding: '0.15rem 0.5rem', lineHeight: 1.4 }}>
+                Lifetime
+              </span>
+            )}
           </div>
 
           <ThemeToggle />
