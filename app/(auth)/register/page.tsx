@@ -35,11 +35,7 @@ export default function RegisterPage() {
 
   if (success) {
     return (
-      <div style={{ minHeight: '100vh', background: 'var(--bg-base)', display: 'flex', flexDirection: 'column' }}>
-        {/* Red accent line - matches register form */}
-        <div style={{ height: 3, background: 'linear-gradient(90deg, var(--red) 0%, transparent 60%)' }} />
-
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1.5rem' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1.5rem' }}>
 
           {/* Logo */}
           <Link href="/" style={{ marginBottom: '2rem', textDecoration: 'none' }}>
@@ -117,23 +113,12 @@ export default function RegisterPage() {
             </p>
           </div>
 
-          {/* Brand footer */}
-          <p style={{ marginTop: '2rem', fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-            <span style={{ fontFamily: "'Roboto', sans-serif", fontWeight: 900, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
-              <span style={{ color: '#a8a8a8' }}>Dynamic</span><span style={{ color: 'var(--red)' }}> Garage</span>
-            </span>
-            {' - '}Track every mod. Share your build.
-          </p>
-        </div>
       </div>
     )
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'var(--bg-base)', display: 'flex', flexDirection: 'column' }}>
-      <div style={{ height: 3, background: 'linear-gradient(90deg, var(--red) 0%, transparent 60%)' }} />
-
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1.5rem' }}>
+    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem 1.5rem' }}>
         <Link href="/" style={{ marginBottom: '2.5rem', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div style={{ width: 96, height: 96, background: '#0d0d0d', borderRadius: 16, overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.2)' }}>
             <img src="/logo.png" alt="Dynamic Garage" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -183,6 +168,5 @@ export default function RegisterPage() {
           </p>
         </div>
       </div>
-    </div>
   )
 }
