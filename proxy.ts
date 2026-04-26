@@ -36,7 +36,8 @@ export async function proxy(request: NextRequest) {
   const isJoinPage    = request.nextUrl.pathname.startsWith('/join')
   const isStaticPage = request.nextUrl.pathname.startsWith('/privacy') || request.nextUrl.pathname.startsWith('/terms') || request.nextUrl.pathname.startsWith('/monitoring')
   const isHelpPage = request.nextUrl.pathname.startsWith('/help')
-  const isPublicPage = request.nextUrl.pathname === '/' || isAuthPage || isSharePage || isGalleryPage || isContactPage || isGaragePage || isApiRoute || isEarlyAccess || isStaticPage || isJoinPage || isHelpPage
+  const isMetaRoute = request.nextUrl.pathname === '/opengraph-image' || request.nextUrl.pathname === '/sitemap.xml' || request.nextUrl.pathname === '/robots.txt' || request.nextUrl.pathname === '/apple-icon.png' || request.nextUrl.pathname === '/icon.svg'
+  const isPublicPage = request.nextUrl.pathname === '/' || isAuthPage || isSharePage || isGalleryPage || isContactPage || isGaragePage || isApiRoute || isEarlyAccess || isStaticPage || isJoinPage || isHelpPage || isMetaRoute
 
   if (!user && !isPublicPage) {
     const url = request.nextUrl.clone()
