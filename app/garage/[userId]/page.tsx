@@ -189,18 +189,6 @@ export default async function PublicGaragePage({ params }: { params: Promise<{ u
           ownerName={ownerName}
         />
 
-        {/* Footer CTA */}
-        <div style={{ textAlign: 'center', paddingTop: '2rem', borderTop: '1px solid var(--border-subtle)' }}>
-          <p style={{ fontFamily: "'Barlow Condensed'", fontSize: '0.75rem', fontWeight: 700, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--red)', marginBottom: '0.6rem' }}>
-            Build Your Own
-          </p>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-            Track mods, photos, service history, and documents for any vehicle - free during early access.
-          </p>
-          <Link href="/register" className="btn-primary" style={{ display: 'inline-flex' }}>
-            Create My Free Garage
-          </Link>
-        </div>
       </div>
 
       <PublicFooter />
