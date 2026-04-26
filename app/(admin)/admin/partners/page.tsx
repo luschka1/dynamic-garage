@@ -24,7 +24,10 @@ export default async function PartnersAdminPage() {
   ;(signups ?? []).forEach((s: any) => {
     if (!stats[s.partner_code_id]) return
     stats[s.partner_code_id].total++
-    stats[s.partner_code_id][s.payout_status as string] = (stats[s.partner_code_id][s.payout_status as string] ?? 0) + 1
+    const status = s.payout_status as keyof typeof stats[string]
+    if (status in stats[s.partner_code_id]) {
+      (stats[s.partner_code_id][status] as number) = ((stats[s.partner_code_id][status] as number) ?? 0) + 1
+    }
     if (s.payout_status === 'qualified') {
       stats[s.partner_code_id].pendingPayout += Number(s.payout_rate?.payout_rate ?? 0)
     }

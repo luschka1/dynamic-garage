@@ -11,6 +11,10 @@
     {
       "path": "/api/cron/partner-qualify",
       "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/cron/props-notify",
+      "schedule": "30 8 * * 1"
     }
   ]
 }

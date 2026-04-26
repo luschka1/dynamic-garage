@@ -3,10 +3,10 @@
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Search, Car, Wrench, ClipboardList, ArrowRight, X, Tag } from 'lucide-react'
+import { Search, Car, Wrench, ClipboardList, ArrowRight, X, Tag, Flame } from 'lucide-react'
 import type { GalleryCar } from './page'
 
-type SortKey = 'newest' | 'oldest' | 'most_mods' | 'year_desc' | 'year_asc' | 'for_sale'
+type SortKey = 'newest' | 'oldest' | 'most_mods' | 'top_props' | 'year_desc' | 'year_asc' | 'for_sale'
 
 export default function GalleryClient({ cars }: { cars: GalleryCar[] }) {
   const [search, setSearch] = useState('')
@@ -55,6 +55,9 @@ export default function GalleryClient({ cars }: { cars: GalleryCar[] }) {
         break
       case 'most_mods':
         result.sort((a, b) => b.modCount - a.modCount || b.serviceCount - a.serviceCount)
+        break
+      case 'top_props':
+        result.sort((a, b) => (b.props_count ?? 0) - (a.props_count ?? 0))
         break
       case 'year_desc':
         result.sort((a, b) => b.year - a.year)
@@ -130,6 +133,7 @@ export default function GalleryClient({ cars }: { cars: GalleryCar[] }) {
         <select value={sortBy} onChange={e => setSortBy(e.target.value as SortKey)} style={{ ...selectStyle, minWidth: 170 }}>
           <option value="newest">Newest Added</option>
           <option value="oldest">Oldest Added</option>
+          <option value="top_props">🔥 Top Props</option>
           <option value="most_mods">Most Mods</option>
           <option value="year_desc">Car Year: Newest</option>
           <option value="year_asc">Car Year: Oldest</option>
@@ -222,6 +226,11 @@ export default function GalleryClient({ cars }: { cars: GalleryCar[] }) {
               {/* Card footer */}
               <div style={{ padding: '0.9rem 1.25rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.75rem' }}>
                 <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                  {(car.props_count ?? 0) > 0 && (
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#f97316', background: 'rgba(249,115,22,0.08)', border: '1px solid rgba(249,115,22,0.25)', borderRadius: 4, padding: '0.2rem 0.5rem' }}>
+                      <Flame size={10} fill="#f97316" strokeWidth={1.5} /> {car.props_count}
+                    </span>
+                  )}
                   {car.modCount > 0 && (
                     <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: 'var(--red)', background: 'var(--red-dim)', border: '1px solid var(--red-glow)', borderRadius: 4, padding: '0.2rem 0.5rem' }}>
                       <Wrench size={10} /> {car.modCount} {car.modCount === 1 ? 'mod' : 'mods'}
@@ -232,7 +241,7 @@ export default function GalleryClient({ cars }: { cars: GalleryCar[] }) {
                       <ClipboardList size={10} /> {car.serviceCount} service
                     </span>
                   )}
-                  {car.modCount === 0 && car.serviceCount === 0 && (
+                  {car.modCount === 0 && car.serviceCount === 0 && (car.props_count ?? 0) === 0 && (
                     <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontStyle: 'italic' }}>No records yet</span>
                   )}
                 </div>
